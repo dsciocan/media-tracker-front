@@ -11,6 +11,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.navigation.NavigationBarView;
+import com.northcoders.media_tracker_front.fragments.BookmarkedFragment;
 import com.northcoders.media_tracker_front.fragments.CurrentlyWatchingFragment;
 import com.northcoders.media_tracker_front.fragments.HomeFragment;
 
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
     NavigationBarView navigationBarView;
     HomeFragment homeFragment = new HomeFragment();
     CurrentlyWatchingFragment currentlyWatchingFragment = new CurrentlyWatchingFragment();
+    BookmarkedFragment bookmarkedFragment = new BookmarkedFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,13 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.frameLayoutFragment, currentlyWatchingFragment)
+                    .commit();
+            return true;
+        }
+        if(item.getItemId() == R.id.bookmark_tab){
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.frameLayoutFragment, bookmarkedFragment)
                     .commit();
             return true;
         }
