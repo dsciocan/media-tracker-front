@@ -11,11 +11,14 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.navigation.NavigationBarView;
+import com.northcoders.media_tracker_front.fragments.CurrentlyWatchingFragment;
 import com.northcoders.media_tracker_front.fragments.HomeFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
     NavigationBarView navigationBarView;
     HomeFragment homeFragment = new HomeFragment();
+    CurrentlyWatchingFragment currentlyWatchingFragment = new CurrentlyWatchingFragment();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,15 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
                     .commit();
             return true;
         }
+        if(item.getItemId() == R.id.current){
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.frameLayoutFragment, currentlyWatchingFragment)
+                    .commit();
+            return true;
+        }
+
+
         return false;
     }
 }
