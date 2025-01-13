@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:title="@string/home"
+        android:icon="@drawable/ic_home_foreground"/>
+    <item
+        android:id="@+id/current"
+        android:title="@string/current"
+        android:icon="@drawable/ic_currently_watching_foreground"/>
+    <item
+        android:id="@+id/bookmark_tab"
+        android:title="@string/bookmarked"
+        android:icon="@drawable/ic_bookmark_tab_foreground"/>
+
+    <item
+        android:id="@+id/watched"
+        android:title="@string/watched"
+        android:icon="@drawable/ic_watched_tab_foreground"/>
+    <item
+        android:id="@+id/stats"
+        android:title="@string/stats"
+        android:icon="@drawable/ic_stats_foreground"/>
+</menu>
