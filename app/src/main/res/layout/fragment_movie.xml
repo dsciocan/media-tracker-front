@@ -1,81 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="24dp"
     tools:context=".fragments.MovieFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/movie_fragment_movie_title"
+            android:id="@+id/movie_fragment_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/movie_title"
             android:textSize="24sp"
-            android:text="Movie Title"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/movie_fragment_avatar"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_foreground"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            />
+            app:shapeAppearance="@style/roundedImageView"
+            tools:src="@tools:sample/avatars" />
 
-
-        <!--        When using a RatingBar that supports user interaction, placing widgets to
+        <!--When using a RatingBar that supports user interaction, placing widgets to
             the left or right of the RatingBar is discouraged. - android docs-->
 
         <ImageView
             android:id="@+id/movie_fragment_image"
-            android:layout_height="200dp"
             android:layout_width="250dp"
+            android:layout_height="200dp"
+            android:contentDescription="@string/stack_of_vhs_cassette_tapes"
             android:src="@drawable/vhs_stack"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/movie_fragment_movie_title"
-            />
+            app:layout_constraintTop_toBottomOf="@id/movie_fragment_title" />
+
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/movie_fragment_status_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/movie_fragment_image"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/movie_fragment_image"
+            android:text="@string/status"
             app:layout_constraintBottom_toBottomOf="@id/movie_fragment_image"
-            android:text="status"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/movie_fragment_image"
+            app:layout_constraintTop_toTopOf="@id/movie_fragment_image" />
+        <!--need 2 versions for different state of bookmarked status-->
+        <ImageButton
+            android:id="@+id/movie_fragment_bookmark_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/bookmark_icon_outline"
+            android:scaleType="fitCenter"
+            android:background="@color/md_theme_tertiary"
+            android:translationZ="100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/movie_fragment_image"
+            app:layout_constraintTop_toBottomOf="@id/movie_fragment_status_button"
+            app:srcCompat="@drawable/ic_bookmark_tab_foreground"
+            app:tint="@color/md_theme_inversePrimary" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/movie_fragment_details_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/movie_fragment_image"
             app:layout_constraintStart_toStartOf="parent"
-            >
+            app:layout_constraintTop_toBottomOf="@id/movie_fragment_image">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="12dp"
-                >
-            <TextView
-                android:id="@+id/movie_fragment_movie_details_heading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Details"
-                android:textSize="18dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                />
+                android:padding="12dp">
+                <TextView
+                    android:id="@+id/movie_fragment_details_heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/details"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/movie_fragment_movie_details_heading"
-                app:layout_constraintStart_toStartOf="parent"
-                android:lines="10"
-                android:text="Cat ipsum dolor sit amet, funny little cat chirrup noise shaking upright tail when standing next to you or prow?? ew dog you drink from the toilet, yum yum warm milk hotter pls, ouch too hot and poop on grasses for roll... "
-                />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lines="10"
+                    android:text="@string/mock_text"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/movie_fragment_details_heading" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -84,46 +103,43 @@
             android:id="@+id/movie_fragment_rating_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:stepSize="1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/movie_fragment_details_card"
-            />
+            app:layout_constraintTop_toBottomOf="@id/movie_fragment_details_card" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/movie_fragment_notes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/movie_fragment_rating_bar"
-            >
+            app:layout_constraintTop_toBottomOf="@id/movie_fragment_rating_bar">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="12dp"
-                >
-            <TextView
-                android:id="@+id/movie_fragment_notes_heading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="My Notes"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:textSize="18sp"
-              />
+                android:padding="12dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:hint="Enter your notes here ..."
-                android:lines="10"
-                app:layout_constraintTop_toBottomOf="@id/movie_fragment_notes_heading"
-                app:layout_constraintStart_toStartOf="parent"
-                />
+                <TextView
+                    android:id="@+id/movie_fragment_notes_heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/my_notes"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/movie_fragment_notes_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enter_your_notes_here"
+                    android:maxLines="10"
+                    android:minLines="4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/movie_fragment_notes_heading" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.card.MaterialCardView>
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </FrameLayout>

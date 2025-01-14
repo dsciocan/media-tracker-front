@@ -7,4 +7,12 @@
     <string name="stats">Stats</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="movie_title">Movie Title</string>
+    <string name="stack_of_vhs_cassette_tapes">stack of vhs cassette tapes</string>
+    <string name="status">status</string>
+    <string name="details">Details</string>
+    <string name="mock_text">Cat ipsum dolor sit amet, funny little cat chirrup noise shaking upright tail when standing next to you or prow?? ew dog you drink from the toilet, yum yum warm milk hotter pls, ouch too hot and poop on grasses for roll.</string>
+    <string name="my_notes">My Notes</string>
+    <string name="enter_your_notes_here">Enter your notes here</string>
+    <string name="bookmark_icon_outline">bookmark icon outline</string>
 </resources>
