@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
         if(item.getItemId() == R.id.home){
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.frameLayoutFragment, episodeFragment)
+                    .replace(R.id.frameLayoutFragment, homeFragment)
                     .commit();
             return true;
         }
