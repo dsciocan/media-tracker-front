@@ -14,13 +14,13 @@
 
         <com.anychart.AnyChartView
             android:id="@+id/StatsChartView"
-            android:layout_width="200dp"
+            android:layout_width="0dp"
             android:layout_height="200dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintVertical_bias="0.3"
             />
         <ProgressBar
             android:id="@+id/StatsProgressBar"
@@ -30,10 +30,30 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintVertical_bias="0.35"
 
             />
 
+
+        <com.anychart.AnyChartView
+            android:id="@+id/StatsChartViewTwo"
+            android:layout_width="220dp"
+            android:layout_height="300dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/StatsChartView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+        <ProgressBar
+            android:id="@+id/StatsProgressBarTwo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.82"
+            />
 
         <TextView
             android:id="@+id/StatsTitle"
