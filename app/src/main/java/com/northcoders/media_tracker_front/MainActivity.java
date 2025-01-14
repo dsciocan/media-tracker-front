@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.navigation.NavigationBarView;
 import com.northcoders.media_tracker_front.fragments.BookmarkedFragment;
 import com.northcoders.media_tracker_front.fragments.CurrentlyWatchingFragment;
+import com.northcoders.media_tracker_front.fragments.EpisodeFragment;
 import com.northcoders.media_tracker_front.fragments.HomeFragment;
 import com.northcoders.media_tracker_front.fragments.MovieFragment;
 import com.northcoders.media_tracker_front.fragments.StatsFragment;
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
     WatchedFragment watchedFragment = new WatchedFragment();
 
     MovieFragment movieFragment = new MovieFragment();
+
+    EpisodeFragment episodeFragment = new EpisodeFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
