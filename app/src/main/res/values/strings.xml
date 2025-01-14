@@ -15,4 +15,7 @@
     <string name="my_notes">My Notes</string>
     <string name="enter_your_notes_here">Enter your notes here</string>
     <string name="bookmark_icon_outline">bookmark icon outline</string>
+    <string name="episode_title">Episode Title</string>
+    <string name="vintage_television">vintage television</string>
+    <string name="back_button">back button</string>
 </resources>
