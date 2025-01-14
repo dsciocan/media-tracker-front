@@ -11,6 +11,7 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.northcoders.media_tracker_front.fragments.BookmarkedFragment;
 import com.northcoders.media_tracker_front.fragments.CurrentlyWatchingFragment;
 import com.northcoders.media_tracker_front.fragments.HomeFragment;
+import com.northcoders.media_tracker_front.fragments.MovieFragment;
 import com.northcoders.media_tracker_front.fragments.StatsFragment;
 import com.northcoders.media_tracker_front.fragments.WatchedFragment;
 
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
     StatsFragment statsFragment = new StatsFragment();
     WatchedFragment watchedFragment = new WatchedFragment();
 
+    MovieFragment movieFragment = new MovieFragment();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
         navigationBarView = findViewById(R.id.BottomNavView);
         navigationBarView.setOnItemSelectedListener(this);
         navigationBarView.setSelectedItemId(R.id.home);
+
     }
 
     @Override
