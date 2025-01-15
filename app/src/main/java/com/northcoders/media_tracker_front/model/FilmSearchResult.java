@@ -1,22 +1,22 @@
 package com.northcoders.media_tracker_front.model;
 
-public class FilmSearchResults {
+public class FilmSearchResult {
     private Long id;
     private String overview;
-    private String posterPath;
+    private String poster_path;
     private String title;
     //year only?
-    private int releaseDate;
+    private int release_date;
 
-    public FilmSearchResults() {
+    public FilmSearchResult() {
     }
 
-    public FilmSearchResults(Long id, String overview, String posterPath, int releaseDate, String title) {
+    public FilmSearchResult(Long id, String overview, String poster_path, String title, int release_date) {
         this.id = id;
         this.overview = overview;
-        this.posterPath = posterPath;
-        this.releaseDate = releaseDate;
+        this.poster_path = poster_path;
         this.title = title;
+        this.release_date = release_date;
     }
 
     public Long getId() {
@@ -35,12 +35,12 @@ public class FilmSearchResults {
         this.overview = overview;
     }
 
-    public String getPosterPath() {
-        return posterPath;
+    public String getPoster_path() {
+        return poster_path;
     }
 
-    public void setPosterPath(String posterPath) {
-        this.posterPath = posterPath;
+    public void setPoster_path(String poster_path) {
+        this.poster_path = poster_path;
     }
 
     public String getTitle() {
@@ -51,11 +51,11 @@ public class FilmSearchResults {
         this.title = title;
     }
 
-    public int getReleaseDate() {
-        return releaseDate;
+    public int getRelease_date() {
+        return release_date;
     }
 
-    public void setReleaseDate(int releaseDate) {
-        this.releaseDate = releaseDate;
+    public void setRelease_date(int release_date) {
+        this.release_date = release_date;
     }
 }

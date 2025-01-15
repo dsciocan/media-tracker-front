@@ -2,10 +2,9 @@ package com.northcoders.media_tracker_front.model;
 
 public class AppUser {
 
-    //TODO: check if we need oAuthId here
-
     private Long id;
-    private Long oAuthId;
+
+//    private Long oAuthId;
     private String username;
 
     public AppUser() {

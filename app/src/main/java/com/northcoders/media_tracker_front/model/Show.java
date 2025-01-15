@@ -2,7 +2,7 @@ package com.northcoders.media_tracker_front.model;
 
 import java.util.List;
 
-public class TVShow {
+public class Show {
 
     //TODO: datatype for genres?
 
@@ -20,10 +20,10 @@ public class TVShow {
 
     //private List<Episode> episodes;
 
-    public TVShow() {
+    public Show() {
     }
 
-    public TVShow(Long id, String title, String synopsis, String country, String language, int releaseYear, int finishedYear, int numberOfSeasons, int numberOfEpisodes, boolean isComplete, List<String> genres) {
+    public Show(Long id, String title, String synopsis, String country, String language, int releaseYear, int finishedYear, int numberOfSeasons, int numberOfEpisodes, boolean isComplete, List<String> genres) {
         this.id = id;
         this.title = title;
         this.synopsis = synopsis;

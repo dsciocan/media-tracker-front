@@ -2,8 +2,7 @@ package com.northcoders.media_tracker_front.model;
 
 public class Episode {
     private Long id;
-    //??
-    private TVShow tvShow;
+    private Show show;
     private String title;
     private String description;
     private int season;
@@ -13,9 +12,9 @@ public class Episode {
     public Episode() {
     }
 
-    public Episode(Long id, TVShow tvShow, String title, String description, int season, int episodeNumber, int runTime) {
+    public Episode(Long id, Show show, String title, String description, int season, int episodeNumber, int runTime) {
         this.id = id;
-        this.tvShow = tvShow;
+        this.show = show;
         this.title = title;
         this.description = description;
         this.season = season;
@@ -31,12 +30,12 @@ public class Episode {
         this.id = id;
     }
 
-    public TVShow getTvShow() {
-        return tvShow;
+    public Show getTvShow() {
+        return show;
     }
 
-    public void setTvShow(TVShow tvShow) {
-        this.tvShow = tvShow;
+    public void setTvShow(Show show) {
+        this.show = show;
     }
 
     public String getTitle() {

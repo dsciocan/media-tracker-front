@@ -8,28 +8,28 @@ public class FilmDetails {
 
     private String title;
     private String overview;
-    private String originalLanguage;
-    private String posterPath;
+    private String original_language;
+    private String poster_path;
     //year only?
-    private String releaseDate;
+    private String release_date;
     private int runtime;
-    private List<String> productionCompanies;
+    private List<String> production_companies;
 
     //  List<Genre> genres
 
     public FilmDetails() {
+
     }
 
-    public FilmDetails(String title, String overview, String originalLanguage, String posterPath, String releaseDate, int runtime, List<String> production_companies) {
+    public FilmDetails(String title, String overview, String original_language, String poster_path, String release_date, int runtime, List<String> production_companies) {
         this.title = title;
         this.overview = overview;
-        this.originalLanguage = originalLanguage;
-        this.posterPath = posterPath;
-        this.releaseDate = releaseDate;
+        this.original_language = original_language;
+        this.poster_path = poster_path;
+        this.release_date = release_date;
         this.runtime = runtime;
-        this.productionCompanies = production_companies;
+        this.production_companies = production_companies;
     }
-
 
     public String getTitle() {
         return title;
@@ -47,28 +47,28 @@ public class FilmDetails {
         this.overview = overview;
     }
 
-    public String getOriginalLanguage() {
-        return originalLanguage;
+    public String getOriginal_language() {
+        return original_language;
     }
 
-    public void setOriginalLanguage(String originalLanguage) {
-        this.originalLanguage = originalLanguage;
+    public void setOriginal_language(String original_language) {
+        this.original_language = original_language;
     }
 
-    public String getPosterPath() {
-        return posterPath;
+    public String getPoster_path() {
+        return poster_path;
     }
 
-    public void setPosterPath(String posterPath) {
-        this.posterPath = posterPath;
+    public void setPoster_path(String poster_path) {
+        this.poster_path = poster_path;
     }
 
-    public String getReleaseDate() {
-        return releaseDate;
+    public String getRelease_date() {
+        return release_date;
     }
 
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
+    public void setRelease_date(String release_date) {
+        this.release_date = release_date;
     }
 
     public int getRuntime() {
@@ -80,12 +80,10 @@ public class FilmDetails {
     }
 
     public List<String> getProduction_companies() {
-        return productionCompanies;
+        return production_companies;
     }
 
     public void setProduction_companies(List<String> production_companies) {
-        this.productionCompanies = production_companies;
+        this.production_companies = production_companies;
     }
-
-
 }
