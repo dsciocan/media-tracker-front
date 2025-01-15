@@ -1,4 +1,4 @@
-package com.northcoders.media_tracker_front;
+package com.northcoders.media_tracker_front.fragments;
 
 import android.os.Bundle;
 
@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.northcoders.media_tracker_front.R;
 
 public class ProfileFragment extends Fragment {
 

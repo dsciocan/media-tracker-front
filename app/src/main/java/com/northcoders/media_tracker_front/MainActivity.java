@@ -13,6 +13,7 @@ import com.northcoders.media_tracker_front.fragments.CurrentlyWatchingFragment;
 import com.northcoders.media_tracker_front.fragments.EpisodeFragment;
 import com.northcoders.media_tracker_front.fragments.HomeFragment;
 import com.northcoders.media_tracker_front.fragments.MovieFragment;
+import com.northcoders.media_tracker_front.fragments.ProfileFragment;
 import com.northcoders.media_tracker_front.fragments.StatsFragment;
 import com.northcoders.media_tracker_front.fragments.WatchedFragment;
 
