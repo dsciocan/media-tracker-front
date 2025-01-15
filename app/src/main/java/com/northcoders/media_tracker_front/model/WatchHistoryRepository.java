@@ -26,8 +26,8 @@ public class WatchHistoryRepository {
         call.enqueue(new Callback<List<WatchHistory>>(){
             @Override
             public void onResponse(Call<List<WatchHistory>> call, Response<List<WatchHistory>> response) {
-                List<WatchHistory> albums = response.body();
-                mutableLiveData.setValue(albums);
+                List<WatchHistory> historyList = response.body();
+                mutableLiveData.setValue(historyList);
             }
 
             @Override

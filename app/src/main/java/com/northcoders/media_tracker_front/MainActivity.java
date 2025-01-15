@@ -23,9 +23,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
     BookmarkedFragment bookmarkedFragment = new BookmarkedFragment();
     StatsFragment statsFragment = new StatsFragment();
     WatchedFragment watchedFragment = new WatchedFragment();
-
     MovieFragment movieFragment = new MovieFragment();
-
     EpisodeFragment episodeFragment = new EpisodeFragment();
 
     @Override
@@ -76,9 +74,6 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
                     .commit();
             return true;
         }
-
-
-
         return false;
     }
 }
