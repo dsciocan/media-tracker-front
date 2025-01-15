@@ -54,7 +54,7 @@ public class WatchHistoryAdapter extends RecyclerView.Adapter<WatchHistoryAdapte
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                // Now to get the position of the chosen album from the recycler
+                // Now to get the position of the chosen item from the recycler
                 public void onClick(View v) {
                     if(recyclerViewInterface != null){
                         // Get position of the adapter

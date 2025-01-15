@@ -35,7 +35,7 @@ public class WatchedFragment extends Fragment implements RecyclerViewInterface {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(WatchHistoryViewModel.class);
-        getAllAlbums();
+        getHistory();
     }
 
     @Override
@@ -49,11 +49,11 @@ public class WatchedFragment extends Fragment implements RecyclerViewInterface {
         return binding.getRoot();
     }
 
-    private  void getAllAlbums() {
+    private  void getHistory() {
         viewModel.getWatchHistory().observe(this, new Observer<List<WatchHistory>>() {
             @Override
-            public void onChanged(List<WatchHistory> albums) {
-                watchHistoryArrayList = (ArrayList<WatchHistory>) albums;
+            public void onChanged(List<WatchHistory> historyList) {
+                watchHistoryArrayList = (ArrayList<WatchHistory>) historyList;
                 displayWatchHistoryInRecyclerView();
             }
         });
