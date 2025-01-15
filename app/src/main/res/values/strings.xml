@@ -18,4 +18,9 @@
     <string name="episode_title">Episode Title</string>
     <string name="vintage_television">vintage television</string>
     <string name="back_button">back button</string>
+    <string name="username">username</string>
+    <string name="delete_account">Delete account</string>
+    <string name="logout">Logout</string>
+    <string name="update_username">Update username</string>
+    <string name="edit_username">edit username</string>
 </resources>
