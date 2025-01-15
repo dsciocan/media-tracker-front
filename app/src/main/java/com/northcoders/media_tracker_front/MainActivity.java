@@ -13,6 +13,7 @@ import com.northcoders.media_tracker_front.fragments.CurrentlyWatchingFragment;
 import com.northcoders.media_tracker_front.fragments.EpisodeFragment;
 import com.northcoders.media_tracker_front.fragments.HomeFragment;
 import com.northcoders.media_tracker_front.fragments.MovieFragment;
+import com.northcoders.media_tracker_front.fragments.ProfileFragment;
 import com.northcoders.media_tracker_front.fragments.StatsFragment;
 import com.northcoders.media_tracker_front.fragments.WatchedFragment;
 
@@ -23,9 +24,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
     BookmarkedFragment bookmarkedFragment = new BookmarkedFragment();
     StatsFragment statsFragment = new StatsFragment();
     WatchedFragment watchedFragment = new WatchedFragment();
-
     MovieFragment movieFragment = new MovieFragment();
-
     EpisodeFragment episodeFragment = new EpisodeFragment();
 
     ProfileFragment profileFragment = new ProfileFragment();
@@ -79,9 +78,6 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
                     .commit();
             return true;
         }
-
-
-
         return false;
     }
 }
