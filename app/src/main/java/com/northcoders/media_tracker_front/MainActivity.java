@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
                     .commit();
             return true;
         }
-        if(item.getItemId() == R.id.bookmark_tab){
+        if(item.getItemId() == R.id.bookmarks){
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.frameLayoutFragment, bookmarkedFragment)
