@@ -4,17 +4,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
-import androidx.annotation.Nullable;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.ApiException;
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract;
+import com.firebase.ui.auth.IdpResponse;
+import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *   It seems like this class (GoogleSignIn)has been deprecated but for the sake of getting something that works, this works
@@ -22,100 +30,106 @@ import com.google.android.gms.tasks.Task;
  *   If you do log in with google on the Phone -> probably use the TeamDurocJava@gmail.com email
  */
 public class LoginActivity extends AppCompatActivity {
+    private LoginActivityViewModel viewModel;
 
-    private GoogleSignInClient googleSignInClient;
-    private static final int RC_SIGN_IN = 1;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Setting up the Google Sign In
-        GoogleSignInOptions gso = new GoogleSignInOptions
-                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
+        // Set firebase Auth
+        firebaseAuth = FirebaseAuth.getInstance();
 
-        // Setting this activity as the one to "manage the lifecycle of the GoogleSignInClient"
-        googleSignInClient = GoogleSignIn.getClient(this,gso);
-
+        viewModel =  new ViewModelProvider(this).get(LoginActivityViewModel.class);
 
         // Setting up the logic for the sign in button
-        SignInButton signInButton = findViewById(R.id.sign_in_google_button);
-
+        Button signInButton = findViewById(R.id.button);
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Set the "intent"(fancy way of saying an "action"(?))
-                Intent signInIntent = googleSignInClient.getSignInIntent();
 
-                // Starts the sign in process
-                // Deprecated method but can still be used(?)
-                // The parameters are: (Intent intent, int requestCode)
-                // It successfully moves on if the requestCode is >=0 (I'm unsure of this?)
-                startActivityForResult(signInIntent,RC_SIGN_IN);
+                // Choose authentication providers -> Just google currently -> Can "easily" add others
+                List<AuthUI.IdpConfig> providers = Arrays.asList(
+                        //new AuthUI.IdpConfig.EmailBuilder().build(),
+                        //new AuthUI.IdpConfig.PhoneBuilder().build(),
+                        new AuthUI.IdpConfig.GoogleBuilder().build()
+                        //new AuthUI.IdpConfig.FacebookBuilder().build(),
+                        //new AuthUI.IdpConfig.TwitterBuilder().build()
+                        );
+
+                // Create and launch sign-in intent
+                Intent signInIntent = AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(providers)
+                        .build();
+
+                signInLauncher.launch(signInIntent);
             }
         });
-
-
     }
 
+    // If the user opens up the app this checks if they've already logged in before (I think(?))
+    // and will put the user on the MainActivity page
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    public void onStart(){
+        super.onStart();
 
-        // I'm assuming onActivityResult looks for requestCodes to determine what part of the
-        // activity is doing something (eg: the sign in with google button wants to do an oauth sign in with google)
-        // and what to do with them(?)
-
-        // The request code would be equal to what we sent in the startActivityForResult
-        // And now we can decide what to do
-        if(requestCode == RC_SIGN_IN){
-            // This is the persons data from obtained from their sign in(?)
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            // Now we decide what to do with it
-            handleSignInResult(task);
-        }
-
-    }
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask){
-
-        try{
-            // Trying to get the result from the "Task" data
-            // If there's a problem doing that it throws an ApiException
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            // Now we have the account we can decide what to do with that data
-            updateUI(account);
-        } catch (ApiException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private void updateUI(GoogleSignInAccount account){
-        // If there is an account then we can get things such as the email address, display name
-        // and the uri for their profile picture
-        //      -> (For the TeamDuroc account there is no picture so that is why it is most likely null)
-        if (account != null){
-            Log.i("G_LOG",account.getEmail()+" "+ account.getDisplayName());
-            Log.i("G_LOG",String.valueOf(account.getPhotoUrl()));
-           String email = account.getEmail();
-            String name  =account.getDisplayName();
-            String picture  = String.valueOf(account.getPhotoUrl());
+        // See if there is a user
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if(currentUser != null){
+            // The getCurrentUser() is just a placeholder method to debug sending tokens to the back
+            viewModel.getCurrentUser();
 
             // Once those are obtained now we can start a new intent to move to the MainActivity
             Intent intent = new Intent(this, com.northcoders.media_tracker_front.MainActivity.class);
 
-            // We can also move pieces of data to the other activity if we wanted to
-            intent.putExtra("email",email);
-            intent.putExtra("name",name);
-            intent.putExtra("picture",picture);
+            // This actually starts the move to the MainActivity
+            startActivity(intent);
+        }
+    }
 
-            // This actually starts the move from to the MainActivity
-            // For an unknown reason this didn't work originally
-            // -> The solution was to add the main activity to the manifest
+    private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
+            new FirebaseAuthUIActivityResultContract(),
+            new ActivityResultCallback<FirebaseAuthUIAuthenticationResult>() {
+                @Override
+                public void onActivityResult(FirebaseAuthUIAuthenticationResult result) {
+                    onSignInResult(result);
+                }
+            }
+    );
+
+
+
+
+    private void onSignInResult(FirebaseAuthUIAuthenticationResult result) {
+        IdpResponse response = result.getIdpResponse();
+        if (result.getResultCode() == RESULT_OK) {
+            // Successfully signed in
+
+            // The getCurrentUser() is just a placeholder method to debug sending tokens to the back
+            viewModel.getCurrentUser();
+
+            // This was for sending the token for the backend for testing getCurrentUser();
+            // Will likely be deleted
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            Task<GetTokenResult> task = user.getIdToken(true);
+
+            // Once those are obtained now we can start a new intent to move to the MainActivity
+            Intent intent = new Intent(this, com.northcoders.media_tracker_front.MainActivity.class);
+
+            // This actually starts the move to the MainActivity
             startActivity(intent);
 
+        } else {
+            Log.i("FIREBASE LOGIN L_ACTIVITY",result.toString());
+            Log.i("FIREBASE LOGIN L_ACTIVITY",response.getError().toString());
+            // Sign in failed. If response is null the user canceled the
+            // sign-in flow using the back button. Otherwise check
+            // response.getError().getErrorCode() and handle the error.
+            // ...
+            // Maybe put a Toast(?)
         }
     }
 
