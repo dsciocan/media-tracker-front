@@ -23,4 +23,7 @@
     <string name="logout">Logout</string>
     <string name="update_username">Update username</string>
     <string name="edit_username">edit username</string>
+    <string name="title">title</string>
+    <string name="rating">rating</string>
+    <string name="rewatch">rewatch</string>
 </resources>
