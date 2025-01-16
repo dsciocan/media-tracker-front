@@ -15,9 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-
-            >
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/watch_history_img"
@@ -29,53 +27,63 @@
                 android:src="@drawable/vintage_tv"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="16dp">
 
-                <TextView
-                    android:id="@+id/watchHistory_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/title"
-                    android:text="@{watchHistory.title}"
-                    android:textColor="@color/black"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/c"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@+id/watch_history_rewatch_button">
 
-                <TextView
-                    android:id="@+id/watchHistory_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="Watch History description."
-                    android:text="@{watchHistory.info}"
-                    android:textColor="@color/black"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/watchHistory_title" />
+                    <TextView
+                        android:id="@+id/watchHistory_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/title"
+                        android:text="@{watchHistory.title}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <!--        {watchHistory.rating}-->
-                <RatingBar
-                    android:id="@+id/watchHistory_rating"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:numStars="5"
-                    android:scaleX="0.4"
-                    android:scaleY="0.4"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    <TextView
+                        android:id="@+id/watchHistory_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/mock_text_short"
+                        android:text="@{watchHistory.info}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/watchHistory_title" />
+
+<!--                rating not on miro board and tricky to fit-->
+                    <!--        {watchHistory.rating}-->
+                    <!--                    <RatingBar-->
+                    <!--                        android:id="@+id/watchHistory_rating"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:numStars="5"-->
+                    <!--                        android:scaleX="0.4"-->
+                    <!--                        android:scaleY="0.4"-->
+                    <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--                        app:layout_constraintStart_toStartOf="parent" />-->
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <ImageButton
                     android:id="@+id/watch_history_rewatch_button"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
                     android:background="@drawable/roundbackground"
+                    android:contentDescription="@string/rewatch"
                     android:src="@drawable/ic_rewatch_foreground"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
+                    />
+            </RelativeLayout>
         </LinearLayout>
-
     </com.google.android.material.card.MaterialCardView>
 </layout>

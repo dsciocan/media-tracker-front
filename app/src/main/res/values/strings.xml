@@ -11,6 +11,7 @@
     <string name="stack_of_vhs_cassette_tapes">stack of vhs cassette tapes</string>
     <string name="status">status</string>
     <string name="details">Details</string>
+    <string name="mock_text_short">Cat ipsum dolor sit amet, funny little cat chirrup noise shaking upright tail when standing next to you</string>
     <string name="mock_text">Cat ipsum dolor sit amet, funny little cat chirrup noise shaking upright tail when standing next to you or prow?? ew dog you drink from the toilet, yum yum warm milk hotter pls, ouch too hot and poop on grasses for roll.</string>
     <string name="my_notes">My Notes</string>
     <string name="enter_your_notes_here">Enter your notes here</string>
@@ -23,7 +24,8 @@
     <string name="logout">Logout</string>
     <string name="update_username">Update username</string>
     <string name="edit_username">edit username</string>
-    <string name="title">title</string>
+    <string name="title">Title</string>
     <string name="rating">rating</string>
     <string name="rewatch">rewatch</string>
+    <string name="watch_history_media_description">Watch History media description.</string>
 </resources>
