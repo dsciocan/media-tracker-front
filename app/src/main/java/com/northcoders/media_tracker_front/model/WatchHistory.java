@@ -13,7 +13,9 @@ public class WatchHistory extends BaseObservable {
     String title;
     String info;
     int rating;
+
     public WatchHistory(){}
+
     public WatchHistory(String title, String info, int rating) {
         this.title = title;
         this.info = info;

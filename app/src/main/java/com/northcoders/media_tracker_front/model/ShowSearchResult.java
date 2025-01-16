@@ -1,5 +1,7 @@
 package com.northcoders.media_tracker_front.model;
 
+import androidx.databinding.Bindable;
+
 public class ShowSearchResult {
     private Long id;
     private String name;
@@ -19,6 +21,7 @@ public class ShowSearchResult {
         this.first_air_date = first_air_date;
     }
 
+    @Bindable
     public Long getId() {
         return id;
     }
@@ -27,6 +30,7 @@ public class ShowSearchResult {
         this.id = id;
     }
 
+    @Bindable
     public String getName() {
         return name;
     }
@@ -35,6 +39,7 @@ public class ShowSearchResult {
         this.name = name;
     }
 
+    @Bindable
     public String getOverview() {
         return overview;
     }
@@ -43,6 +48,7 @@ public class ShowSearchResult {
         this.overview = overview;
     }
 
+    @Bindable
     public String getPoster_path() {
         return poster_path;
     }
@@ -51,6 +57,7 @@ public class ShowSearchResult {
         this.poster_path = poster_path;
     }
 
+    @Bindable
     public String getFirst_air_date() {
         return first_air_date;
     }
