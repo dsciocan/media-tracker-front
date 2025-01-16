@@ -24,4 +24,5 @@
     <string name="update_username">Update username</string>
     <string name="edit_username">edit username</string>
     <string name="bookmarks">bookmarks</string>
+    <string name="title">Title</string>
 </resources>
