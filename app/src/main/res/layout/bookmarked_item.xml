@@ -5,7 +5,7 @@
     <data>
 
         <variable
-            name="watchHistory"
+            name="bookmarked"
             type="com.northcoders.media_tracker_front.model.Bookmarked" />
     </data>
 
@@ -47,7 +47,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/title"
                         android:paddingBottom="8dp"
-                        android:text="@{watchHistory.title}"
+                        android:text="@{bookmarked.title}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -58,7 +58,7 @@
                         android:ellipsize="end"
                         android:hint="@string/mock_text"
                         android:maxLines="3"
-                        android:text="@{watchHistory.info}"
+                        android:text="@{bookmarked.info}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/bookmarked_fragment_title" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
