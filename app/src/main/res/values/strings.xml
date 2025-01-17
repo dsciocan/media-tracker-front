@@ -23,4 +23,5 @@
     <string name="logout">Logout</string>
     <string name="update_username">Update username</string>
     <string name="edit_username">edit username</string>
+    <string name="enter_new_username">enter new username</string>
 </resources>
