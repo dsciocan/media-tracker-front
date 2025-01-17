@@ -16,7 +16,6 @@ import com.northcoders.media_tracker_front.fragments.MovieFragment;
 import com.northcoders.media_tracker_front.fragments.ProfileFragment;
 import com.northcoders.media_tracker_front.fragments.StatsFragment;
 import com.northcoders.media_tracker_front.fragments.WatchedFragment;
-import com.northcoders.media_tracker_front.model.WatchHistory;
 
 public class MainActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
     NavigationBarView navigationBarView;
@@ -29,9 +28,6 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
     EpisodeFragment episodeFragment = new EpisodeFragment();
 
     ProfileFragment profileFragment = new ProfileFragment();
-
-    WatchHistory
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
