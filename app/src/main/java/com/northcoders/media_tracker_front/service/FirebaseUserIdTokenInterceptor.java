@@ -61,7 +61,7 @@ public class FirebaseUserIdTokenInterceptor implements Interceptor {
                 // All checks cleared -> Token is added to the request in the header
                 Log.i("TOKEN_INTERCEPTOR", "WE MADE IT TO THROUGH INTERCEPTOR");
                 return chain.proceed(request.newBuilder()
-                        .addHeader(X_FIREBASE_ID_TOKEN,idToken) // Has auth header
+                        .addHeader(X_FIREBASE_ID_TOKEN, "Bearer " + idToken) // Has auth header
                         .build());
             }
 
