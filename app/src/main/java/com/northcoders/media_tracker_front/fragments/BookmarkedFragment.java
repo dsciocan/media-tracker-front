@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,7 +39,8 @@ public class BookmarkedFragment extends Fragment implements RecyclerViewInterfac
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        viewModel = new ViewModelProvider(this).get(BookmarkedViewModel.class);
+        viewModel = new ViewModelProvider(this).get(BookmarkedViewModel.class);
+        getBookmarked();
     }
 
     @Override
@@ -54,7 +56,7 @@ public class BookmarkedFragment extends Fragment implements RecyclerViewInterfac
         return binding.getRoot();
     }
 
-    private void getHistory() {
+    private void getBookmarked() {
         viewModel.getBookmarked().observe(this, new Observer<List<Bookmarked>>() {
             @Override
             public void onChanged(List<Bookmarked> list) {
