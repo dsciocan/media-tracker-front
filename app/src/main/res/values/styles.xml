@@ -5,7 +5,12 @@
         <item name="cornerSize">50%</item>
     </style>
 
-    Type scale
+<!--    buttons-->
+    <style name="dangerButton">
+        <item name="backgroundTint">@color/md_theme_error
+        </item>
+    </style>
+<!--    Type scale-->
     <style name="TextAppearance.customHeadline1" parent="TextAppearance.MaterialComponents.Headline1">
         <item name="fontFamily">@font/playfair_display</item>
         <item name="android:fontFamily">@font/playfair_display</item>
