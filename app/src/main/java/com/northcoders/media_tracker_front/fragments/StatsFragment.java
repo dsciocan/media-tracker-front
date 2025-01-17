@@ -76,13 +76,18 @@ public class StatsFragment extends Fragment {
         List<DataEntry> data = new ArrayList<>();
 
         // ValueDataEntry takes an x value and a y value
-        data.add(new ValueDataEntry("Monday",30));
-        data.add(new ValueDataEntry("Tuesday",25));
-        data.add(new ValueDataEntry("Wednesday",48));
-        data.add(new ValueDataEntry("Thursday",0));
-        data.add(new ValueDataEntry("Friday",120));
-        data.add(new ValueDataEntry("Saturday",210));
-        data.add(new ValueDataEntry("Sunday",90));
+        data.add(new ValueDataEntry("Mon",30));
+        data.add(new ValueDataEntry("Tue",25));
+        data.add(new ValueDataEntry("Wed",48));
+        data.add(new ValueDataEntry("Thur",0));
+        data.add(new ValueDataEntry("Fri",120));
+        data.add(new ValueDataEntry("Sat",210));
+        data.add(new ValueDataEntry("Sun",90));
+
+        // Set the color of each bar
+        data.forEach(e -> e.setValue("fill", "#80cbc4"));
+        data.forEach(e -> e.setValue("stroke", "#80cbc4"));
+
 
         // Set the data to a column chart object
         Column column = cartesian.column(data);
@@ -112,12 +117,26 @@ public class StatsFragment extends Fragment {
         cartesian.interactivity().hoverMode(HoverMode.BY_X);
 
         // Set titles for the x and y axis
-        cartesian.xAxis(0).title("Days");
-        cartesian.yAxis(0).title("Time Watched (Minutes)");
+        cartesian.xAxis(0).title("Day");
+        cartesian.yAxis(0).title("Minutes");
         cartesian.yAxis(0).labels().rotation(-90);
         cartesian.xAxis(0).labels().rotation(-90);
 
+
+        // Set chart background colour
+        cartesian.background().enabled(true);
+        cartesian.background().fill("#F0F8FF");
+        // set label colors
+        var cartesianLabels = cartesian.labels();
+        cartesianLabels.fontColor("#696969");
+        cartesian.title().fontColor("#696969");
+
+        //Set space between the bars
+        cartesian.barGroupsPadding(0.2);
+
+
         // Set the chart to a chartview via the binding
+
         binding.StatsChartView.setChart(cartesian);
 
         // PIE CHART EXAMPLE
@@ -144,10 +163,21 @@ public class StatsFragment extends Fragment {
         pie.labels().position("outside");
         pie.legend().title().enabled(true);
         pie.legend().title().text("Genre").padding(0d,0d,10d,0d);
-        pie.legend().position("center-bottom").itemsLayout(LegendLayout.HORIZONTAL).align(Align.CENTER);
+        pie.legend().position("left").itemsLayout(LegendLayout.VERTICAL).align(Align.LEFT);
         // Set the pie chart to the Chart view via the binding
-        binding.StatsChartViewTwo.setChart(pie);
 
+        //Add custom theme - appears to choose by position (colors taken from default anychart palette "pastel")
+        //See list of allowed values: https://docs.anychart.com/Appearance_Settings/Colors_Table
+
+        String[] pastels = new String[] {"#80cbc4", "#e6ee9c", "#ffcc80", "#ffab91", "#f8bbd0", "#d1c4e9", "#9e9e9e", "#c7b299", "#90caf9" , "#aed581"};
+        pie.palette(pastels);
+        pie.labels().fontColor("#696969");
+        pie.title().fontColor("#696969");
+        pie.legend().fontColor("#696969");
+        pie.height();
+        pie.background().enabled(true);
+        pie.background().fill("#F0F8FF");
+        binding.StatsChartViewTwo.setChart(pie);
 
     }
 
