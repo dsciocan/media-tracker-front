@@ -61,12 +61,37 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(ShowSearchResultViewModel.class);
 
+        /*
+        // search field
+        // Inflate the layout for this fragment
+        //View view = inflater.inflate(R.layout.fragment_home, container, false);
+        // Initialize SearchView
+        searchView = view.findViewById(R.id.searchView);
+        searchView.clearFocus();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //getShowSearchResult(query);
+                Log.i("GET request", query);
+                Log.i("GET request", "I am here");
+                //getShowSearchResult(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.i("GET request", newText);
+                return false;
+            }
+
+        });
+*/
         getShowSearchResult("Star Wars");
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
-
         super.onCreate(savedInstanceState);
     }
 
@@ -75,7 +100,6 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
 
         // search field
-        /*
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         // Initialize SearchView
@@ -99,9 +123,8 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
             }
 
         });
-*/
         return binding.getRoot();  // needed to see the recyclerview
-        //return view;
+        //return view;                 // needed for search field
     }
 
     private  void getShowSearchResult(String query) {
