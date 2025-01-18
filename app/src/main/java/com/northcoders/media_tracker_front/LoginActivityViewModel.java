@@ -18,10 +18,9 @@ public class LoginActivityViewModel extends AndroidViewModel {
         this.userRepository = new UserRepository(application);
     }
 
-    // The getCurrentUser() is currently just a placeholder method to debug sending tokens to the back
-    // The backend method doesn't return anything besides an OK httpstatus
-    public MutableLiveData<User> getCurrentUser(){
-        return userRepository.getCurrentUser();
+    // The getAuth() is currently a placeholder method to debug sending tokens to the back
+    public void getAuth(){
+        userRepository.auth();
     }
 
 }
