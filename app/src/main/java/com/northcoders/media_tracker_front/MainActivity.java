@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
 
     ProfileFragment profileFragment = new ProfileFragment();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
