@@ -2,13 +2,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <!--
     <data>
 
         <variable
             name="bookmarked"
             type="com.northcoders.media_tracker_front.model.Bookmarked" />
     </data>
-
+-->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -47,9 +48,10 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/title"
                         android:paddingBottom="8dp"
-                        android:text="@{bookmarked.title}"
+
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+                    <!--android:text="@{bookmarked.title}"-->
 
                     <TextView
                         android:id="@+id/bookmarked_fragment_info"
@@ -58,9 +60,10 @@
                         android:ellipsize="end"
                         android:hint="@string/mock_text"
                         android:maxLines="3"
-                        android:text="@{bookmarked.info}"
+
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/bookmarked_fragment_title" />
+                    <!--android:text="@{bookmarked.info}"-->
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <ImageButton

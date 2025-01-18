@@ -1,8 +1,9 @@
 package com.northcoders.media_tracker_front.model;
 
+import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
-public class ShowSearchResult {
+public class ShowSearchResult extends BaseObservable {
     private Long id;
     private String name;
     private String overview;

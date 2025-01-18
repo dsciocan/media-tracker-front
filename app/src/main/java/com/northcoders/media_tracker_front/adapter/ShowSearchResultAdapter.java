@@ -11,7 +11,7 @@ import com.northcoders.media_tracker_front.R;
 import com.northcoders.media_tracker_front.model.ShowSearchResult;
 import com.northcoders.media_tracker_front.model.WatchHistory;
 import java.util.ArrayList;
-import com.northcoders.media_tracker_front.databinding.WatchHistoryItemBinding;
+import com.northcoders.media_tracker_front.databinding.ShowSearchResultItemBinding;
 
 public class ShowSearchResultAdapter extends RecyclerView.Adapter<ShowSearchResultAdapter.ShowSearchResultViewHolder> {
     ArrayList<ShowSearchResult> showSearchResultArrayList;
@@ -49,7 +49,7 @@ public class ShowSearchResultAdapter extends RecyclerView.Adapter<ShowSearchResu
     public static class ShowSearchResultViewHolder extends RecyclerView.ViewHolder{
         private static ShowSearchResultItemBinding showSearchResultItemBinding;
 
-        public ShowSearchResultViewHolder(WatchHistoryItemBinding binding, RecyclerViewInterface recyclerViewInterface) {
+        public ShowSearchResultViewHolder(ShowSearchResultItemBinding binding, RecyclerViewInterface recyclerViewInterface) {
             super(binding.getRoot());
             this.showSearchResultItemBinding = binding;
 
@@ -70,4 +70,4 @@ public class ShowSearchResultAdapter extends RecyclerView.Adapter<ShowSearchResu
         }
     }
 }
-}
+
