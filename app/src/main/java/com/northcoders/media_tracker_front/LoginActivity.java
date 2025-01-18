@@ -76,11 +76,16 @@ public class LoginActivity extends AppCompatActivity {
     public void onStart(){
         super.onStart();
 
+        /**
+         * todo:
+         *  add some sort of verification to not allow the app to continue to the main page without
+         *  having the backend give the ok
+         */
         // See if there is a user
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if(currentUser != null){
-            // The getCurrentUser() is just a placeholder method to debug sending tokens to the back
-            viewModel.getCurrentUser();
+            // The auth() is just a placeholder method to debug sending tokens to the back
+            viewModel.getAuth();
 
             // Once those are obtained now we can start a new intent to move to the MainActivity
             Intent intent = new Intent(this, com.northcoders.media_tracker_front.MainActivity.class);
@@ -103,13 +108,13 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-    private void onSignInResult(FirebaseAuthUIAuthenticationResult result) {
+    private void onSignInResult(FirebaseAuthUIAuthenticationResult result)  {
         IdpResponse response = result.getIdpResponse();
         if (result.getResultCode() == RESULT_OK) {
             // Successfully signed in
 
-            // The getCurrentUser() is just a placeholder method to debug sending tokens to the back
-            viewModel.getCurrentUser();
+            // The getAuth() is just a placeholder method to debug sending tokens to the back
+            viewModel.getAuth();
 
             // This was for sending the token for the backend for testing getCurrentUser();
             // Will likely be deleted
