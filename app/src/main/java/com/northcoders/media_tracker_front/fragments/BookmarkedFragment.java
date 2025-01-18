@@ -40,7 +40,7 @@ public class BookmarkedFragment extends Fragment implements RecyclerViewInterfac
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(BookmarkedViewModel.class);
-        getBookmarked();
+//        getBookmarked();
     }
 
     @Override

@@ -44,7 +44,7 @@ public class BookmarkedAdaptor extends RecyclerView.Adapter<BookmarkedAdaptor.Bo
     @Override
     public void onBindViewHolder(@NonNull BookmarkedViewHolder holder, int position) {
         Bookmarked bookmarked = bookmarkedArrayList.get(position);
-        BookmarkedViewHolder.bookmarkedItemBinding.setBookmarked(bookmarked);
+        holder.bookmarkedItemBinding.setBookmarked(bookmarked);
     }
 
     @Override

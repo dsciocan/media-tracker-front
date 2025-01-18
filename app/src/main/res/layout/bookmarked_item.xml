@@ -58,7 +58,7 @@
                         android:ellipsize="end"
                         android:hint="@string/mock_text"
                         android:maxLines="3"
-                        android:text="@{bookmarked.info}"
+                        android:text="@{bookmarked.posterUrl}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/bookmarked_fragment_title" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
