@@ -16,6 +16,6 @@ public interface MovieApiService {
     Call<List<Bookmarked>> getBookmarked();
 
     //call to user?
-    @GET("bookmarked")
+    @GET("watching")
     Call<List<Watching>> getWatching();
 }
