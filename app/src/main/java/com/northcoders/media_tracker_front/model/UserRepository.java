@@ -22,25 +22,25 @@ public class UserRepository {
         this.application = application;
     }
 
-    // The getCurrentUser() is currently just a placeholder method to debug sending tokens to the back
+    // The auth() is currently just a placeholder method to debug sending tokens to the back
     // The backend method doesn't return anything besides an OK httpstatus
-    public MutableLiveData<User> getCurrentUser() {
-        UserActionsService actionsService = RetroFitInstance.getUserService();
-        Call<User> call = actionsService.authUser();
-        call.enqueue(new Callback<User>() {
+    public void auth(){
+        UserActionsService userActionsService = RetroFitInstance.getUserService();
+
+        Call<Void> authUserCall = userActionsService.auth();
+        authUserCall.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                User user = response.body();
-                currentUser.setValue(user);
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.i("RESPONSE FROM THE BACK", String.valueOf(response.code()));
+
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Log.i("GET all request", t.getMessage());
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("FROM THE BACK",call.toString());
+                Log.e("FROM THE BACK","WE FAILED: " + t.getMessage());
             }
         });
-        return currentUser;
     }
-
 
 }
