@@ -13,18 +13,18 @@ import com.northcoders.media_tracker_front.R;
 import com.northcoders.media_tracker_front.databinding.BookmarkedItemBinding;
 import com.northcoders.media_tracker_front.model.Bookmarked;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class BookmarkedAdaptor extends RecyclerView.Adapter<BookmarkedAdaptor.BookmarkedViewHolder> {
+public class BookmarkedAdapter extends RecyclerView.Adapter<BookmarkedAdapter.BookmarkedViewHolder> {
 
-    ArrayList<Bookmarked> bookmarkedArrayList;
+    List<Bookmarked> bookmarkedList;
 
     Context context;
 
     RecyclerViewInterface recyclerViewInterface;
 
-    public BookmarkedAdaptor(ArrayList<Bookmarked> bookmarkedArrayList, Context context, RecyclerViewInterface recyclerViewInterface) {
-        this.bookmarkedArrayList = bookmarkedArrayList;
+    public BookmarkedAdapter(List<Bookmarked> bookmarkedList, Context context, RecyclerViewInterface recyclerViewInterface) {
+        this.bookmarkedList = bookmarkedList;
         this.context = context;
         this.recyclerViewInterface = recyclerViewInterface;
     }
@@ -43,13 +43,13 @@ public class BookmarkedAdaptor extends RecyclerView.Adapter<BookmarkedAdaptor.Bo
 
     @Override
     public void onBindViewHolder(@NonNull BookmarkedViewHolder holder, int position) {
-        Bookmarked bookmarked = bookmarkedArrayList.get(position);
-        holder.bookmarkedItemBinding.setBookmarked(bookmarked);
+        Bookmarked bookmarked = bookmarkedList.get(position);
+        BookmarkedViewHolder.bookmarkedItemBinding.setBookmarked(bookmarked);
     }
 
     @Override
     public int getItemCount() {
-        return bookmarkedArrayList.size();
+        return bookmarkedList.size();
     }
 
     public static class BookmarkedViewHolder extends RecyclerView.ViewHolder {

@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.navigation.NavigationBarView;
 import com.northcoders.media_tracker_front.fragments.BookmarkedFragment;
-import com.northcoders.media_tracker_front.fragments.CurrentlyWatchingFragment;
+import com.northcoders.media_tracker_front.fragments.WatchingFragment;
 import com.northcoders.media_tracker_front.fragments.EpisodeFragment;
 import com.northcoders.media_tracker_front.fragments.HomeFragment;
 import com.northcoders.media_tracker_front.fragments.MovieFragment;
@@ -20,7 +20,6 @@ import com.northcoders.media_tracker_front.fragments.WatchedFragment;
 public class MainActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
     NavigationBarView navigationBarView;
     HomeFragment homeFragment = new HomeFragment();
-    CurrentlyWatchingFragment currentlyWatchingFragment = new CurrentlyWatchingFragment();
     BookmarkedFragment bookmarkedFragment = new BookmarkedFragment();
     StatsFragment statsFragment = new StatsFragment();
     WatchedFragment watchedFragment = new WatchedFragment();
@@ -28,6 +27,8 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
     EpisodeFragment episodeFragment = new EpisodeFragment();
 
     ProfileFragment profileFragment = new ProfileFragment();
+
+    WatchingFragment watchingFragment = new WatchingFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
         if(item.getItemId() == R.id.current){
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.frameLayoutFragment, currentlyWatchingFragment)
+                    .replace(R.id.frameLayoutFragment, watchingFragment)
                     .commit();
             return true;
         }
