@@ -34,15 +34,6 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Getting the intent from login(?)
-        // An example of passing information between activities
-        /*Intent intent = getIntent();*/
-
-        /*String email = intent.getStringExtra("email");
-        String name = intent.getStringExtra("name");
-        String picture = intent.getStringExtra("picture");*/
-
         navigationBarView = findViewById(R.id.BottomNavView);
         navigationBarView.setOnItemSelectedListener(this);
         navigationBarView.setSelectedItemId(R.id.home);
