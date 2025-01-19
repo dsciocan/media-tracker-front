@@ -26,9 +26,10 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- *   It seems like this class (GoogleSignIn)has been deprecated but for the sake of getting something that works, this works
- *   There probably is an updated version of doing all of this
- *   If you do log in with google on the Phone -> probably use the TeamDurocJava@gmail.com email
+ * Firebase does a lot of the heavy lifting in terms of signing up/logging in and out/staying logged in
+ * In terms of getting the current users details, that can be done through the FirebaseAuth object
+ * FirebaseAuth.getInstance().getCurrentUser allows you to get the user's (email,display name and photo url)
+ *  If you do log in with google on the Phone emulator -> probably use the TeamDurocJava@gmail.com email
  */
 public class LoginActivity extends AppCompatActivity {
     private LoginActivityViewModel viewModel;
@@ -76,12 +77,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onStart(){
         super.onStart();
-
-        /**
-         * todo:
-         *  add some sort of verification to not allow the app to continue to the main page without
-         *  having the backend give the ok
-         */
         // See if there is a user (if they've already signed in before) if so, let them start on main
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if(currentUser != null){
