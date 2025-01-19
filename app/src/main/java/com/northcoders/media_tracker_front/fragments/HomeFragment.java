@@ -3,7 +3,7 @@ package com.northcoders.media_tracker_front.fragments;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
+import android.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -33,10 +33,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment implements RecyclerViewInterface {
-    private SearchView searchView;
+    //private SearchView searchView;
     private FragmentHomeBinding binding;
     RecyclerView recyclerView;
-    RecyclerView.Adapter rcAdapter;
+   // RecyclerView.Adapter rcAdapter;
     ArrayList<ShowSearchResult> showSearchResultArrayList;
     ShowSearchResultAdapter showSearchResultAdapter;
     ShowSearchResultViewModel viewModel;
