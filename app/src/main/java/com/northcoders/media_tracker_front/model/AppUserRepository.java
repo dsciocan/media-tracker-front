@@ -13,12 +13,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UserRepository {
-    private MutableLiveData<User> currentUser= new MutableLiveData<User>();
+public class AppUserRepository {
+    private MutableLiveData<AppUser> currentUser= new MutableLiveData<AppUser>();
 
     private Application application;
 
-    public UserRepository(Application application) {
+    public AppUserRepository(Application application) {
         this.application = application;
     }
 
