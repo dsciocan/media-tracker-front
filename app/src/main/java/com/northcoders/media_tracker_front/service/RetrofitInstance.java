@@ -22,4 +22,23 @@ public class RetrofitInstance {
         }
         return retrofit.create(MovieApiService.class);
     }
+    public static UserActionsService getUserService(){
+        // Instantiate the custom interceptor and add it to the okhttpclient
+        FirebaseUserIdTokenInterceptor interceptor = new FirebaseUserIdTokenInterceptor();
+
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .build();
+
+        if(retrofit == null){
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(baseURL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(client)
+                    .build();
+        }
+        return retrofit.create(UserActionsService.class);
+    }
+
+
 }

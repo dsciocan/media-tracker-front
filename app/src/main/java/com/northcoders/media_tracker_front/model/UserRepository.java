@@ -5,7 +5,7 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.northcoders.media_tracker_front.service.RetroFitInstance;
+import com.northcoders.media_tracker_front.service.RetrofitInstance;
 import com.northcoders.media_tracker_front.service.UserActionsService;
 
 
@@ -25,7 +25,7 @@ public class UserRepository {
     // The auth() is currently just a placeholder method to debug sending tokens to the back
     // The backend method doesn't return anything besides an OK httpstatus
     public void auth(){
-        UserActionsService userActionsService = RetroFitInstance.getUserService();
+        UserActionsService userActionsService = RetrofitInstance.getUserService();
 
         Call<Void> authUserCall = userActionsService.auth();
         authUserCall.enqueue(new Callback<Void>() {
