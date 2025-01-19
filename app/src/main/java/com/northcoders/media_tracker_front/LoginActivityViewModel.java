@@ -18,7 +18,7 @@ public class LoginActivityViewModel extends AndroidViewModel {
         this.userRepository = new UserRepository(application);
     }
 
-    // The getAuth() is currently a placeholder method to debug sending tokens to the back
+    // The auth() will be a method to create a user on the backend when they sign up for the app
     public void getAuth(){
         userRepository.auth();
     }

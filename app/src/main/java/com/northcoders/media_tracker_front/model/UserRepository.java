@@ -22,8 +22,8 @@ public class UserRepository {
         this.application = application;
     }
 
-    // The auth() is currently just a placeholder method to debug sending tokens to the back
-    // The backend method doesn't return anything besides an OK httpstatus
+    // The auth() will be a method to create a user on the backend when they sign up for the app
+    // The backend method doesn't return anything besides an OK httpstatus (hopefully)
     public void auth(){
         UserActionsService userActionsService = RetrofitInstance.getUserService();
 
@@ -31,14 +31,14 @@ public class UserRepository {
         authUserCall.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                Log.i("RESPONSE FROM THE BACK", String.valueOf(response.code()));
+                Log.i("Auth Response From Back", String.valueOf(response.code()));
 
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Log.e("FROM THE BACK",call.toString());
-                Log.e("FROM THE BACK","WE FAILED: " + t.getMessage());
+                Log.e("Auth Response From Back",call.toString());
+                Log.e("Auth Response From Back","WE FAILED: " + t.getMessage());
             }
         });
     }
