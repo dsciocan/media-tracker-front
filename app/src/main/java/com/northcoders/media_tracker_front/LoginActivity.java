@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -114,28 +115,22 @@ public class LoginActivity extends AppCompatActivity {
         if (result.getResultCode() == RESULT_OK) {
             // Successfully signed in
 
-            // The getAuth() is just a placeholder method to debug sending tokens to the back
+            // The getAuth() is going to be a method to make a user on the backend
             viewModel.getAuth();
 
-            // This was for sending the token for the backend for testing getCurrentUser();
-            // Will likely be deleted
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            Task<GetTokenResult> task = user.getIdToken(true);
-
-            // Once those are obtained now we can start a new intent to move to the MainActivity
+            // Now we can start a new intent to move to the MainActivity
             Intent intent = new Intent(this, com.northcoders.media_tracker_front.MainActivity.class);
 
             // This actually starts the move to the MainActivity
             startActivity(intent);
 
         } else {
-            Log.i("FIREBASE LOGIN L_ACTIVITY",result.toString());
-            Log.i("FIREBASE LOGIN L_ACTIVITY",response.getError().toString());
-            // Sign in failed. If response is null the user canceled the
-            // sign-in flow using the back button. Otherwise check
-            // response.getError().getErrorCode() and handle the error.
-            // ...
-            // Maybe put a Toast(?)
+            Log.e("FIREBASE LOGIN L_ACTIVITY",result.toString());
+            Log.e("FIREBASE LOGIN L_ACTIVITY",response.getError().toString());
+            // Sign in failed. If response is null the user canceled the sign-in flow using the back button.
+            // Otherwise check response.getError().getErrorCode() and handle the error.
+            // Maybe put a Toast for the user
+            Toast.makeText(this, "Sign in failed", Toast.LENGTH_SHORT).show();
         }
     }
 
