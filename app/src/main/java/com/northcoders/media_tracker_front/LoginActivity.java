@@ -81,17 +81,18 @@ public class LoginActivity extends AppCompatActivity {
          *  add some sort of verification to not allow the app to continue to the main page without
          *  having the backend give the ok
          */
-        // See if there is a user
+        // See if there is a user (if they've already signed in before) if so, let them start on main
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if(currentUser != null){
-            // The auth() is just a placeholder method to debug sending tokens to the back
-            viewModel.getAuth();
-
-            // Once those are obtained now we can start a new intent to move to the MainActivity
+            Log.i("Firebase Login Page","User is already logged in: " + currentUser.getEmail());
+            // Now we can start a new intent to move to the MainActivity
             Intent intent = new Intent(this, com.northcoders.media_tracker_front.MainActivity.class);
 
             // This actually starts the move to the MainActivity
             startActivity(intent);
+        }
+        else{
+            Log.i("Firebase Login Page","User is not signed in");
         }
     }
 
