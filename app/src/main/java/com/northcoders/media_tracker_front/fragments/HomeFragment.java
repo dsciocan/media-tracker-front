@@ -45,64 +45,16 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
         // Required empty public constructor
     }
 
-
-    /*
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
-    }
-    */
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(ShowSearchResultViewModel.class);
-
-        /*
-        // search field
-        // Inflate the layout for this fragment
-        //View view = inflater.inflate(R.layout.fragment_home, container, false);
-        // Initialize SearchView
-        searchView = view.findViewById(R.id.searchView);
-        searchView.clearFocus();
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                //getShowSearchResult(query);
-                Log.i("GET request", query);
-                Log.i("GET request", "I am here");
-                //getShowSearchResult(query);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                Log.i("GET request", newText);
-                return false;
-            }
-
-        });
-*/
         getShowSearchResult("Star Wars");
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
-
-        // search field
-
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
         // Initialize SearchView
         SearchView searchView = view.findViewById(R.id.SearchViewHome);
         searchView.clearFocus();
@@ -113,7 +65,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
                 //getShowSearchResult(query);
                 Log.i("GET request", query);
                 Log.i("GET request", "I am here");
-                //getShowSearchResult(query);
+                getShowSearchResult(query);
                 return true;
             }
 
@@ -122,8 +74,14 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
                 Log.i("GET request", newText);
                 return false;
             }
-
         });
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
         return binding.getRoot();  // needed to see the recyclerview
         //return view;                 // needed for search field
     }
@@ -149,8 +107,5 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
 
     @Override
     public void onItemClick(int position) {
-
     }
-
-
 }
