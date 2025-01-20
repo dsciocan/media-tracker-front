@@ -1,4 +1,4 @@
-package com.northcoders.media_tracker_front;
+package com.northcoders.media_tracker_front.viewmodel;
 
 import android.app.Application;
 
