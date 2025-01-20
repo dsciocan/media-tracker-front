@@ -73,6 +73,7 @@ public class ProfileFragment extends Fragment {
                                 getActivity().startActivity(intent);
                                 // finishing the activity prevents the back button opening the app again
                                 getActivity().finish();
+                                Toast.makeText(getContext(), "Log out successful", Toast.LENGTH_SHORT).show();
                             }
                         });
             }
