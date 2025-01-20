@@ -19,6 +19,7 @@ import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.northcoders.media_tracker_front.viewmodel.LoginActivityViewModel;
 
 import java.util.Arrays;
 import java.util.List;
@@ -81,9 +82,11 @@ public class LoginActivity extends AppCompatActivity {
             Log.i("Firebase Login Page","User is already logged in: " + currentUser.getEmail());
             // Now we can start a new intent to move to the MainActivity
             Intent intent = new Intent(this, com.northcoders.media_tracker_front.MainActivity.class);
-
+            // make sure the user is on the backend
+            viewModel.getAuth();
             // This actually starts the move to the MainActivity
             startActivity(intent);
+            finish();
         }
         else{
             Log.i("Firebase Login Page","User is not signed in");
@@ -116,6 +119,7 @@ public class LoginActivity extends AppCompatActivity {
 
             // This actually starts the move to the MainActivity
             startActivity(intent);
+            finish();
 
         } else {
             Log.e("FIREBASE LOGIN L_ACTIVITY",result.toString());

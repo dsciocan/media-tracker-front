@@ -15,7 +15,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import android.widget.ImageButton;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.northcoders.media_tracker_front.R;
 import com.northcoders.media_tracker_front.adapter.RecyclerViewInterface;
 import com.northcoders.media_tracker_front.adapter.ShowSearchResultAdapter;
@@ -31,6 +34,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface  {
     ArrayList<ShowSearchResult> showSearchResultArrayList;
     ShowSearchResultAdapter showSearchResultAdapter;
     ShowSearchResultViewModel viewModel;
+    private ProfileFragment profileFragment = new ProfileFragment();
 
     public HomeFragment() {
         // Required empty public constructor
@@ -43,8 +47,34 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface  {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ImageButton profilePicture = binding.profilepicturemain ;
+        Glide.with(profilePicture)
+                .load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString())
+                .circleCrop()
+//                .apply(RequestOptions.circleCropTransform())
+                .error(R.drawable.circularcustombutton)
+                .into(profilePicture);
+
+
+        profilePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .setCustomAnimations(
+                                android.R.anim.fade_in,
+                                android.R.anim.fade_out,
+                                android.R.anim.slide_in_left,
+                                android.R.anim.slide_out_right)
+                        .replace(R.id.frameLayoutFragment, profileFragment)
+                        .addToBackStack("profileFragmentTransaction") // allow user to press back to go back to home fragment
+                        .commit();
+            }
+        });
+
+
         // Initialize SearchView
         SearchView searchView = view.findViewById(R.id.SearchViewHome);
         searchView.clearFocus();
@@ -55,7 +85,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface  {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Handle button click
+                //Handle button click
                 Toast.makeText(getContext(), "Button clicked!", Toast.LENGTH_SHORT).show();
                 Fragment searchFragment = new ShowSearchFragment();
                 getActivity().getSupportFragmentManager().beginTransaction()
@@ -64,71 +94,16 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface  {
                         .commit();
             }
         });
-
-
-        /*
-        // implement click event
-        searchView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-                // Operations Performed On Clicking the Button
-                // Are Done Here
-                Log.i("hello", "button was clicked");
-
-            }
-            });
-        /*
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                //getShowSearchResult(query);
-                Log.i("GET request", query);
-                Log.i("GET request", "I am here");
-                getShowSearchResult(query);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                Log.i("GET request", newText);
-                return false;
-            }
-        });
-         */
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-        return binding.getRoot();  // needed to see the recyclerview
-        //return view;                 // needed for search field
+        return binding.getRoot();
     }
 
-    /*
-    private  void getShowSearchResult(String query) {
-        viewModel.getShowSearchResult(query).observe(this, new Observer<List<ShowSearchResult>>() {
-            @Override
-            public void onChanged(List<ShowSearchResult> showSearchResultList) {
-                showSearchResultArrayList = (ArrayList<ShowSearchResult>) showSearchResultList;
-                displayShowSearchResultInRecyclerView();
-            }
-        });
-    }
-    */
-
-    /*
-    private void displayShowSearchResultInRecyclerView() {
-        recyclerView = binding.recyclerview;
-        showSearchResultAdapter = new ShowSearchResultAdapter(showSearchResultArrayList, this.getContext(), this);
-        recyclerView.setAdapter(showSearchResultAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        recyclerView.setHasFixedSize(true);
-        showSearchResultAdapter.notifyDataSetChanged();
-    }
-*/
     @Override
     public void onItemClick(int position) {
     }

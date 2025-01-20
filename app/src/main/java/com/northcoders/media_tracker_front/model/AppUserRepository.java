@@ -15,6 +15,7 @@ import retrofit2.Response;
 
 public class AppUserRepository {
     private MutableLiveData<AppUser> currentUser= new MutableLiveData<AppUser>();
+    private boolean status;
 
     private Application application;
 
@@ -42,5 +43,33 @@ public class AppUserRepository {
             }
         });
     }
+
+    public boolean deleteUser(){
+        UserActionsService userActionsService = RetrofitInstance.getUserService();
+
+        Call<Void> deleteUserCall = userActionsService.deleteUser();
+        deleteUserCall.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.code() == 200){
+                    Log.i("DeleteUser Response From Back", String.valueOf(response.code()));
+                    status = true;
+                }
+                else{
+                    status = false;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("DeleteUser Response From Back",call.toString());
+                Log.e("DeleteUser Response From Back","WE FAILED: " + t.getMessage());
+            }
+        });
+
+        return status;
+    }
+
+
 
 }
