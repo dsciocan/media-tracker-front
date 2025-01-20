@@ -35,7 +35,7 @@ public class WatchedFragment extends Fragment implements RecyclerViewInterface {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(WatchHistoryViewModel.class);
-//        getHistory();
+        //getHistory();
     }
 
     @Override

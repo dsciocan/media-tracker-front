@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "300284600432",
+    "project_id": "project-media-tracker",
+    "storage_bucket": "project-media-tracker.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:300284600432:android:19cd454708bc6fb66f94b5",
+        "android_client_info": {
+          "package_name": "com.northcoders.media_tracker_front"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "300284600432-anc1evlnc5viq36pdj62ru3n4ft1paac.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.northcoders.media_tracker_front",
+            "certificate_hash": "786bd364878e3f6b70ea8ce92584972c23a27640"
+          }
+        },
+        {
+          "client_id": "300284600432-ar1m9qtccg3mvp95dgnqhcsls698lqmr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDU54rAYlyiyvVaK2Ek4xL422cIYp5TaWc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "300284600432-ar1m9qtccg3mvp95dgnqhcsls698lqmr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
