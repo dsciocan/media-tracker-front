@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.auth.AuthUI;
@@ -31,35 +32,8 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        // Load in the user's profile picture from the google account
-        // As a circular image
-        ShapeableImageView profilePicture = binding.profileFragmentAvatar;
-        Glide.with(profilePicture)
-                .load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString())
-                .circleCrop()
-                .error(R.drawable.circularcustombutton)
-                .into(profilePicture);
-
-        // Logic for log out button
-        binding.profileFragmentLogoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AuthUI.getInstance()
-                        .signOut(getContext())
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            // On complete-> Place the app in the login page
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Intent intent = new Intent(getContext(),com.northcoders.media_tracker_front.LoginActivity.class);
-                                getActivity().startActivity(intent);
-                                // finishing the activity prevents the back button opening the app again
-                                getActivity().finish();
-                            }
-                        });
-
-            }
-        });
+        loadProfilePicture();
+        loadLogoutButton();
 
 
 
@@ -71,4 +45,41 @@ public class ProfileFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_profile,container,false);
         return binding.getRoot();
     }
+
+    private void loadProfilePicture(){
+        // Load in the user's profile picture from the google account
+        // As a circular image
+        ShapeableImageView profilePicture = binding.profileFragmentAvatar;
+        Glide.with(profilePicture)
+                .load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString())
+                .circleCrop()
+                .error(R.drawable.circularcustombutton)
+                .into(profilePicture);
+
+    }
+
+    private void loadLogoutButton(){
+        // Logic for log out button
+        binding.profileFragmentLogoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                 AuthUI.getInstance()
+                        .signOut(getContext())
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            // On complete-> Place the app in the login page
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Intent intent = new Intent(getContext(),com.northcoders.media_tracker_front.LoginActivity.class);
+                                getActivity().startActivity(intent);
+                                // finishing the activity prevents the back button opening the app again
+                                getActivity().finish();
+                            }
+                        });
+            }
+        });
+
+    }
+
+
+
 }
