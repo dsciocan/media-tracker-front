@@ -39,6 +39,4 @@ public class RetrofitInstance {
         }
         return retrofit.create(UserActionsService.class);
     }
-
-
 }
