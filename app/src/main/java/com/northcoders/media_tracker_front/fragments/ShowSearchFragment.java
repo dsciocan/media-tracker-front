@@ -1,7 +1,6 @@
 package com.northcoders.media_tracker_front.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,20 +15,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.northcoders.media_tracker_front.R;
 import com.northcoders.media_tracker_front.adapter.RecyclerViewInterface;
 import com.northcoders.media_tracker_front.adapter.ShowSearchResultAdapter;
-import com.northcoders.media_tracker_front.databinding.FragmentSearchBinding;
+import com.northcoders.media_tracker_front.databinding.FragmentShowSearchBinding;
 import com.northcoders.media_tracker_front.model.ShowSearchResult;
 import com.northcoders.media_tracker_front.viewmodel.ShowSearchResultViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchFragment extends Fragment implements RecyclerViewInterface {
-    private FragmentSearchBinding binding;
+public class ShowSearchFragment extends Fragment implements RecyclerViewInterface {
+    private FragmentShowSearchBinding binding;
     RecyclerView recyclerView;
     ArrayList<ShowSearchResult> showSearchResultArrayList;
     ShowSearchResultAdapter showSearchResultAdapter;
     ShowSearchResultViewModel viewModel;
 
-    public SearchFragment() {
+    public ShowSearchFragment() {
         // Required empty public constructor
     }
 
@@ -61,9 +60,9 @@ public class SearchFragment extends Fragment implements RecyclerViewInterface {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_show_search, container, false);
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_search, container, false);
+        View view = inflater.inflate(R.layout.fragment_show_search, container, false);
         return binding.getRoot();  // needed to see the recyclerview
     }
 

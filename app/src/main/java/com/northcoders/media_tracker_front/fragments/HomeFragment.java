@@ -8,31 +8,22 @@ import android.widget.Button;
 import android.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.northcoders.media_tracker_front.MainActivity;
 import com.northcoders.media_tracker_front.R;
 import com.northcoders.media_tracker_front.adapter.RecyclerViewInterface;
 import com.northcoders.media_tracker_front.adapter.ShowSearchResultAdapter;
-import com.northcoders.media_tracker_front.adapter.WatchHistoryAdapter;
-import com.northcoders.media_tracker_front.databinding.FragmentWatchedBinding;
 import com.northcoders.media_tracker_front.databinding.FragmentHomeBinding;
 import com.northcoders.media_tracker_front.model.ShowSearchResult;
-import com.northcoders.media_tracker_front.model.WatchHistory;
 import com.northcoders.media_tracker_front.viewmodel.ShowSearchResultViewModel;
-import com.northcoders.media_tracker_front.viewmodel.WatchHistoryViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class HomeFragment extends Fragment implements RecyclerViewInterface  {
     private FragmentHomeBinding binding;
@@ -66,7 +57,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface  {
             public void onClick(View v) {
                 // Handle button click
                 Toast.makeText(getContext(), "Button clicked!", Toast.LENGTH_SHORT).show();
-                Fragment searchFragment = new SearchFragment();
+                Fragment searchFragment = new ShowSearchFragment();
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.frameLayoutFragment, searchFragment) // Replace container with the new fragment
                         .addToBackStack(null) // Add transaction to backstack to allow navigation back
