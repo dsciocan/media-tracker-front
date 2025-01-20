@@ -84,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
 
             // This actually starts the move to the MainActivity
             startActivity(intent);
+            finish();
         }
         else{
             Log.i("Firebase Login Page","User is not signed in");
@@ -116,6 +117,7 @@ public class LoginActivity extends AppCompatActivity {
 
             // This actually starts the move to the MainActivity
             startActivity(intent);
+            finish();
 
         } else {
             Log.e("FIREBASE LOGIN L_ACTIVITY",result.toString());
