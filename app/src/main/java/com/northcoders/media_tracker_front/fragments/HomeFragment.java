@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import android.widget.ImageButton;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.northcoders.media_tracker_front.R;
 import com.northcoders.media_tracker_front.adapter.RecyclerViewInterface;
 import com.northcoders.media_tracker_front.adapter.ShowSearchResultAdapter;
@@ -48,7 +50,12 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface  {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ImageButton profilePicture = binding.profilepicturemain ;
-
+        Glide.with(profilePicture)
+                .load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString())
+                .circleCrop()
+//                .apply(RequestOptions.circleCropTransform())
+                .error(R.drawable.circularcustombutton)
+                .into(profilePicture);
 
 
         profilePicture.setOnClickListener(new View.OnClickListener() {
