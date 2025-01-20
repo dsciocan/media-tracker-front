@@ -43,6 +43,7 @@ public class ProfileFragment extends Fragment {
         loadProfilePicture();
         loadLogoutButton();
         loadDeleteButton();
+        binding.profileFragmentUsername.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
 
 
     }
