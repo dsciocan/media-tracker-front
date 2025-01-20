@@ -82,7 +82,8 @@ public class LoginActivity extends AppCompatActivity {
             Log.i("Firebase Login Page","User is already logged in: " + currentUser.getEmail());
             // Now we can start a new intent to move to the MainActivity
             Intent intent = new Intent(this, com.northcoders.media_tracker_front.MainActivity.class);
-
+            // make sure the user is on the backend
+            viewModel.getAuth();
             // This actually starts the move to the MainActivity
             startActivity(intent);
             finish();
