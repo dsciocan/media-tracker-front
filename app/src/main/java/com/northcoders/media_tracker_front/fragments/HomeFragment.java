@@ -69,6 +69,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface  {
                                 android.R.anim.slide_in_left,
                                 android.R.anim.slide_out_right)
                         .replace(R.id.frameLayoutFragment, profileFragment)
+                        .addToBackStack("profileFragmentTransaction") // allow user to press back to go back to home fragment
                         .commit();
             }
         });
