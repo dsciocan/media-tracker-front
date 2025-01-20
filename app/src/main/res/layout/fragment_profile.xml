@@ -44,13 +44,6 @@
                  />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/profile_fragment_edit_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/edit_username" />
-
-            <com.google.android.material.button.MaterialButton
                 android:id="@+id/profile_fragment_logout_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
