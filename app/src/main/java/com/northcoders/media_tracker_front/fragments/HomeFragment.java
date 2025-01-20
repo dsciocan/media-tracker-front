@@ -63,6 +63,11 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface  {
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
+                        .setCustomAnimations(
+                                android.R.anim.fade_in,
+                                android.R.anim.fade_out,
+                                android.R.anim.slide_in_left,
+                                android.R.anim.slide_out_right)
                         .replace(R.id.frameLayoutFragment, profileFragment)
                         .commit();
             }
