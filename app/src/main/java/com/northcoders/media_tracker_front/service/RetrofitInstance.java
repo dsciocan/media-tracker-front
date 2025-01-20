@@ -7,7 +7,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitInstance {
     private static Retrofit retrofit = null;
-    //private static final String baseURL = "http://10.0.2.2:8080/api/v1/recordShop/";
     private static final String baseURL = "http://10.0.2.2:8080/api/v1/mediatracker/";
 
     public static MovieApiService getService(){
@@ -22,5 +21,22 @@ public class RetrofitInstance {
                     .build();
         }
         return retrofit.create(MovieApiService.class);
+    }
+    public static UserActionsService getUserService(){
+        // Instantiate the custom interceptor and add it to the okhttpclient
+        FirebaseUserIdTokenInterceptor interceptor = new FirebaseUserIdTokenInterceptor();
+
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .build();
+
+        if(retrofit == null){
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(baseURL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(client)
+                    .build();
+        }
+        return retrofit.create(UserActionsService.class);
     }
 }

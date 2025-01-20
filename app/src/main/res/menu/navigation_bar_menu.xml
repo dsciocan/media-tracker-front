@@ -9,8 +9,8 @@
         android:title="@string/current"
         android:icon="@drawable/ic_currently_watching_foreground"/>
     <item
-        android:id="@+id/bookmark_tab"
-        android:title="@string/bookmarked"
+        android:id="@+id/bookmarks"
+        android:title="bookmarks"
         android:icon="@drawable/ic_bookmark_tab_foreground"/>
 
     <item

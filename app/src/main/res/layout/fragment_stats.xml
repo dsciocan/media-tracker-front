@@ -35,6 +35,7 @@
 
             />
 
+
         <com.anychart.AnyChartView
             android:id="@+id/StatsChartViewTwo"
             android:layout_width="0dp"
