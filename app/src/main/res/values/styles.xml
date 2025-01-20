@@ -10,81 +10,93 @@
         <item name="backgroundTint">@color/md_theme_error
         </item>
     </style>
-<!--    Type scale-->
-    <style name="TextAppearance.customHeadline1" parent="TextAppearance.MaterialComponents.Headline1">
+
+
+<!--    Type scale
+        https://m2.material.io/design/typography/the-type-system.html#type-scale
+
+        give the style a name which will referred to in the textview
+        The parent specifies which type of text view. The Headlines have semantic meaning, so choose them appropriately,
+        (is the element the main heading - use H1 etc. this is for screen readers and accessibility)
+         but you can change the fontSize here or override if need be
+
+         more guidelines: Mobile Text guidelines https://www.learnui.design/blog/android-material-design-font-size-guidelines.html
+
+-->
+    <style name="TextAppearance.myH1_serif" parent="TextAppearance.MaterialComponents.Headline1">
         <item name="fontFamily">@font/playfair_display</item>
         <item name="android:fontFamily">@font/playfair_display</item>
-        <item name="android:textSize">40sp</item>
+        <item name="android:textSize">22sp</item>
     </style>
-    <style name="TextAppearance.customHeadline1b" parent="TextAppearance.MaterialComponents.Headline1">
+    <style name="TextAppearance.myH1_serif2" parent="TextAppearance.MaterialComponents.Headline1">
         <item name="fontFamily">@font/bodoni_moda</item>
         <item name="android:fontFamily">@font/bodoni_moda</item>
-        <item name="android:textSize">40sp</item>
+        <item name="android:textSize">22sp</item>
     </style>
 
-    <style name="TextAppearance.customHeadline2" parent="TextAppearance.MaterialComponents.Headline2">
+    <style name="TextAppearance.myH1_sans" parent="TextAppearance.MaterialComponents.Headline1">
         <item name="fontFamily">@font/roboto</item>
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:textSize">22sp</item>
     </style>
-    <style name="TextAppearance.customHeadline3" parent="TextAppearance.MaterialComponents.Headline3">
+
+        <style name="TextAppearance.myH2_sans" parent="TextAppearance.MaterialComponents.Headline2">
+            <item name="fontFamily">@font/roboto</item>
+            <item name="android:fontFamily">@font/roboto</item>
+            <item name="android:textSize">22sp</item>
+        </style>
+
+        <style name="TextAppearance.myH2_sans_small" parent="TextAppearance.MaterialComponents.Headline2">
+            <item name="fontFamily">@font/roboto</item>
+            <item name="android:fontFamily">@font/roboto</item>
+            <item name="android:textSize">16sp</item>
+        </style>
+
+    <style name="TextAppearance.myH2_serif" parent="TextAppearance.MaterialComponents.Headline2">
         <item name="fontFamily">@font/playfair_display</item>
         <item name="android:fontFamily">@font/playfair_display</item>
         <item name="android:textSize">18sp</item>
     </style>
-<!--    <style name="TextAppearance.MdcTypographyStyles.Headline4" parent="TextAppearance.MaterialComponents.Headline4">-->
-<!--        <item name="fontFamily">@font/playfair_display</item>-->
-<!--        <item name="android:fontFamily">@font/playfair_display</item>-->
-<!--        <item name="android:textSize">35sp</item>-->
-<!--    </style>-->
-<!--    <style name="TextAppearance.MdcTypographyStyles.Headline5" parent="TextAppearance.MaterialComponents.Headline5">-->
-<!--        <item name="fontFamily">@font/playfair_display</item>-->
-<!--        <item name="android:fontFamily">@font/playfair_display</item>-->
-<!--        <item name="android:textSize">25sp</item>-->
-<!--    </style>-->
-<!--    <style name="TextAppearance.MdcTypographyStyles.Headline6" parent="TextAppearance.MaterialComponents.Headline6">-->
-<!--        <item name="fontFamily">@font/playfair_display</item>-->
-<!--        <item name="android:fontFamily">@font/playfair_display</item>-->
-<!--        <item name="android:textSize">21sp</item>-->
-<!--    </style>-->
-    <style name="TextAppearance.MdcTypographyStyles.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
-        <item name="fontFamily">@font/playfair_display</item>
-        <item name="android:fontFamily">@font/playfair_display</item>
-        <item name="android:textSize">17sp</item>
-    </style>
-    <style name="TextAppearance.MdcTypographyStyles.Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle2">
-        <item name="fontFamily">@font/playfair_display</item>
-        <item name="android:fontFamily">@font/playfair_display</item>
-        <item name="android:textSize">15sp</item>
-    </style>
-    <style name="TextAppearance.customBody1" parent="TextAppearance.MaterialComponents.Body1">
+
+    <style name="TextAppearance.myBody1_serif" parent="TextAppearance.MaterialComponents.Body1">
         <item name="fontFamily">@font/playfair</item>
         <item name="android:fontFamily">@font/playfair</item>
         <item name="android:textSize">16sp</item>
     </style>
-    <style name="TextAppearance.customBody1b" parent="TextAppearance.MaterialComponents.Body1">
+    <style name="TextAppearance.myBody1_sans" parent="TextAppearance.MaterialComponents.Body1">
         <item name="fontFamily">@font/roboto</item>
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:textSize">16sp</item>
     </style>
-    <style name="TextAppearance.MdcTypographyStyles.Body2" parent="TextAppearance.MaterialComponents.Body2">
+    <style name="TextAppearance.myBody2_sans" parent="TextAppearance.MaterialComponents.Body2">
         <item name="fontFamily">@font/roboto</item>
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:textSize">14sp</item>
     </style>
-    <style name="TextAppearance.MdcTypographyStyles.Button" parent="TextAppearance.MaterialComponents.Button">
+    <style name="TextAppearance.myButton" parent="TextAppearance.MaterialComponents.Button">
         <item name="fontFamily">@font/roboto</item>
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:textSize">14sp</item>
     </style>
-    <style name="TextAppearance.MdcTypographyStyles.Caption" parent="TextAppearance.MaterialComponents.Caption">
-        <item name="fontFamily">@font/roboto</item>
-        <item name="android:fontFamily">@font/roboto</item>
-        <item name="android:textSize">12sp</item>
-    </style>
-    <style name="TextAppearance.MdcTypographyStyles.Overline" parent="TextAppearance.MaterialComponents.Overline">
-        <item name="fontFamily">@font/roboto</item>
-        <item name="android:fontFamily">@font/roboto</item>
-        <item name="android:textSize">10sp</item>
-    </style>
+<!--    <style name="TextAppearance.MdcTypographyStyles.Caption" parent="TextAppearance.MaterialComponents.Caption">-->
+<!--        <item name="fontFamily">@font/roboto</item>-->
+<!--        <item name="android:fontFamily">@font/roboto</item>-->
+<!--        <item name="android:textSize">12sp</item>-->
+<!--    </style>-->
+<!--    <style name="TextAppearance.MdcTypographyStyles.Overline" parent="TextAppearance.MaterialComponents.Overline">-->
+<!--        <item name="fontFamily">@font/roboto</item>-->
+<!--        <item name="android:fontFamily">@font/roboto</item>-->
+<!--        <item name="android:textSize">10sp<
+
+<!-    <style name="TextAppearance.MdcTypographyStyles.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">-->
+    <!--        <item name="fontFamily">@font/playfair_display</item>-->
+    <!--        <item name="android:fontFamily">@font/playfair_display</item>-->
+    <!--        <item name="android:textSize">17sp</item>-->
+    <!--    </style>-->
+    <!--    <style name="TextAppearance.MdcTypographyStyles.Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle2">-->
+    <!--        <item name="fontFamily">@font/playfair_display</item>-->
+    <!--        <item name="android:fontFamily">@font/playfair_display</item>-->
+    <!--        <item name="android:textSize">15sp</item>-->
+    <!--    </style>-->
+
 </resources>
