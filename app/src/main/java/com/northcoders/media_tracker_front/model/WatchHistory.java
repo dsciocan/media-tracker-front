@@ -3,6 +3,8 @@ package com.northcoders.media_tracker_front.model;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
+import java.time.LocalDate;
+
 /*
     The data from the fetch request is going to be stored in this class.
     Need empty constructor and one with all the fields.
@@ -10,41 +12,67 @@ import androidx.databinding.Bindable;
  */
 
 public class WatchHistory extends BaseObservable {
-    String title;
-    String info;
-    int rating;
-    public WatchHistory(){}
-    public WatchHistory(String title, String info, int rating) {
-        this.title = title;
-        this.info = info;
+    private UserFilmId userFilmId;
+    private int rating;
+
+    private String notes;
+
+    private String status;
+
+    private LocalDate watchedDate;
+
+    public WatchHistory() {
+    }
+
+    public WatchHistory(UserFilmId userFilmId, int rating, String notes, String status, LocalDate watchedDate) {
+        this.userFilmId = userFilmId;
+        this.rating = rating;
+        this.notes = notes;
+        this.status = status;
+        this.watchedDate = watchedDate;
+    }
+
+    @Bindable
+    public UserFilmId getUserFilmId() {
+        return userFilmId;
+    }
+
+    public void setUserFilmId(UserFilmId userFilmId) {
+        this.userFilmId = userFilmId;
+    }
+    @Bindable
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
         this.rating = rating;
     }
 
     @Bindable
-    public String getRating() {
-        return Integer.toString(rating);
+    public String getNotes() {
+        return notes;
     }
 
-    // make sure the argument is a numeric string
-    public void setRating(String rating) {
-        this.rating = Integer.parseInt(rating);
-    }
-
-    @Bindable
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     @Bindable
-    public String getInfo() {
-        return info;
+    public String getStatus() {
+        return status;
     }
 
-    public void setInfo(String info) {
-        this.info = info;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    @Bindable
+    public LocalDate getWatchedDate() {
+        return watchedDate;
+    }
+
+    public void setWatchedDate(LocalDate watchedDate) {
+        this.watchedDate = watchedDate;
     }
 }

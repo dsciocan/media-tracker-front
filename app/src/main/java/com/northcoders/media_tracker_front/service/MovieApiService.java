@@ -9,13 +9,10 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface MovieApiService {
-    @GET("history")
-    Call<List<WatchHistory>> getHistory();
 
     @GET("bookmarked")
     Call<List<Bookmarked>> getBookmarked();
 
-    //call to user?
     @GET("watching")
     Call<List<Watching>> getWatching();
 }
