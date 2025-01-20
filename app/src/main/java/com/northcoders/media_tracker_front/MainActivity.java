@@ -14,6 +14,7 @@ import com.northcoders.media_tracker_front.fragments.EpisodeFragment;
 import com.northcoders.media_tracker_front.fragments.HomeFragment;
 import com.northcoders.media_tracker_front.fragments.MovieFragment;
 import com.northcoders.media_tracker_front.fragments.ProfileFragment;
+import com.northcoders.media_tracker_front.fragments.SearchFragment;
 import com.northcoders.media_tracker_front.fragments.StatsFragment;
 import com.northcoders.media_tracker_front.fragments.WatchedFragment;
 
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
     StatsFragment statsFragment = new StatsFragment();
     WatchedFragment watchedFragment = new WatchedFragment();
     MovieFragment movieFragment = new MovieFragment();
+    SearchFragment searchFragment = new SearchFragment();
     EpisodeFragment episodeFragment = new EpisodeFragment();
 
     ProfileFragment profileFragment = new ProfileFragment();
