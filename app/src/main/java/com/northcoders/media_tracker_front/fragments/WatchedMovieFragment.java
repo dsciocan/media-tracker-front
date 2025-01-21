@@ -2,6 +2,7 @@ package com.northcoders.media_tracker_front.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
@@ -49,15 +50,18 @@ public class WatchedMovieFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstance){
+        super.onCreate(savedInstance);
         if (getArguments() != null) {
             getArguments().getLong(MOVIE_ID_KEY);
             viewModel.getWatchHistory();
         }
-
-
-
-
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
