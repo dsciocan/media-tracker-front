@@ -1,18 +1,26 @@
 package com.northcoders.media_tracker_front.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.northcoders.media_tracker_front.MainActivity;
 import com.northcoders.media_tracker_front.R;
 import com.northcoders.media_tracker_front.adapter.BookmarkedAdapter;
 import com.northcoders.media_tracker_front.adapter.RecyclerViewInterface;
@@ -31,6 +39,7 @@ public class BookmarkedFragment extends Fragment implements RecyclerViewInterfac
     FragmentBookmarkedBinding binding;
     BookmarkedViewModel viewModel;
 
+    ProfileFragment profileFragment = new ProfileFragment();
 
     public BookmarkedFragment() {
         // Required empty public constructor
@@ -53,6 +62,29 @@ public class BookmarkedFragment extends Fragment implements RecyclerViewInterfac
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_bookmarked, container, false);
+        ImageButton profilePicture = binding.profilepicturemain ;
+        Glide.with(profilePicture)
+                .load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString())
+                .circleCrop()
+//                .apply(RequestOptions.circleCropTransform())
+                .error(R.drawable.circularcustombutton)
+                .into(profilePicture);
+
+
+        profilePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .setCustomAnimations(
+                                android.R.anim.fade_in,
+                                android.R.anim.fade_out,
+                                android.R.anim.slide_in_left,
+                                android.R.anim.slide_out_right)
+                        .replace(R.id.frameLayoutFragment, profileFragment)
+                        .commit();
+            }
+        });
         return binding.getRoot();
     }
 
@@ -77,6 +109,8 @@ public class BookmarkedFragment extends Fragment implements RecyclerViewInterfac
 
     @Override
     public void onItemClick(int position) {
-
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.frameLayoutFragment, MovieFragment.class, null);
+        transaction.commit();
     }
 }
