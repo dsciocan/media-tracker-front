@@ -6,7 +6,8 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragments.BookmarkedFragment">
+        tools:context=".fragments.BookmarkedFragment"
+        android:layout_marginHorizontal="16dp">
 
 
 <!--        id?-->
@@ -14,13 +15,27 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
+
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bookmarkedTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Bookmarks"
                 style="@style/TextAppearance.myH1_serif"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                />
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/profilepicturemain"
+                android:layout_width="102dp"
+                android:layout_height="111dp"
+                android:adjustViewBounds="true"
+                app:layout_constraintStart_toStartOf="@+id/bookmarkedTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintHorizontal_bias="1"
+                android:background="@drawable/circularcustombutton"
                 />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -30,7 +45,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/profilepicturemain" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 </layout>
