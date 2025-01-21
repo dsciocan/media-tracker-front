@@ -14,52 +14,61 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="16dp"
+            >
 
             <ImageView
                 android:id="@+id/watching_item_img"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:adjustViewBounds="true"
-                android:contentDescription="@string/vintage_television"
+                android:contentDescription="movie poster"
                 android:scaleType="centerCrop"
-                android:src="@drawable/vintage_tv"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="16dp">
+                android:src="@drawable/vintage_tv" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/watching_item_text_container"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentStart="true">
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="16dp">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/watching_item_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="@string/title"
-                        android:paddingBottom="8dp"
+                        android:paddingBottom="6dp"
                         android:text="@{watching.title}"
+                        style="@style/TextAppearance.myH2_serif"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
+<!--                    release year?-->
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/watching_item_date"
+                        style="@style/TextAppearance.myBody2_sans"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="Year of Release"
+                        android:paddingBottom="6dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/watching_item_title" />
+
+<!--                    mock text is just there for testing - must be replaced -->
+                    <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/watching_item_info"
                         android:layout_width="wrap_content"
+                        style="@style/TextAppearance.myBody1_sans"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:hint="@string/mock_text"
-                        android:maxLines="3"
-                        android:text=""
+                        android:minLines="5"
+                        android:maxLines="5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/watching_item_title" />
+                        app:layout_constraintTop_toBottomOf="@id/watching_item_date" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
                 <!--            add button here? or click on item to see more details? -->
-            </RelativeLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

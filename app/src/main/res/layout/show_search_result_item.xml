@@ -22,10 +22,10 @@
 
             <ImageView
                 android:id="@+id/search_item_img"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:adjustViewBounds="true"
-                android:contentDescription="@string/vintage_television"
+                android:contentDescription="movie poster"
                 android:scaleType="centerCrop"
                 android:src="@drawable/vintage_tv" />
 
@@ -35,8 +35,9 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="16dp">
 
-                <TextView
-                    android:id="@+id/search_show_result_name"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/result_title"
+                    style="@style/TextAppearance.myH2_serif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="TV Show Title"
@@ -45,27 +46,31 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/search_show_result_date"
+
+                <!--                now it's a movie, should be release year instead-->
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/result_date"
+                    style="@style/TextAppearance.myBody2_sans"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="First Air Date"
+                    android:hint="Year of Release"
                     android:paddingBottom="6dp"
                     android:text="@{ShowSearchResult.first_air_date}"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/search_show_result_name" />
+                    app:layout_constraintTop_toBottomOf="@id/result_title" />
 
-                <TextView
-                    android:id="@+id/search_show_result_overview"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/result_overview"
+                    style="@style/TextAppearance.myBody1_sans"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:hint="Show Details"
-                    android:maxLines="10"
+                    android:maxLines="5"
+                    android:minLines="5"
                     android:text="@{ShowSearchResult.overview}"
-                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/search_show_result_date" />
+                    app:layout_constraintTop_toBottomOf="@id/result_date" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

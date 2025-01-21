@@ -39,7 +39,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="100dp"
                 android:text="@string/username"
-                android:textAppearance="@style/TextAppearance.customHeadline1"
+                android:textAppearance="@style/TextAppearance.myH1_sans"
 
                  />
 
