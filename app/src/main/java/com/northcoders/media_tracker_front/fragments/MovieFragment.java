@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.northcoders.media_tracker_front.R;
+import com.northcoders.media_tracker_front.databinding.FragmentMovieBinding;
 import com.northcoders.media_tracker_front.model.FilmDetails;
 import com.northcoders.media_tracker_front.viewmodel.MovieDetailsViewModel;
 
@@ -18,6 +19,8 @@ public class MovieFragment extends Fragment {
     private static final String MOVIE_ID_KEY = "MovieKey"  ;
     FilmDetails currentFilmDetails;
     MovieDetailsViewModel viewModel;
+
+    FragmentMovieBinding binding;
 
     public MovieFragment() {
         // Required empty public constructor
@@ -37,11 +40,10 @@ public class MovieFragment extends Fragment {
         if (getArguments() != null) {
             Long key = getArguments().getLong("MovieKey");
             viewModel = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
-            // use getArguements().getLong("MovieKey") to get the film id
-            // Now the viewmodel method to get the FilmResults object
-            // Set the FilmResults object to currentFilmDetails
-            // use that object for the textviews etc
             currentFilmDetails = viewModel.getFilmDetails(key).getValue();
+            binding.movieFragmentTitle.setText(currentFilmDetails.getTitle());
+            binding.movieFragmentOverview.setText(currentFilmDetails.getOverview());
+            binding.movieLanguage.setText(currentFilmDetails.getTitle());
 
         }
     }

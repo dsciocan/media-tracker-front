@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    >
+  <data>
+      <variable
+          name="film"
+          type="com.northcoders.media_tracker_front.model.FilmDetails" />
+  </data>
+<FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="16dp"
     tools:context=".fragments.MovieFragment">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/movie_fragment_avatar"
@@ -55,7 +62,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:maxLines="2"
-                android:text="Film Title"
                 app:layout_constraintStart_toEndOf="@id/movie_fragment_image"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -68,6 +74,7 @@
                 app:layout_constraintStart_toEndOf="@id/movie_fragment_image"
                 app:layout_constraintTop_toBottomOf="@id/movie_fragment_title">
 
+<!--                android:text="@{film.year}"-->
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/movie_year"
                     style="@style/TextAppearance.myBody1_sans"
@@ -82,12 +89,12 @@
                     android:layout_height="wrap_content"
                     android:hint="run time" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/movie_genres"
-                    style="@style/TextAppearance.myBody1_sans"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="genres" />
+<!--                <com.google.android.material.textview.MaterialTextView-->
+<!--                    android:id="@+id/movie_genres"-->
+<!--                    style="@style/TextAppearance.myBody1_sans"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:hint="genres" />-->
 
                 <!--            ideally these would have a label-->
                 <com.google.android.material.textview.MaterialTextView
@@ -97,12 +104,12 @@
                     android:layout_height="wrap_content"
                     android:hint="language" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/movie_country"
-                    style="@style/TextAppearance.myBody1_sans"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="country" />
+<!--                <com.google.android.material.textview.MaterialTextView-->
+<!--                    android:id="@+id/movie_country"-->
+<!--                    style="@style/TextAppearance.myBody1_sans"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:hint="country" />-->
 
             </LinearLayout>
 
@@ -142,7 +149,7 @@
                     android:layout_height="match_parent"
                     android:padding="12dp">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/movie_fragment_details_heading"
                         style="@style/TextAppearance.myH2_sans"
                         android:layout_width="wrap_content"
@@ -152,13 +159,11 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/movie_fragment_overview"
                         style="@style/TextAppearance.myBody1_sans"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:maxLines="20"
-                        android:scrollbars="vertical"
-                        android:text="@string/mock_text"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/movie_fragment_details_heading" />
 
@@ -178,3 +183,4 @@
             app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
+</layout>
