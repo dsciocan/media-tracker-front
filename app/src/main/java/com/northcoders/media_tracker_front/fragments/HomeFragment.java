@@ -35,6 +35,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface  {
     ShowSearchResultAdapter showSearchResultAdapter;
     ShowSearchResultViewModel viewModel;
     private ProfileFragment profileFragment = new ProfileFragment();
+    FilmSearchResultFragment filmSearchResultFragment = new FilmSearchResultFragment();
 
     public HomeFragment() {
         // Required empty public constructor
@@ -103,7 +104,6 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface  {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         return binding.getRoot();
     }
-
     @Override
     public void onItemClick(int position) {
     }
