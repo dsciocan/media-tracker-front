@@ -45,6 +45,9 @@ public class WatchHistoryAdapter extends RecyclerView.Adapter<WatchHistoryAdapte
 
     @Override
     public  int getItemCount(){
+        if (watchHistoryArrayList==null){
+            return 0;
+        }
         return watchHistoryArrayList.size();
     }
 
