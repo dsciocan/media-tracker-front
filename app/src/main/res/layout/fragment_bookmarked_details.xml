@@ -75,7 +75,7 @@
                 style="@style/TextAppearance.myBody1_sans"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{bookmarked.userFilmId.film.releaseYear}"
+                android:text="@{String.valueOf(bookmarked.userFilmId.film.releaseYear)}"
                 android:hint="Year" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -83,7 +83,7 @@
                 style="@style/TextAppearance.myBody1_sans"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{bookmarked.userFilmId.film.duration}"
+                android:text="@{String.valueOf(bookmarked.userFilmId.film.duration)}"
                 android:hint="run time" />
 
             <com.google.android.material.textview.MaterialTextView
