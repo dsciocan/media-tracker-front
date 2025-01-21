@@ -50,6 +50,7 @@ public class FilmSearchResultAdapter extends RecyclerView.Adapter<FilmSearchResu
         ImageView filmSearchPoster = holder.binding.filmSearchPoster;
         Glide.with(filmSearchPoster)
                 .load(searchResult.getPoster_path())
+                .error(R.drawable.no_poster)
                 .into(filmSearchPoster);
 
         holder.binding.setFilmSearchResult(searchResult);
