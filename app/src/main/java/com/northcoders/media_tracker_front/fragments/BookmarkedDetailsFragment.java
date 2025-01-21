@@ -1,5 +1,6 @@
 package com.northcoders.media_tracker_front.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
@@ -30,6 +31,7 @@ public class BookmarkedDetailsFragment extends Fragment {
    Bookmarked bookmarkedFilm = new Bookmarked();
    FragmentBookmarkedDetailsBinding binding;
    ProfileFragment profileFragment = new ProfileFragment();
+   BookmarkedFragment bookmarkedFragment = new BookmarkedFragment();
     private static final String MOVIE_ID_KEY = "movieKey"  ;
 
 
@@ -61,6 +63,17 @@ public class BookmarkedDetailsFragment extends Fragment {
             getFilmDetails(filmId);
         }
 
+        binding.bookmarkedFragmentBackFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    getActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.frameLayoutFragment, bookmarkedFragment)
+                            .addToBackStack("BookmarkedDetailsTransaction")
+                            .commit();
+            }
+        });
+
             ImageButton profilePicture = binding.profilepicturebookmarked;
             Glide.with(profilePicture)
                     .load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString())
@@ -81,6 +94,7 @@ public class BookmarkedDetailsFragment extends Fragment {
                                     android.R.anim.slide_in_left,
                                     android.R.anim.slide_out_right)
                             .replace(R.id.frameLayoutFragment, profileFragment)
+                            .addToBackStack("BookmarkedDetailsTransaction")
                             .commit();
                 }
             });
@@ -98,7 +112,10 @@ public class BookmarkedDetailsFragment extends Fragment {
 
     public void setBindingText(Bookmarked bookmarked) {
         Log.i("BOOKMARKEDDETAILSFRAGMENT", bookmarked.getUserFilmId().getFilm().getTitle());
-        binding.bookmarkedFragmentTitle.setText(bookmarked.getUserFilmId().getFilm().getTitle());
+        binding.setBookmarked(bookmarked);
+        binding.bookmarkedFragmentRatingBar.setRating(bookmarked.getRating());
+//        binding.bookmarkedFragmentTitle.setText(bookmarked.getUserFilmId().getFilm().getTitle());
+        Glide.with(this).load(bookmarked.getUserFilmId().getFilm().getPoster_url()).into(binding.bookmarkedFragmentImage);
     }
 
 
@@ -109,9 +126,6 @@ public class BookmarkedDetailsFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_bookmarked_details, container, false);
         // Inflate the layout for this fragment
     return binding.getRoot();
-
-
-//        Glide.with(this).load(bookmarked.getUserFilmId().getFilm().getPoster_url()).into(binding.bookmarkedFragmentImage);
 
     }
 
