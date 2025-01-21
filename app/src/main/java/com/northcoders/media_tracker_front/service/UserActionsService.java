@@ -14,6 +14,6 @@ public interface UserActionsService {
     @GET("users/auth")
     Call<Void> auth();
 
-    @GET("users/films")
+    @GET("users/films/search")
     Call<List<WatchHistory>> getHistory(@Query("status") String status);
 }
