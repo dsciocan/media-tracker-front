@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/movie_title"
-            android:textSize="24sp"
+        style="@style/TextAppearance.myH1_serif"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -84,7 +84,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/details"
-                    android:textSize="18sp"
+                    android:paddingBottom="12dp"
+                    style="@style/TextAppearance.myH2_sans"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -92,6 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:lines="10"
+                    style="@style/TextAppearance.myBody1_sans"
                     android:text="@string/mock_text"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/movie_fragment_details_heading" />
@@ -126,7 +128,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/my_notes"
-                    android:textSize="18sp"
+                    style="@style/TextAppearance.myH2_sans"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
                 <com.google.android.material.textfield.TextInputEditText
@@ -134,6 +136,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/enter_your_notes_here"
+                    style="@style/TextAppearance.myBody1_sans"
                     android:maxLines="10"
                     android:minLines="4"
                     app:layout_constraintStart_toStartOf="parent"

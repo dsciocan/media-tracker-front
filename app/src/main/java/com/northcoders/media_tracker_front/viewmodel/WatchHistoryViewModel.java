@@ -15,7 +15,6 @@ public class WatchHistoryViewModel extends AndroidViewModel{
             super(application);
             this.watchHistoryRepository = new WatchHistoryRepository(application);
         }
-
         public LiveData<List<WatchHistory>> getWatchHistory() {
             return watchHistoryRepository.getMutableLiveData();
         }
