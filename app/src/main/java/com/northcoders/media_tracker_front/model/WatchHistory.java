@@ -46,6 +46,7 @@ public class WatchHistory extends BaseObservable {
     }
 
     public void setRating(int rating) {
+
         this.rating = rating;
     }
 

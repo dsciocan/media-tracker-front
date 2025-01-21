@@ -6,12 +6,12 @@ public class FilmSearchResult {
     private String poster_path;
     private String title;
     //year only?
-    private int release_date;
+    private String release_date;
 
     public FilmSearchResult() {
     }
 
-    public FilmSearchResult(Long id, String overview, String poster_path, String title, int release_date) {
+    public FilmSearchResult(Long id, String overview, String poster_path, String title, String release_date) {
         this.id = id;
         this.overview = overview;
         this.poster_path = poster_path;
@@ -51,11 +51,11 @@ public class FilmSearchResult {
         this.title = title;
     }
 
-    public int getRelease_date() {
+    public String getRelease_date() {
         return release_date;
     }
 
-    public void setRelease_date(int release_date) {
+    public void setRelease_date(String release_date) {
         this.release_date = release_date;
     }
 }
