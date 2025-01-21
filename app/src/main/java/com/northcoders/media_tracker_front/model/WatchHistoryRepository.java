@@ -5,6 +5,8 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import com.northcoders.media_tracker_front.service.MovieApiService;
 import com.northcoders.media_tracker_front.service.RetrofitInstance;
+import com.northcoders.media_tracker_front.service.UserActionsService;
+
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,10 +21,10 @@ public class WatchHistoryRepository {
     }
 
     public MutableLiveData<List<WatchHistory>> getMutableLiveData(){
-        MovieApiService movieApiService = RetrofitInstance.getService();
+        UserActionsService userActionsService = RetrofitInstance.getUserService();
 
         // getHistory() fetches the data, see 'service'
-        Call<List<WatchHistory>> call = movieApiService.getHistory();
+        Call<List<WatchHistory>> call = userActionsService.getHistory("watched");
         call.enqueue(new Callback<List<WatchHistory>>(){
             @Override
             public void onResponse(Call<List<WatchHistory>> call, Response<List<WatchHistory>> response) {
