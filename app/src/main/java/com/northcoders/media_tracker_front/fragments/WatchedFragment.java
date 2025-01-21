@@ -6,8 +6,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.northcoders.media_tracker_front.R;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,6 +32,8 @@ public class WatchedFragment extends Fragment implements RecyclerViewInterface {
     FragmentWatchedBinding binding;
     WatchHistoryViewModel viewModel;
 
+    ProfileFragment profileFragment = new ProfileFragment();
+
     public WatchedFragment() {
         // Required empty public constructor
     }
@@ -36,7 +43,7 @@ public class WatchedFragment extends Fragment implements RecyclerViewInterface {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(WatchHistoryViewModel.class);
 
-        //getHistory();
+        getHistory();
 
     }
 
@@ -48,6 +55,29 @@ public class WatchedFragment extends Fragment implements RecyclerViewInterface {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_watched, container, false);
+        ImageButton profilePicture = binding.profilepicturemain ;
+        Glide.with(profilePicture)
+                .load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString())
+                .circleCrop()
+//                .apply(RequestOptions.circleCropTransform())
+                .error(R.drawable.circularcustombutton)
+                .into(profilePicture);
+
+
+        profilePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .setCustomAnimations(
+                                android.R.anim.fade_in,
+                                android.R.anim.fade_out,
+                                android.R.anim.slide_in_left,
+                                android.R.anim.slide_out_right)
+                        .replace(R.id.frameLayoutFragment, profileFragment)
+                        .commit();
+            }
+        });
         return binding.getRoot();
     }
 
@@ -72,6 +102,8 @@ public class WatchedFragment extends Fragment implements RecyclerViewInterface {
 
     @Override
     public void onItemClick(int position) {
-
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.frameLayoutFragment, MovieFragment.class, null);
+        transaction.commit();
     }
 }
