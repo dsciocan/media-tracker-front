@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import android.widget.ImageButton;
 
 import com.bumptech.glide.Glide;
@@ -79,30 +78,16 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface  {
         SearchView searchView = view.findViewById(R.id.SearchViewHome);
         searchView.clearFocus();
 
-        // Find the button by its ID
-        Button mButton = view.findViewById(R.id.button_searchShow);
-        // Set a click listener on the button
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Handle button click
-                Toast.makeText(getContext(), "Button clicked!", Toast.LENGTH_SHORT).show();
-                Fragment searchFragment = new ShowSearchFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frameLayoutFragment, searchFragment) // Replace container with the new fragment
-                        .addToBackStack(null) // Add transaction to backstack to allow navigation back
-                        .commit();
-            }
-        });
 
         binding.buttonSearchMovie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("SearchQuery",searchView.getQuery().toString());
-                filmSearchResultFragment.setArguments(bundle);
+                String query = searchView.getQuery().toString();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("SearchQuery",searchView.getQuery().toString());
+                FilmSearchResultFragment fragment = FilmSearchResultFragment.newInstance(query);
                 getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frameLayoutFragment,filmSearchResultFragment)
+                        .replace(R.id.frameLayoutFragment,fragment)
                         .addToBackStack("FilmSearchResultsTransaction")
                         .commit();
             }

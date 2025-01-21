@@ -41,7 +41,7 @@ public class FilmSearchResultRepository {
 
             @Override
             public void onFailure(Call<List<FilmSearchResult>> call, Throwable t) {
-                Log.e("Film Search Repository", t.getMessage());
+                Log.e("Film Search Repository Failed ", t.getMessage());
             }
         });
         return mutableLiveData;

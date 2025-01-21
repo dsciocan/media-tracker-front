@@ -21,10 +21,11 @@ public class WatchHistoryRepository {
     }
 
     public MutableLiveData<List<WatchHistory>> getMutableLiveData(){
-        UserActionsService userActionsService = RetrofitInstance.getUserService();
+        //UserActionsService userActionsService = RetrofitInstance.getUserService();
+        MovieApiService movieApiService = RetrofitInstance.getService();
 
         // getHistory() fetches the data, see 'service'
-        Call<List<WatchHistory>> call = userActionsService.getHistory("watched");
+        Call<List<WatchHistory>> call = movieApiService.getHistory();
         call.enqueue(new Callback<List<WatchHistory>>(){
             @Override
             public void onResponse(Call<List<WatchHistory>> call, Response<List<WatchHistory>> response) {

@@ -17,6 +17,9 @@ public interface MovieApiService {
     @GET("users/films/search?status=BOOKMARKED")
     Call<List<Bookmarked>> getBookmarked();
 
+    @GET("users/films/search?status=WATCHED")
+    Call<List<WatchHistory>> getHistory();
+
     @GET("watching")
     Call<List<Watching>> getWatching();
 

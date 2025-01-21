@@ -78,15 +78,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-        <Button
-            android:id="@+id/button_searchShow"
-            android:layout_width="175dp"
-            android:layout_height="50dp"
-            android:text="search shows"
-            app:layout_constraintBottom_toTopOf="@+id/HorizontalScroll"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/SearchViewHome" />
 
         <!--
         <androidx.recyclerview.widget.RecyclerView
@@ -121,7 +112,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_searchShow"
+            app:layout_constraintTop_toBottomOf="@+id/SearchViewHome"
             app:layout_constraintVertical_bias="0.2"
            />
 
