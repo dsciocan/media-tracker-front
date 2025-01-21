@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.northcoders.media_tracker_front.R;
 import com.northcoders.media_tracker_front.databinding.BookmarkedItemBinding;
 import com.northcoders.media_tracker_front.model.Bookmarked;
+import com.bumptech.glide.Glide;
+
 
 import java.util.List;
 
@@ -43,13 +45,20 @@ public class BookmarkedAdapter extends RecyclerView.Adapter<BookmarkedAdapter.Bo
 
     @Override
     public void onBindViewHolder(@NonNull BookmarkedViewHolder holder, int position) {
+
         Bookmarked bookmarked = bookmarkedList.get(position);
         BookmarkedViewHolder.bookmarkedItemBinding.setBookmarked(bookmarked);
+        Glide.with(context).load(bookmarked.getUserFilmId().getFilm().getPosterUrl()).into(holder.bookmarkedItemBinding.bookmarkedFragmentImg);
+
     }
 
     @Override
     public int getItemCount() {
-        return bookmarkedList.size();
+        if(bookmarkedList != null) {
+            return bookmarkedList.size();
+        } else {
+            return 0;
+        }
     }
 
     public static class BookmarkedViewHolder extends RecyclerView.ViewHolder {
