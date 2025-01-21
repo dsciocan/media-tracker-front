@@ -5,7 +5,11 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,9 +29,13 @@ import com.anychart.enums.Position;
 import com.anychart.enums.TooltipPositionMode;
 import com.northcoders.media_tracker_front.R;
 import com.northcoders.media_tracker_front.databinding.FragmentStatsBinding;
+import com.northcoders.media_tracker_front.viewmodel.ShowSearchResultViewModel;
+import com.northcoders.media_tracker_front.viewmodel.StatsViewModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * todo:
@@ -46,6 +54,10 @@ import java.util.List;
 public class StatsFragment extends Fragment {
 
     FragmentStatsBinding binding;
+    StatsViewModel viewModel;
+    Map<String,Integer> map ;
+    List<DataEntry> dataEntriesGenres = new ArrayList<>();
+
 
     public StatsFragment() {
         // Required empty public constructor
@@ -55,7 +67,7 @@ public class StatsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        viewModel = new ViewModelProvider(this).get(StatsViewModel.class);
     }
 
 
@@ -147,16 +159,28 @@ public class StatsFragment extends Fragment {
         //Create pie chart object
         Pie pie = AnyChart.pie();
 
+//        LiveData<Map<String,Integer>> genreStats = viewModel.getGenreStats();
+        viewModel.getGenreStats();
+        getAllGenreStats();
+
+
+//        List<DataEntry> dataEntry = new ArrayList<>();
+
+
+
+
+
+
         // Create pie chart data
-        List<DataEntry> dataEntry = new ArrayList<>();
-        dataEntry.add(new ValueDataEntry("Horror",20));
-        dataEntry.add(new ValueDataEntry("Comedy",10));
-        dataEntry.add(new ValueDataEntry("Action",45));
-        dataEntry.add(new ValueDataEntry("Drama",9));
-        dataEntry.add(new ValueDataEntry("Thriller",5));
+//        List<DataEntry> dataEntry = new ArrayList<>();
+//        dataEntry.add(new ValueDataEntry("Horror",20));
+//        dataEntry.add(new ValueDataEntry("Comedy",10));
+//        dataEntry.add(new ValueDataEntry("Action",45));
+//        dataEntry.add(new ValueDataEntry("Drama",9));
+//        dataEntry.add(new ValueDataEntry("Thriller",5));
 
         // Set pie chart data
-        pie.data(dataEntry);
+        pie.data(dataEntriesGenres);
 
         // Set pie chart titles and legend (?) and positions
         pie.title("Genres watched this week");
@@ -188,4 +212,26 @@ public class StatsFragment extends Fragment {
         // Inflate the layout for this fragment
         return binding.getRoot();
     }
+
+    public void getAllGenreStats(){
+        viewModel.getGenreStats().observe(this, new Observer<Map<String, Integer>>() {
+            @Override
+            public void onChanged(Map<String, Integer> stringIntegerMap) {
+                if(stringIntegerMap!=null){
+                    for (Map.Entry<String,Integer> entry : stringIntegerMap.entrySet()){
+                        Log.i("StatsFragment", entry.getKey() + " " + entry.getValue());
+                        map = new HashMap<>();
+                        map.put(entry.getKey(), entry.getValue());
+                    }
+                    if(map!=null){
+                        for (Map.Entry<String,Integer> entry : map.entrySet()){
+                            dataEntriesGenres.add(new ValueDataEntry(entry.getKey(),entry.getValue()));
+                        }
+                    }
+                }
+            }
+        });
+
+    }
+
 }
