@@ -50,7 +50,6 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/title"
                         android:paddingBottom="8dp"
-                        android:text="@{watchHistory.title}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -60,7 +59,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="@string/mock_text_short"
-                        android:text="@{watchHistory.info}"
                         android:maxLines="5"
                         android:minLines="5"
                         app:layout_constraintStart_toStartOf="parent"
