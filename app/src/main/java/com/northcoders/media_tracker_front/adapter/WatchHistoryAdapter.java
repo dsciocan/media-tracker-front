@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.northcoders.media_tracker_front.R;
 import com.northcoders.media_tracker_front.model.WatchHistory;
 import java.util.ArrayList;
@@ -38,6 +40,7 @@ public class WatchHistoryAdapter extends RecyclerView.Adapter<WatchHistoryAdapte
     public void onBindViewHolder(@NonNull HistoryViewHolder holder, int position){
         WatchHistory watchHistory = watchHistoryArrayList.get(position);
         holder.watchHistoryItemBinding.setWatchHistory(watchHistory);
+        Glide.with(context).load(watchHistory.getUserFilmId().getFilm().getPoster_url()).into(HistoryViewHolder.watchHistoryItemBinding.watchHistoryImg);
     }
 
     @Override
