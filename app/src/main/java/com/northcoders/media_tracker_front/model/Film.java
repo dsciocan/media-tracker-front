@@ -16,10 +16,20 @@ public class Film {
     private int releaseYear;
     private List<String> genres;
 
+    public String getPoster_url() {
+        return poster_url;
+    }
+
+    public void setPoster_url(String poster_url) {
+        this.poster_url = poster_url;
+    }
+
+    private String poster_url;
+
     public Film() {
     }
 
-    public Film(Long id, String title, String synopsis, String director, String country, String language, int duration, int releaseYear, List<String> genres) {
+    public Film(Long id, String title, String synopsis, String director, String country, String language, int duration, int releaseYear, List<String> genres, String poster_url) {
         this.id = id;
         this.title = title;
         this.synopsis = synopsis;
@@ -29,6 +39,7 @@ public class Film {
         this.duration = duration;
         this.releaseYear = releaseYear;
         this.genres = genres;
+        this.poster_url = poster_url;
     }
 
     public Long getId() {
