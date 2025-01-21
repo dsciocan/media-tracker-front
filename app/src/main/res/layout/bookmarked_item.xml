@@ -14,58 +14,60 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="16dp">
 
             <ImageView
                 android:id="@+id/bookmarked_fragment_img"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:adjustViewBounds="true"
-                android:contentDescription="@string/vintage_television"
+                android:contentDescription="poster"
                 android:scaleType="centerCrop"
                 android:src="@drawable/vintage_tv"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:padding="16dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/text_container"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_marginEnd="8dp"
-                    android:layout_toStartOf="@+id/bookmarked_fragment_bookmark">
+                    android:layout_toStartOf="@+id/bookmarked_fragment_icon">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/bookmarked_fragment_title"
+                        style="@style/TextAppearance.myH2_serif"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="@string/title"
                         android:paddingBottom="8dp"
-
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                     <!--android:text="@{bookmarked.title}"-->
 
                     <TextView
                         android:id="@+id/bookmarked_fragment_info"
+                        style="@style/TextAppearance.myBody1_sans"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
-                        android:hint="@string/mock_text"
-                        android:maxLines="3"
-                        android:text="@{bookmarked.posterUrl}"
+                        android:hint="Show Details"
+                        android:maxLines="5"
+                        android:minLines="5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/bookmarked_fragment_title" />
                     <!--android:text="@{bookmarked.info}"-->
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <ImageButton
-                    android:id="@+id/bookmarked_fragment_bookmark"
+                    android:id="@+id/bookmarked_fragment_icon"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_alignParentEnd="true"

@@ -18,7 +18,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Bookmarks"
-                style="@style/TextAppearance.H1_serif"
+                style="@style/TextAppearance.myH1_serif"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 />
