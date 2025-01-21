@@ -18,4 +18,7 @@ public class WatchHistoryViewModel extends AndroidViewModel{
         public LiveData<List<WatchHistory>> getWatchHistory() {
             return watchHistoryRepository.getMutableLiveData();
         }
+        public LiveData<WatchHistory> getWatchedFilmDetails(Long id){
+            return watchHistoryRepository.getUserFilmDetails(id);
+        }
     }

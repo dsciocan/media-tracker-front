@@ -18,4 +18,10 @@ public interface UserActionsService {
     Call<List<WatchHistory>> getHistory(@Query("status") String status);
     @DELETE("users")
     Call<Void> deleteUser();
+
+    @GET("users/films/search?status=WATCHED")
+    Call<List<WatchHistory>> getHistory();
+    @GET("users/films/{filmDbId}")
+    Call<WatchHistory> getUserFilmDetails(@Query("filmDbId") Long movieId );
+
 }

@@ -3,6 +3,7 @@ package com.northcoders.media_tracker_front.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.view.ViewGroup;
 import com.northcoders.media_tracker_front.R;
 import com.northcoders.media_tracker_front.databinding.FragmentWatchedBinding;
 import com.northcoders.media_tracker_front.model.FilmDetails;
+import com.northcoders.media_tracker_front.model.WatchHistory;
+import com.northcoders.media_tracker_front.viewmodel.WatchHistoryViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,27 +24,24 @@ public class WatchedMovieFragment extends Fragment {
 
     FilmDetails currentFilmDetails;
 
-    MovieDetailsViewModel;
+    WatchHistory currentFilm;
 
-    FragmentWatchedMovie binding;
+    WatchHistoryViewModel viewModel;
+    FragmentWatchedBinding binding;
+
+    private final static String MOVIE_ID_KEY = "moviekey";
+
 
     public WatchedMovieFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment WatchedMovieFragment.
-     */
+
     // TODO: Rename and change types and number of parameters
     public static WatchedMovieFragment newInstance(Long movieId) {
         WatchedMovieFragment fragment = new WatchedMovieFragment();
         Bundle args = new Bundle();
-        args.putLong();
+        args.putLong(MOVIE_ID_KEY,movieId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,9 +50,13 @@ public class WatchedMovieFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            getArguments().getLong(MOVIE_ID_KEY);
+            viewModel.getWatchHistory();
         }
+
+
+
+
     }
 
     @Override
@@ -61,4 +65,22 @@ public class WatchedMovieFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_watched_movie, container, false);
     }
+
+    public void getUserFilmDetails(Long id){
+        viewModel.getWatchedFilmDetails(id).observe(this, new Observer<WatchHistory>() {
+            @Override
+            public void onChanged(WatchHistory watchHistory) {
+                currentFilm = watchHistory;
+                displayInPage();
+            }
+        });
+    }
+
+    public void displayInPage(){
+        binding.watchHistoryTitle.setText(currentFilm.getUserFilmId().getFilm().getTitle());
+
+    }
+
+
+
 }
