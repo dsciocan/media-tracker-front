@@ -19,12 +19,12 @@ public class WatchHistory extends BaseObservable {
 
     private String status;
 
-    private LocalDate watchedDate;
+    private String watchedDate;
 
     public WatchHistory() {
     }
 
-    public WatchHistory(UserFilmId userFilmId, int rating, String notes, String status, LocalDate watchedDate) {
+    public WatchHistory(UserFilmId userFilmId, int rating, String notes, String status, String watchedDate) {
         this.userFilmId = userFilmId;
         this.rating = rating;
         this.notes = notes;
@@ -69,11 +69,11 @@ public class WatchHistory extends BaseObservable {
     }
 
     @Bindable
-    public LocalDate getWatchedDate() {
+    public String getWatchedDate() {
         return watchedDate;
     }
 
-    public void setWatchedDate(LocalDate watchedDate) {
+    public void setWatchedDate(String watchedDate) {
         this.watchedDate = watchedDate;
     }
 }
