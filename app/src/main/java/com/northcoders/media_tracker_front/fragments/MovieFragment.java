@@ -3,6 +3,7 @@ package com.northcoders.media_tracker_front.fragments;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -35,22 +36,37 @@ public class MovieFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        viewModel = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
+    }
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             Long key = getArguments().getLong("MovieKey");
-            viewModel = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
             currentFilmDetails = viewModel.getFilmDetails(key).getValue();
             binding.movieFragmentTitle.setText(currentFilmDetails.getTitle());
             binding.movieFragmentOverview.setText(currentFilmDetails.getOverview());
             binding.movieLanguage.setText(currentFilmDetails.getTitle());
-
         }
+
+
+
     }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_movie, container, false);
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_movie,container, false);
+        return binding.getRoot();
     }
+
+
+
+
+
 }
