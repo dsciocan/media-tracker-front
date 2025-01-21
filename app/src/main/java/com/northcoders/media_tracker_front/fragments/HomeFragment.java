@@ -35,6 +35,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface  {
     ShowSearchResultAdapter showSearchResultAdapter;
     ShowSearchResultViewModel viewModel;
     private ProfileFragment profileFragment = new ProfileFragment();
+    FilmSearchResultFragment filmSearchResultFragment = new FilmSearchResultFragment();
 
     public HomeFragment() {
         // Required empty public constructor
@@ -74,7 +75,6 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface  {
             }
         });
 
-
         // Initialize SearchView
         SearchView searchView = view.findViewById(R.id.SearchViewHome);
         searchView.clearFocus();
@@ -94,16 +94,26 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface  {
                         .commit();
             }
         });
+
+        binding.buttonSearchMovie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("SearchQuery",searchView.getQuery().toString());
+                filmSearchResultFragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frameLayoutFragment,filmSearchResultFragment)
+                        .addToBackStack("FilmSearchResultsTransaction")
+                        .commit();
+            }
+        });
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         return binding.getRoot();
     }
-
     @Override
     public void onItemClick(int position) {
     }
