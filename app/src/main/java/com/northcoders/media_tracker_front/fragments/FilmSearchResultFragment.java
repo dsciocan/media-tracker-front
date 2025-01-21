@@ -14,8 +14,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.SearchView;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.northcoders.media_tracker_front.R;
 import com.northcoders.media_tracker_front.adapter.FilmSearchResultAdapter;
 import com.northcoders.media_tracker_front.adapter.RecyclerViewInterface;
@@ -33,6 +36,7 @@ public class FilmSearchResultFragment extends Fragment implements RecyclerViewIn
     FilmSearchResultAdapter filmSearchResultAdapter;
     FilmSearchResultViewModel viewModel;
     private String previousQuery;
+    ProfileFragment profileFragment = new ProfileFragment();
 
     public FilmSearchResultFragment() {
         // Required empty public constructor
@@ -52,6 +56,10 @@ public class FilmSearchResultFragment extends Fragment implements RecyclerViewIn
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        loadProfilePicture();
+
+
+
 //        if(previousQuery != null && !previousQuery.isEmpty()){
 ////            binding.SearchViewSearch.setQuery(previousQuery,false);
 //
@@ -101,6 +109,32 @@ public class FilmSearchResultFragment extends Fragment implements RecyclerViewIn
         });
     }
 
+
+    private void loadProfilePicture(){
+        ImageButton profilePicture = binding.profilepicturemain ;
+        Glide.with(profilePicture)
+                .load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString())
+                .circleCrop()
+//                .apply(RequestOptions.circleCropTransform())
+                .error(R.drawable.circularcustombutton)
+                .into(profilePicture);
+
+        profilePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .setCustomAnimations(
+                                android.R.anim.fade_in,
+                                android.R.anim.fade_out,
+                                android.R.anim.slide_in_left,
+                                android.R.anim.slide_out_right)
+                        .replace(R.id.frameLayoutFragment, profileFragment)
+                        .addToBackStack("profileFragmentTransaction") // allow user to press back to go back to home fragment
+                        .commit();
+            }
+        });
+    }
     private void displayInRecyclerView(){
         recyclerView = binding.recyclerview;
         filmSearchResultAdapter = new FilmSearchResultAdapter(searchResults,this.getContext(),this);
