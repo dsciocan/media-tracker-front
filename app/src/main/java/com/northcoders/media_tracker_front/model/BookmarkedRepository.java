@@ -51,6 +51,8 @@ public class BookmarkedRepository {
         call.enqueue(new Callback<Bookmarked>() {
             @Override
             public void onResponse(Call<Bookmarked> call, Response<Bookmarked> response) {
+                Log.i("BOOKMARKED REPO", String.valueOf(response.code()));
+                Log.i("BOOKMARKED REPO", response.body().toString());
                 Bookmarked userFilm = response.body();
                 singleFilmData.setValue(userFilm);
             }

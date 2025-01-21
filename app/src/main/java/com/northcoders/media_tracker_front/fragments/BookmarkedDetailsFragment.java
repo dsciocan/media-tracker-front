@@ -38,11 +38,9 @@ public class BookmarkedDetailsFragment extends Fragment {
     }
 
 
-
-
-
     public static BookmarkedDetailsFragment newInstance(Long id){
         BookmarkedDetailsFragment movieFragment = new BookmarkedDetailsFragment();
+        Log.i("INSTANCE", String.valueOf(id));
         Bundle bundle = new Bundle();
         bundle.putLong(MOVIE_ID_KEY,id);
         movieFragment.setArguments(bundle);
@@ -60,7 +58,32 @@ public class BookmarkedDetailsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             Long filmId = getArguments().getLong("movieKey");
+            getFilmDetails(filmId);
         }
+
+            ImageButton profilePicture = binding.profilepicturebookmarked;
+            Glide.with(profilePicture)
+                    .load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString())
+                    .circleCrop()
+//                .apply(RequestOptions.circleCropTransform())
+                    .error(R.drawable.circularcustombutton)
+                    .into(profilePicture);
+
+
+            profilePicture.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .setCustomAnimations(
+                                    android.R.anim.fade_in,
+                                    android.R.anim.fade_out,
+                                    android.R.anim.slide_in_left,
+                                    android.R.anim.slide_out_right)
+                            .replace(R.id.frameLayoutFragment, profileFragment)
+                            .commit();
+                }
+            });
     }
 
     public void getFilmDetails(Long id) {
@@ -74,6 +97,7 @@ public class BookmarkedDetailsFragment extends Fragment {
     }
 
     public void setBindingText(Bookmarked bookmarked) {
+        Log.i("BOOKMARKEDDETAILSFRAGMENT", bookmarked.getUserFilmId().getFilm().getTitle());
         binding.bookmarkedFragmentTitle.setText(bookmarked.getUserFilmId().getFilm().getTitle());
     }
 
@@ -84,30 +108,6 @@ public class BookmarkedDetailsFragment extends Fragment {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_bookmarked_details, container, false);
         // Inflate the layout for this fragment
-        ImageButton profilePicture = binding.profilepicturebookmarked;
-        Glide.with(profilePicture)
-                .load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString())
-                .circleCrop()
-//                .apply(RequestOptions.circleCropTransform())
-                .error(R.drawable.circularcustombutton)
-                .into(profilePicture);
-
-
-        profilePicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .setCustomAnimations(
-                                android.R.anim.fade_in,
-                                android.R.anim.fade_out,
-                                android.R.anim.slide_in_left,
-                                android.R.anim.slide_out_right)
-                        .replace(R.id.frameLayoutFragment, profileFragment)
-                        .commit();
-            }
-        });
-
     return binding.getRoot();
 
 
