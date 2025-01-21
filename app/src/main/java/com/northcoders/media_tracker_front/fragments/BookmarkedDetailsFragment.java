@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
@@ -26,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class BookmarkedDetailsFragment extends Fragment {
     BookmarkedDetailsViewModel bookmarkedDetailsViewModel;
-   Bookmarked bookmarked;
+   Bookmarked bookmarkedFilm = new Bookmarked();
    FragmentBookmarkedDetailsBinding binding;
    ProfileFragment profileFragment = new ProfileFragment();
     private static final String MOVIE_ID_KEY = "movieKey"  ;
@@ -59,12 +60,22 @@ public class BookmarkedDetailsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             Long filmId = getArguments().getLong("movieKey");
-            bookmarkedDetailsViewModel.getUserFilm(filmId).getValue();
-            bookmarked = bookmarkedDetailsViewModel.getUserFilm(filmId).getValue();
-            binding.setBookmarked(bookmarked);
         }
     }
 
+    public void getFilmDetails(Long id) {
+        bookmarkedDetailsViewModel.getUserFilm(id).observe(getViewLifecycleOwner(), new Observer<Bookmarked>() {
+            @Override
+            public void onChanged(Bookmarked bookmarked) {
+                bookmarkedFilm = bookmarked;
+                setBindingText(bookmarkedFilm);
+            }
+        });
+    }
+
+    public void setBindingText(Bookmarked bookmarked) {
+        binding.bookmarkedFragmentTitle.setText(bookmarked.getUserFilmId().getFilm().getTitle());
+    }
 
 
     @Override
