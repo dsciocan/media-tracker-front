@@ -35,35 +35,36 @@ public class FilmSearchResultFragment extends Fragment implements RecyclerViewIn
     ArrayList<FilmSearchResult> searchResults = new ArrayList<>();
     FilmSearchResultAdapter filmSearchResultAdapter;
     FilmSearchResultViewModel viewModel;
-    private String previousQuery;
+    private static final String previousQuery = "SearchQuery";
     ProfileFragment profileFragment = new ProfileFragment();
 
     public FilmSearchResultFragment() {
         // Required empty public constructor
     }
 
+    public static FilmSearchResultFragment newInstance(String query) {
+        FilmSearchResultFragment fragment = new FilmSearchResultFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(previousQuery, query); // Pass the new query each time
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(this).get(FilmSearchResultViewModel.class);
         super.onCreate(savedInstanceState);
-        previousQuery = "";
-        if(getArguments() != null){
-            previousQuery = previousQuery.replace("",getArguments().getString("SearchQuery"));
-           getArguments().clear();
-        }
-
     }
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         loadProfilePicture();
 
+        if(getArguments() != null){
+            getFilmResults(getArguments().getString(previousQuery));
+            binding.SearchViewSearch.setQuery(getArguments().getString(previousQuery),false);
+        }
 
-
-//        if(previousQuery != null && !previousQuery.isEmpty()){
-////            binding.SearchViewSearch.setQuery(previousQuery,false);
-//
-           getFilmResults(previousQuery);
 //        }
 
         binding.SearchViewSearch.clearFocus();
@@ -101,8 +102,6 @@ public class FilmSearchResultFragment extends Fragment implements RecyclerViewIn
         viewModel.getFilmSearchResults(query).observe(getViewLifecycleOwner(), new Observer<List<FilmSearchResult>>() {
             @Override
             public void onChanged(List<FilmSearchResult> filmSearchResults) {
-                if(!searchResults.isEmpty()){
-                searchResults.clear();}
                 searchResults = (ArrayList<FilmSearchResult>) filmSearchResults;
                 displayInRecyclerView();
             }
