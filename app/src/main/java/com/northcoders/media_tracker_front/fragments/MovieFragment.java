@@ -5,8 +5,10 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +20,7 @@ import com.northcoders.media_tracker_front.viewmodel.MovieDetailsViewModel;
 
 public class MovieFragment extends Fragment {
     private static final String MOVIE_ID_KEY = "MovieKey"  ;
-    FilmDetails currentFilmDetails;
+    FilmDetails currentFilmDetails = new FilmDetails();
     MovieDetailsViewModel viewModel;
 
     FragmentMovieBinding binding;
@@ -31,6 +33,7 @@ public class MovieFragment extends Fragment {
         MovieFragment movieFragment = new MovieFragment();
         Bundle bundle = new Bundle();
         bundle.putLong(MOVIE_ID_KEY,id);
+        Log.i("Movie Fragment", String.valueOf(id));
         movieFragment.setArguments(bundle);
         return movieFragment;
     }
@@ -39,20 +42,22 @@ public class MovieFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
+
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            Long key = getArguments().getLong("MovieKey");
-            currentFilmDetails = viewModel.getFilmDetails(key).getValue();
-            binding.movieFragmentTitle.setText(currentFilmDetails.getTitle());
-            binding.movieFragmentOverview.setText(currentFilmDetails.getOverview());
-            binding.movieLanguage.setText(currentFilmDetails.getTitle());
+            Long key = getArguments().getLong(MOVIE_ID_KEY);
+            /*currentFilmDetails = viewModel.getFilmDetails(key);*/
+            getFilmDetails(key);
+
         }
 
-
+        binding.movieFragmentTitle.setText(currentFilmDetails.getTitle());
+        binding.movieFragmentOverview.setText(currentFilmDetails.getOverview());
+        binding.movieLanguage.setText(currentFilmDetails.getTitle());
 
     }
 
@@ -67,6 +72,20 @@ public class MovieFragment extends Fragment {
 
 
 
+    public void getFilmDetails(Long id){
+        viewModel.getFilmDetails(id).observe(getViewLifecycleOwner(), new Observer<FilmDetails>() {
+            @Override
+            public void onChanged(FilmDetails filmDetails) {
+                currentFilmDetails = (FilmDetails) filmDetails;
+                bindText(currentFilmDetails);
+            }
+        });
+    }
 
+    public void bindText(FilmDetails filmDetails){
+        binding.movieFragmentTitle.setText(filmDetails.getTitle());
+
+
+    }
 
 }

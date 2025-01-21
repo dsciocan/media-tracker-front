@@ -13,7 +13,7 @@ public class FilmDetails {
     //year only?
     private String release_date;
     private int runtime;
-    private List<String> production_companies;
+    //private List<String> production_companies;
 
     //  List<Genre> genres
 
@@ -21,14 +21,14 @@ public class FilmDetails {
 
     }
 
-    public FilmDetails(String title, String overview, String original_language, String poster_path, String release_date, int runtime, List<String> production_companies) {
+    public FilmDetails(String title, String overview, String original_language, String poster_path, String release_date, int runtime){// List<String> production_companies) {
         this.title = title;
         this.overview = overview;
         this.original_language = original_language;
         this.poster_path = poster_path;
         this.release_date = release_date;
         this.runtime = runtime;
-        this.production_companies = production_companies;
+   //     this.production_companies = production_companies;
     }
 
     public String getTitle() {
@@ -79,11 +79,11 @@ public class FilmDetails {
         this.runtime = runtime;
     }
 
-    public List<String> getProduction_companies() {
+    /*public List<String> getProduction_companies() {
         return production_companies;
-    }
+    }*/
 
     public void setProduction_companies(List<String> production_companies) {
-        this.production_companies = production_companies;
+  //      this.production_companies = production_companies;
     }
 }
