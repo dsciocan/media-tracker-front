@@ -2,6 +2,7 @@ package com.northcoders.media_tracker_front.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,6 +28,7 @@ import com.northcoders.media_tracker_front.adapter.BookmarkedAdapter;
 import com.northcoders.media_tracker_front.adapter.RecyclerViewInterface;
 import com.northcoders.media_tracker_front.databinding.FragmentBookmarkedBinding;
 import com.northcoders.media_tracker_front.model.Bookmarked;
+import com.northcoders.media_tracker_front.viewmodel.BookmarkedDetailsViewModel;
 import com.northcoders.media_tracker_front.viewmodel.BookmarkedViewModel;
 
 import java.util.ArrayList;
@@ -38,6 +41,7 @@ public class BookmarkedFragment extends Fragment implements RecyclerViewInterfac
 
     FragmentBookmarkedBinding binding;
     BookmarkedViewModel viewModel;
+//    BookmarkedDetailsViewModel bookmarkedDetailsViewModel;
 
     ProfileFragment profileFragment = new ProfileFragment();
 
@@ -109,8 +113,16 @@ public class BookmarkedFragment extends Fragment implements RecyclerViewInterfac
 
     @Override
     public void onItemClick(int position) {
-        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.replace(R.id.frameLayoutFragment, MovieFragment.class, null);
-        transaction.commit();
+//        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+
+        Long id = bookmarkedList.get(position).getUserFilmId().getFilm().getId();
+        BookmarkedDetailsFragment bookmarkedDetailsFragment = new BookmarkedDetailsFragment().newInstance(id);
+
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frameLayoutFragment,bookmarkedDetailsFragment)
+                .addToBackStack("BookmarkedTransaction")
+                .commit();
+//        transaction.replace(R.id.frameLayoutFragment, BookmarkedDetailsFragment.class, null);
+//        transaction.commit();
     }
 }

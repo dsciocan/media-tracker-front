@@ -72,6 +72,7 @@ public class Bookmarked extends BaseObservable  {
         this.userFilmId = userFilmId;
     }
 
+    @Bindable
     public int getRating() {
         return rating;
     }
@@ -80,6 +81,7 @@ public class Bookmarked extends BaseObservable  {
         this.rating = rating;
     }
 
+    @Bindable
     public String getNotes() {
         return notes;
     }

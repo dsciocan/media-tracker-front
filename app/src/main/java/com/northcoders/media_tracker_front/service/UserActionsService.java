@@ -1,5 +1,6 @@
 package com.northcoders.media_tracker_front.service;
 
+import com.northcoders.media_tracker_front.model.Bookmarked;
 import com.northcoders.media_tracker_front.model.WatchHistory;
 
 import java.util.List;
@@ -17,6 +18,13 @@ public interface UserActionsService {
 
     @GET("users/films/search")
     Call<List<WatchHistory>> getHistory(@Query("status") String status);
+
+    @GET("users/films/search?status=BOOKMARKED")
+    Call<List<Bookmarked>> getBookmarked();
+
+    @GET("users/films/{filmId}")
+    Call<Bookmarked> getBookmarkedFilm(@Path("filmId") Long filmId);
+
     @DELETE("users")
     Call<Void> deleteUser();
 

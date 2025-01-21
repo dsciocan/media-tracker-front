@@ -15,12 +15,12 @@ public interface MovieApiService {
     @GET("shows/search/{searchQuery}")
     Call<List<ShowSearchResult>> getShowSearchResults(@Path("searchQuery") String searchQuery);
 
-    @GET("users/films/search?status=BOOKMARKED")
-    Call<List<Bookmarked>> getBookmarked();
+
 
 
     @GET("watching")
     Call<List<Watching>> getWatching();
+
 
     @GET("films/search/{query}")
     Call<List<FilmSearchResult>> getFilmSearchResults(@Path("query") String searchQuery);
