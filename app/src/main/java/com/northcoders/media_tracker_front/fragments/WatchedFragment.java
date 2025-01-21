@@ -102,6 +102,11 @@ public class WatchedFragment extends Fragment implements RecyclerViewInterface {
 
     @Override
     public void onItemClick(int position) {
+        long selectedFilmId = watchHistoryArrayList.get(position).getUserFilmId().getFilm().getId();
+                WatchedMovieFragment watchedMovieFragment = WatchedMovieFragment.newInstance(selectedFilmId);
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.frameLayoutFragment, watchedMovieFragment);
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.frameLayoutFragment, MovieFragment.class, null);
         transaction.commit();
