@@ -120,7 +120,7 @@ public class BookmarkedFragment extends Fragment implements RecyclerViewInterfac
 
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frameLayoutFragment,bookmarkedDetailsFragment)
-                .addToBackStack("BookmarkedDetailsTransaction")
+                .addToBackStack("BookmarkedTransaction")
                 .commit();
 //        transaction.replace(R.id.frameLayoutFragment, BookmarkedDetailsFragment.class, null);
 //        transaction.commit();
