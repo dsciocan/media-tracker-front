@@ -48,7 +48,7 @@ public class BookmarkedAdapter extends RecyclerView.Adapter<BookmarkedAdapter.Bo
 
         Bookmarked bookmarked = bookmarkedList.get(position);
         BookmarkedViewHolder.bookmarkedItemBinding.setBookmarked(bookmarked);
-        Glide.with(context).load(bookmarked.getUserFilmId().getFilm().getPosterUrl()).into(holder.bookmarkedItemBinding.bookmarkedFragmentImg);
+        Glide.with(context).load(bookmarked.getUserFilmId().getFilm().getPoster_url()).into(BookmarkedViewHolder.bookmarkedItemBinding.bookmarkedFragmentImg);
 
     }
 
