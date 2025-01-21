@@ -1,185 +1,61 @@
-# Welcome to the Movie Tracker Frontend
+# Movie Tracker
 
+>Is an Android application that allows the user to track and analyze there watched movies.  
+It provides a user intuitive way to search for new movies to watch and to add them to there list.  
+The statistic section of the application provides a gorgeous view of the user's watching habits.
 
+## Features
+- **User Authentication**
+- **Movie Search**
+- **Watched-Movie Statistics**
 
----
+## Planned Features
+- **Searching and adding shows**
+- **Chat functionality to chat with friends about there favorite Media.**
 
-## How to implement  a Recylerview
+## Used Technologies
+### Back End
 
-### 1. Setting up the dependencies and configurations
+- [Spring Boot](https://spring.io/projects/spring-boot):  
+	*Is a open-source tool to make it easier to manage Java-based frameworks such as:  
+	**Security**, **in app h2 database**, **lombok**, ...*  
+- [Hibernate](https://hibernate.org/):  
+	*Is an object–relational mapping tool for the Java programming language. It provides a framework for mapping an object-oriented domain model to a relational database.*  
+- [PostgreSQL](https://www.postgresql.org/):  
+	*Stores the user and movie data in a local "relational database".*
+- [Firebase](https://firebase.google.com/):  
+	*To authenticate users through there google account.*  
+- [TMDB](https://developer.themoviedb.org/docs/getting-started):  
+	*Movie database api to get the movie information.*
 
-##### 1. Update the manifests
+### Front End
+- [Retrofit](https://square.github.io/retrofit/):  
+	*Fetches data from the web service and routes it through a separate converter library that knows how to decode the data and return it in the form of objects, like String.*
+- [Glide](https://github.com/bumptech/glide):  
+	*To efficient load the movie poster based on there URL.*
+- [AnyChart](https://api.anychart.com/):  
+	*Is a lightweight and robust JavaScript charting solution with great API and documentation.*
 
-1. add permission for internet access and network security configuration
+### Development Tools
+- [Intellij](https://www.jetbrains.com/idea/), [Android Studio](https://developer.android.com/studio?gad_source=1&gclid=Cj0KCQiAqL28BhCrARIsACYJvkeajXHrUFLVoYCmCsDx4ke0d93mJEfzl0jC_2y979G7CwoWN_Ub_F4aAo8qEALw_wcB&gclsrc=aw.ds&authuser=1):  
+	*IDEs to write the code Java code for the back and front end.*
+- [pgAdmin](https://www.pgadmin.org/):  
+	*Is a graphical user interface (GUI) tool for managing PostgreSQL and other relational databases.*
+- [Excalidraw](https://excalidraw.com/), [Miro](https://miro.com/), [Figma](https://www.figma.com/):  
+	*To visualize and share ideas.*
+- [Git](https://git-scm.com/), [GitHub](https://github.com/):  
+	*To organize and collaborate on the projects code base.*
 
-```xml
-<manifest ... >
-	<uses-permission android:name="android.permission.INTERNET" />
-    <application
-		android:networkSecurityConfig="@xml/network_security_config"
-        ...>
-    	...
-    </application>
-</manifest>
-```
+- [Slack](https://slack.com/intl/en-gb), [Zoom](https://www.zoom.com/):  
+	*Stand ups and team meetings.*
+--- 
 
-##### 2. Add the network_security_config file
+## Achitecture
 
-1. under `app/src/main/res/xml/` create the `network_security_config.xml` file and add the following code:
+### Entity Relationship Diagram
+*The relation of the tables and there data to each other in the postgres database.*
+![Entity Relationship Diagram](./img/Entity%20Relationship%20Diagram.jpg)
 
-```xml 
-<?xml version="1.0" encoding="utf-8"?>
-<network-security-config>
-    <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">10.0.2.2</domain>
-    </domain-config>
-</network-security-config>
-```
-
-##### 3. Add dependencies to Gradle
-
-1. open `app/build.gradle` *(Module :app)* and add the following dependencies:
-
-   ```gradle
-   android {
-   	 buildFeatures{
-           dataBinding true
-       }
-   }
-   
-   dependencies {
-       implementation('com.squareup.retrofit2:retrofit:(insert latest version)')
-       implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-       implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
-   }
-   ```
-
-   - allows for databinding
-   - implements retrofit for back-end calls and http status code  
-
-2. synchronise / update gradle
-
----
-
-### 2. Overview
-
-There are 7 elements needed:
-
- 	1. the **model**: *contains the classes for the fetched data*
- 	2. the **service**:
-     - **...ApiService** (*interface*): contains the get requests
-     - `RetrofitInstance` (*class*): has the code to make the requests
-
-3. the **...ViewModel**: 
-4. the **...Adapter**: binds your data to the views. The adapter is responsible for inflating the item layout and binding the data to each individual item
-5. the **...Activity** / **...Fragment**: set up the `RecyclerView` with a `LayoutManager` and set the adapter
-6. the (*layout*) **..._item.xml**: the design for the individual "list item" in the recyclerview
-7. the (*layout*) **activity_...xml** / **fragment_...xml**: contains the recyclerview widget
-
-In the following section describes how to set up a basic "watched history" recyclerview.
-
-
-
-##### 1. the Model
-
-1. create a the `model` package
-
-2. in there create the `WatchHistory` class, it will hold the fetched data: 
-
-   ```java
-   import androidx.databinding.BaseObservable;
-   import androidx.databinding.Bindable;
-   
-       public class WatchHistory extends BaseObservable {
-           // fields for what ever data you going to need
-           String title;
-           String info;
-           int rating;
-   
-           // empty constructor
-           public WatchHistory(){}
-   
-           // consturctor 
-           public WatchHistory(String title, String info, int rating) {
-               this.title = title;
-               this.info = info;
-               this.rating = rating;
-           }
-           
-           // there needs to be a getter and setter for each field
-   
-           // convert int to string for the layout later
-           @Bindable
-           public String getRating() {
-               return Integer.toString(rating);
-           }
-   
-           // make sure can get only an string which can be parsed to an int
-           public void setRating(String rating) {
-               this.rating = Integer.parseInt(rating);
-           }
-   
-           @Bindable
-           public String getTitle() {
-               return title;
-           }
-   
-           public void setTitle(String title) {
-               this.title = title;
-           }
-   
-           @Bindable
-           public String getInfo() {
-               return info;
-           }
-   
-           public void setInfo(String info) {
-               this.info = info;
-           }
-       }
-   ```
-
-   
-
-2. in the same package, create the `WatchHistoryRepository` class 
-
-```java
-import android.app.Application;
-import android.util.Log;
-import androidx.lifecycle.MutableLiveData;
-import com.northcoders.media_tracker_front.service.MovieApiService;
-import com.northcoders.media_tracker_front.service.RetrofitInstance;
-import java.util.List;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class WatchHistoryRepository {
-    private MutableLiveData<List<WatchHistory>> mutableLiveData = new MutableLiveData<>();
-    private Application application;
-
-    public WatchHistoryRepository(Application application) {
-        this.application = application;
-    }
-
-    public MutableLiveData<List<WatchHistory>> getMutableLiveData(){
-        MovieApiService movieApiService = RetrofitInstance.getService();
-		
-        // getHistory() fetches the data
-        Call<List<WatchHistory>> call = movieApiService.getHistory();
-        call.enqueue(new Callback<List<WatchHistory>>(){
-            @Override
-            public void onResponse(Call<List<WatchHistory>> call, Response<List<WatchHistory>> response) {
-                List<WatchHistory> historyList = response.body();
-                mutableLiveData.setValue(historyList);
-            }
-
-            @Override
-            public void onFailure(Call<List<WatchHistory>> call, Throwable t) {
-                Log.i("GET request", t.getMessage());
-            }
-        });
-        return mutableLiveData;
-    }
-```
-
+### Wireframe
+*This wireframe was used to sketch out the lock of the Android application.*
+![wireframe](./img/wireframe.png)
