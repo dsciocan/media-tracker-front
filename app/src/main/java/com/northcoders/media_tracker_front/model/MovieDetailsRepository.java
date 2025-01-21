@@ -29,6 +29,8 @@ public class MovieDetailsRepository {
         call.enqueue(new Callback<FilmDetails>() {
             @Override
             public void onResponse(Call<FilmDetails> call, Response<FilmDetails> response) {
+                Log.i("MovieDetailsRepo",String.valueOf(response.code()));
+                Log.i("MovieDetailsRepo", response.body().toString());
                 FilmDetails film = response.body();
                 mutableLiveData.setValue(film);
             }
