@@ -25,5 +25,5 @@ public interface MovieApiService {
     Call<List<Watching>> getWatching();
 
     @GET("films/search/{query}")
-    Call<List<FilmSearchResult>> getFilmSearchResults(@Path("{query}") String searchQuery);
+    Call<List<FilmSearchResult>> getFilmSearchResults(@Path("query") String searchQuery);
 }
