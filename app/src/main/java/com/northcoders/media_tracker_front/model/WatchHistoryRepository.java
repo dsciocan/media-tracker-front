@@ -2,6 +2,8 @@ package com.northcoders.media_tracker_front.model;
 
 import android.app.Application;
 import android.util.Log;
+import android.widget.Toast;
+
 import androidx.lifecycle.MutableLiveData;
 import com.northcoders.media_tracker_front.service.MovieApiService;
 import com.northcoders.media_tracker_front.service.RetrofitInstance;
@@ -66,5 +68,43 @@ public class WatchHistoryRepository {
     }
 
 
+    public void deleteUserFilm(Long id){
+        UserActionsService service = RetrofitInstance.getUserService();
+        Call<Void> call = service.deleteUserFilm(id);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.i("Watched History Repo", String.valueOf(response.code()));
+                if(response.code() == 200){
+                    Toast.makeText(application.getApplicationContext(), "The Movie Has Been Removed", Toast.LENGTH_SHORT);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("Watched History Repo", t.getMessage());
+            }
+        });
+    }
+
+    public void updateUserFilm(Long id,WatchHistory film){
+        UserActionsService service = RetrofitInstance.getUserService();
+        Call<Void> call = service.updateUserFilm(id,film);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.i("WatchHistoryRepo Response", String.valueOf(response.code()));
+                Toast.makeText(application.getApplicationContext(), "The Movie Has Been Updated", Toast.LENGTH_SHORT);
+
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+        });
+
+    }
 
 }
