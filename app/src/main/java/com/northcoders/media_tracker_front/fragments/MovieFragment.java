@@ -88,6 +88,8 @@ public class MovieFragment extends Fragment {
         binding.title.setText(currentFilmDetails.getTitle());
         binding.overview.setText(currentFilmDetails.getOverview());
         binding.language.setText("Lang: " +  currentFilmDetails.getOriginal_language());
+//        List<String> genres = currentFilmDetails.getGenres();
+//        binding.genres.setText(String.join(", ", genres));
         Glide.with(binding.poster.getContext())
                 .load(currentFilmDetails.getPoster_path())
                 .into(binding.poster);
@@ -113,6 +115,10 @@ public class MovieFragment extends Fragment {
                         .commit();
             }
         });
+
+//        CheckBox checkBox = binding.bookmark;
+//        checkBox.setOnCheckedChangeListener();
+
     }
 
 
