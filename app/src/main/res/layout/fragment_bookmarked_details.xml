@@ -121,7 +121,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@id/bookmarked_fragment_image"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/bookmarked_fragment_image" />
+            app:layout_constraintTop_toTopOf="@id/bookmarked_fragment_image"
+            android:checked="true" />
 
         <!--needs replacing  - look into icon button or make background round - 2 states -->
 

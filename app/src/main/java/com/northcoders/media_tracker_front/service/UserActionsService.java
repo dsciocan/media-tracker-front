@@ -43,6 +43,12 @@ public interface UserActionsService {
     @PATCH("users/films/{filmDbId}")
     Call<Void> updateUserFilm(@Path("filmDbId") Long id, @Body WatchHistory film);
 
+    @DELETE("users/films/{filmDbId}")
+    Call<Void> deleteUserFilm(@Path("filmDbId") Long movieId);
+    @PATCH("users/films/{filmDbId}")
+    Call<Void> updateUserBookFilm(@Path("filmDbId") Long id, @Body Bookmarked film);
+
+
     @GET("users/genreStats")
     Call<Map<String,Integer>> getUserGenreStats();
 

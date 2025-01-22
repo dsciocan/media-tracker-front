@@ -21,4 +21,12 @@ public class BookmarkedDetailsViewModel extends AndroidViewModel {
         return bookmarkedRepository.getFilmMutableLiveData(filmId);
     }
 
+    public void deleteUserFilm(long id){
+        bookmarkedRepository.deleteUserFilm(id);
+    }
+
+    public void updateUserFilm(Long id, Bookmarked film){
+        bookmarkedRepository.updateUserFilm(id, film);
+    }
+
 }
