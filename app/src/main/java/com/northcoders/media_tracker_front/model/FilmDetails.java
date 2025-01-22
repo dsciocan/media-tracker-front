@@ -71,12 +71,12 @@ public class FilmDetails {
         this.release_date = release_date;
     }
 
-    public int getRuntime() {
-        return runtime;
+    public String getRuntime() {
+        return String.valueOf(runtime);
     }
 
-    public void setRuntime(int runtime) {
-        this.runtime = runtime;
+    public void setRuntime(String runtime) {
+        this.runtime = Integer.parseInt(runtime);
     }
 
     /*public List<String> getProduction_companies() {

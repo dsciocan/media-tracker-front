@@ -31,4 +31,6 @@
     <string name="watch_history_media_description">Watch History media description.</string>
     <string name="bookmarks" />
     <string name="default_web_client_id" translatable="false">webClientId.apps.googleusercontent.com</string>
+    <string name="runtime">"runtime: "</string>
+    <string name="language">language</string>
 </resources>
