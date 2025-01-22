@@ -97,7 +97,7 @@ public class FilmSearchResultFragment extends Fragment implements RecyclerViewIn
     @Override
     public void onItemClick(int position) {
         long selectedFilmId = searchResults.get(position).getId();
-        MovieFragment movieFragment = new MovieFragment();/*.newInstance(selectedFilmId);*/
+        MovieFragment movieFragment = new MovieFragment().newInstance(selectedFilmId);
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frameLayoutFragment,movieFragment)
                 .addToBackStack("MovieDetailsTransaction")

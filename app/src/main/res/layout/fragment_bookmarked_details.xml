@@ -17,21 +17,25 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/profilepicturebookmarked"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/circularcustombutton"
+        />
 
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/profilepicturebookmarked"
-            android:layout_marginTop="35dp"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:adjustViewBounds="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintHorizontal_bias="1"
-            android:background="@drawable/circularcustombutton"
-            />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/profilepicturebookmarked"
+        >
 
         <!--When using a RatingBar that supports user interaction, placing widgets to
             the left or right of the RatingBar is discouraged. - android docs-->
@@ -41,11 +45,48 @@
             android:id="@+id/bookmarked_fragment_image"
             android:layout_width="150dp"
             android:layout_height="220dp"
-            android:background="@color/md_theme_error"
             android:contentDescription="movie poster"
-            android:src="@drawable/vhs_stack"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/extra_details_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bookmarked_fragment_image"
+
+            >
+
+            <!--            ideally these would have a label-->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bookmarked_genres"
+                style="@style/TextAppearance.myBody1_sans"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="genres"
+                android:text="@{bookmarked.userFilmId.film.genres[0]}" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bookmarked_language"
+                style="@style/TextAppearance.myBody1_sans"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="language"
+                android:text="@{bookmarked.userFilmId.film.language}"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bookmarked_country"
+                style="@style/TextAppearance.myBody1_sans"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="country"
+                android:text="@{bookmarked.userFilmId.film.country}"/>
+
+
+        </LinearLayout>
 
 
         <!--        //needs work for longer titles-->
@@ -55,11 +96,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
+            android:paddingBottom="6dp"
             android:maxLines="2"
             android:text="@{bookmarked.userFilmId.film.title}"
             android:hint="Title"
             app:layout_constraintStart_toEndOf="@id/bookmarked_fragment_image"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/bookmarked_fragment_image" />
 
         <LinearLayout
             android:id="@+id/bookmarked_text_container"
@@ -86,64 +128,37 @@
                 android:text="@{String.valueOf(bookmarked.userFilmId.film.duration)}"
                 android:hint="run time" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/bookmarked_genres"
-                style="@style/TextAppearance.myBody1_sans"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="genres"
-                android:text="@{bookmarked.userFilmId.film.genres[0]}"/>
-
-            <!--            ideally these would have a label-->
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/bookmarked_language"
-                style="@style/TextAppearance.myBody1_sans"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="language"
-                android:text="@{bookmarked.userFilmId.film.language}"/>
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/bookmarked_country"
-                style="@style/TextAppearance.myBody1_sans"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="country"
-                android:text="@{bookmarked.userFilmId.film.country}"/>
-
-
         </LinearLayout>
-
         <!--        ideally should have label-->
         <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/bookmarked_status_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
             app:layout_constraintBottom_toBottomOf="@id/bookmarked_fragment_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/bookmarked_fragment_image" />
 
         <!--needs replacing  - look into icon button or make background round - 2 states -->
 
-        <ImageButton
+        <CheckBox
             android:id="@+id/bookmarked_fragment_bookmark_btn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@color/md_theme_tertiary"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:contentDescription="@string/bookmark_icon_outline"
             android:scaleType="fitCenter"
             android:translationZ="100dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/bookmarked_status_switch"
-            app:srcCompat="@drawable/ic_bookmark_tab_foreground"
-            app:tint="@color/md_theme_inversePrimary" />
+            android:button="@drawable/sl_bookmark"
+            app:buttonTint="@color/md_theme_primary" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/bookmarked_fragment_details_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bookmarked_fragment_image">
+            app:layout_constraintTop_toBottomOf="@id/extra_details_container">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -231,6 +246,7 @@
             android:src="@drawable/ic_arrow_back_foreground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
     </layout>
