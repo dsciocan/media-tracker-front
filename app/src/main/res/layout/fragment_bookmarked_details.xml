@@ -24,8 +24,8 @@
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/profilepicturebookmarked"
             android:layout_marginTop="35dp"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:adjustViewBounds="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
