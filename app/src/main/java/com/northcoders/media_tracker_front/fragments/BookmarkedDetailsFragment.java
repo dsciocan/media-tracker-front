@@ -75,7 +75,7 @@ public class BookmarkedDetailsFragment extends Fragment {
         loadFabLogic();
         setSwitchLogic();
         editTextViewLogic();
-
+        watchedButton();
 
 
     }
@@ -225,6 +225,21 @@ public class BookmarkedDetailsFragment extends Fragment {
         binding.bookmarkedFragmentBackFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frameLayoutFragment, bookmarkedFragment)
+                        .commit();
+            }
+        });
+    }
+
+    public void watchedButton() {
+        binding.bookmarkedToWatchedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                 Bookmarked bookmarked = binding.getBookmarked();
+                 bookmarked.setStatus("WATCHED");
+                bookmarkedDetailsViewModel.updateUserFilm(bookmarked.getUserFilmId().getFilm().getId(), bookmarked);
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.frameLayoutFragment, bookmarkedFragment)
