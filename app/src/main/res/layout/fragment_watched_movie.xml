@@ -13,7 +13,7 @@
         android:layout_height="match_parent">
 
 
-        <com.google.android.material.imageview.ShapeableImageView
+        <!--<com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/movie_fragment_avatar"
             android:layout_width="56dp"
             android:layout_height="56dp"
@@ -24,7 +24,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearance="@style/roundedImageView"
-            tools:src="@tools:sample/avatars" />
+            tools:src="@tools:sample/avatars" />-->
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/movie_fragment_avatar"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginRight="8dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearance="@style/roundedImageView"
+            />
 
         <!--When using a RatingBar that supports user interaction, placing widgets to
             the left or right of the RatingBar is discouraged. - android docs-->
@@ -108,7 +120,9 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@id/movie_fragment_image"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/movie_fragment_image" />
+            app:layout_constraintTop_toTopOf="@id/movie_fragment_image"
+            android:checked="true"
+            />
 
         <!--needs replacing  - look into icon button or make background round - 2 states -->
 
