@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.northcoders.media_tracker_front.service.MovieApiService;
 import com.northcoders.media_tracker_front.service.RetrofitInstance;
+import com.northcoders.media_tracker_front.service.UserActionsService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,4 +45,28 @@ public class MovieDetailsRepository {
 
         return mutableLiveData;
     }
+
+    public void saveUserFilm(long id){
+        UserActionsService service = RetrofitInstance.getUserService();
+        Call<Void> call = service.saveUserFilm(id);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.i("Response From Movie Details Repo", String.valueOf(response.code()));
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+        });
+
+
+
+
+
+    }
+
+
+
 }

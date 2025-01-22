@@ -21,4 +21,8 @@ public class MovieDetailsViewModel extends AndroidViewModel {
     public LiveData<FilmDetails> getFilmDetails(Long id) {
         return movieDetailsRepository.getMutableLiveData(id);
     }
+
+    public void saveUserFilm(long id){
+         movieDetailsRepository.saveUserFilm(id);
+    }
 }

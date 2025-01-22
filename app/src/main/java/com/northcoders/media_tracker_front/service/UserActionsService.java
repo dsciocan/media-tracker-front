@@ -36,9 +36,7 @@ public interface UserActionsService {
     Call<List<WatchHistory>> getHistory();
     @GET("users/films/{filmDbId}")
     Call<WatchHistory> getUserFilmDetails(@Path("filmDbId") Long movieId );
-  
-    @DELETE("users/films/{filmDbId}")
-    Call<Void> deleteUserFilm(@Path("filmDbId") Long movieId);
+
 
     @PATCH("users/films/{filmDbId}")
     Call<Void> updateUserFilm(@Path("filmDbId") Long id, @Body WatchHistory film);
@@ -54,5 +52,10 @@ public interface UserActionsService {
 
     @GET("users/totalWatchedRuntime")
     Call<Integer> getTotalWatchedRuntime();
+
+    @POST("users/films/{movieid}")
+    Call<Void> saveUserFilm(@Path ("movieid") Long id);
+
+
 
 }
