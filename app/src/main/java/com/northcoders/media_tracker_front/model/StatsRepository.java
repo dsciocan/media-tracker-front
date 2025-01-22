@@ -16,6 +16,7 @@ import retrofit2.Response;
 
 public class StatsRepository {
     private MutableLiveData<Map<String,Integer>> mutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<Integer> totalWatchTimeData = new MutableLiveData<>();
     private Application application;
 
     public StatsRepository(Application application) {
@@ -48,4 +49,39 @@ public class StatsRepository {
 
         return mutableLiveData;
     }
+
+    public MutableLiveData<Integer> getTotalRuntimeStat(){
+        UserActionsService service = RetrofitInstance.getUserService();
+        Call<Integer> call = service.getTotalWatchedRuntime();
+        call.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                Log.i("Stats Repository", String.valueOf(response.code()));
+                Log.i("Stats Repository", response.body().toString());
+                if(response.code() == 200){
+                    Log.i("Stats Repository", response.body().toString());
+                    Integer totalRuntime = response.body();
+                    totalWatchTimeData.setValue(totalRuntime);
+                }
+                else{
+                    Log.e("Stats Repository", String.valueOf(response.code()));
+                    Log.e("Stats Repository", response.message());
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+                Log.e("Stats Repository", t.getMessage());
+            }
+        });
+        return totalWatchTimeData;
+    }
+
+
+
+
+
+
+
 }

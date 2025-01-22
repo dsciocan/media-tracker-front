@@ -38,4 +38,6 @@ public interface UserActionsService {
     @GET("users/genreStats")
     Call<Map<String,Integer>> getUserGenreStats();
 
+    @GET("users/totalWatchedRuntime")
+    Call<Integer> getTotalWatchedRuntime();
 }

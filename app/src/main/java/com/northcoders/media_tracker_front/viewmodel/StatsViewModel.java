@@ -21,4 +21,7 @@ StatsRepository statsRepository;
     public LiveData<Map<String,Integer>> getGenreStats(){
         return statsRepository.getMutableLiveData();
     }
+    public LiveData<Integer> getTotalRuntimeStat(){
+        return statsRepository.getTotalRuntimeStat();
+    }
 }

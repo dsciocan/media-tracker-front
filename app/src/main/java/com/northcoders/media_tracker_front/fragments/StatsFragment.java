@@ -9,10 +9,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.anychart.APIlib;
 import com.anychart.AnyChart;
@@ -20,6 +22,7 @@ import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Cartesian;
 import com.anychart.charts.Pie;
+import com.anychart.core.cartesian.series.Bar;
 import com.anychart.core.cartesian.series.Column;
 import com.anychart.enums.Align;
 import com.anychart.enums.Anchor;
@@ -27,6 +30,8 @@ import com.anychart.enums.HoverMode;
 import com.anychart.enums.LegendLayout;
 import com.anychart.enums.Position;
 import com.anychart.enums.TooltipPositionMode;
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.northcoders.media_tracker_front.R;
 import com.northcoders.media_tracker_front.databinding.FragmentStatsBinding;
 import com.northcoders.media_tracker_front.viewmodel.ShowSearchResultViewModel;
@@ -57,6 +62,12 @@ public class StatsFragment extends Fragment {
     StatsViewModel viewModel;
     Map<String,Integer> map ;
     List<DataEntry> dataEntriesGenres = new ArrayList<>();
+    List<DataEntry> dataRuntime = new ArrayList<>();
+    Pie pie;
+    Cartesian cartesian;
+    Column column;
+    Bar bar;
+    ProfileFragment profileFragment = new ProfileFragment();
 
 
     public StatsFragment() {
@@ -72,115 +83,83 @@ public class StatsFragment extends Fragment {
 
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // DUMMY INFORMATION - SEEING IF THE CHART APPEARS WHEN THE APP IS RUN
-        // Example of how to set a Column Chart
-        // Set the object progress bar from the binding
+        setSubTitle();
+        loadProfilePicture();
+        // Set Progress bar
         binding.StatsChartView.setProgressBar(binding.StatsProgressBar);
+        binding.StatsChartViewTwo.setProgressBar(binding.StatsProgressBarTwo);
+        setBarChart();
+        getBarData();
+        setPieChart();
+        getGenreStats();
 
+    }
+
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_stats,container,false);
+        // Inflate the layout for this fragment
+        return binding.getRoot();
+    }
+
+    private void setBarChart(){
+        // Set active AnyChart view for this chart
         APIlib.getInstance().setActiveAnyChartView(binding.StatsChartView);
-        // Set the column chart
-        Cartesian cartesian = AnyChart.column();
 
-        // Get the data in an arraylist
-        List<DataEntry> data = new ArrayList<>();
+        cartesian = AnyChart.bar();
 
-        // ValueDataEntry takes an x value and a y value
-        data.add(new ValueDataEntry("Mon",30));
-        data.add(new ValueDataEntry("Tue",25));
-        data.add(new ValueDataEntry("Wed",48));
-        data.add(new ValueDataEntry("Thur",0));
-        data.add(new ValueDataEntry("Fri",120));
-        data.add(new ValueDataEntry("Sat",210));
-        data.add(new ValueDataEntry("Sun",90));
-
-        // Set the color of each bar
-        data.forEach(e -> e.setValue("fill", "#80cbc4"));
-        data.forEach(e -> e.setValue("stroke", "#80cbc4"));
-
-
-        // Set the data to a column chart object
-        Column column = cartesian.column(data);
-
-        column.tooltip()
-                .titleFormat("{%X}")
-                .position(Position.CENTER_BOTTOM)
-                .anchor(Anchor.CENTER_BOTTOM)
-                .offsetX(0d)
-                .offsetY(5d)
-                .format("{%Value}{groupsSeparator: }");
-
-        // Give the chart an animation
         cartesian.animation(true);
+        cartesian.title("Total Watchtime for This week");
 
-        // Give the chart a title
-        cartesian.title("Time Watched This Week");
-
-        // Setting a scale(?) for the yaxis
-        cartesian.yScale().minimum(0d);
-
-        // Setting the yAxis label
-        cartesian.yAxis(0).labels().format("{%Value}{groupsSeparator: }");
-
-        // ??
-        cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
-        cartesian.interactivity().hoverMode(HoverMode.BY_X);
-
-        // Set titles for the x and y axis
-        cartesian.xAxis(0).title("Day");
         cartesian.yAxis(0).title("Minutes");
-        cartesian.yAxis(0).labels().rotation(-90);
-        cartesian.xAxis(0).labels().rotation(-90);
-
-
-        // Set chart background colour
         cartesian.background().enabled(true);
         cartesian.background().fill("#F0F8FF");
-        // set label colors
-        var cartesianLabels = cartesian.labels();
-        cartesianLabels.fontColor("#696969");
+
+        cartesian.labels().fontColor("#696969");
         cartesian.title().fontColor("#696969");
 
-        //Set space between the bars
-        cartesian.barGroupsPadding(0.2);
-
-
-        // Set the chart to a chartview via the binding
-
         binding.StatsChartView.setChart(cartesian);
+    }
 
-        // PIE CHART EXAMPLE
-        // Set Progress bar
-        binding.StatsChartViewTwo.setProgressBar(binding.StatsProgressBarTwo);
+
+
+    private void getBarData(){
+
+        viewModel.getTotalRuntimeStat().observe(getViewLifecycleOwner(),number ->{
+            if(number != null){
+                Log.i("Stats Repository", String.valueOf(number) + " WOOOOOOO");
+                APIlib.getInstance().setActiveAnyChartView(binding.StatsChartView);
+                dataRuntime.clear();
+                dataRuntime.add(new ValueDataEntry("",number));
+
+                    cartesian.bar(dataRuntime);
+
+
+            }else{
+                Log.e("Stats Fragent", "NOOOOOOOOOOOOO DATA");
+            }
+        });
+
+    }
+
+
+    private void setSubTitle(){
+        String name = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+        String subTitle = "Hi " + name + ",\nHere are your Stats!";
+        binding.StatsSubtitle.setText(subTitle);
+
+    }
+    private void setPieChart(){
 
         APIlib.getInstance().setActiveAnyChartView(binding.StatsChartViewTwo);
-        //Create pie chart object
-        Pie pie = AnyChart.pie();
+        pie = AnyChart.pie();
 
-//        LiveData<Map<String,Integer>> genreStats = viewModel.getGenreStats();
-        viewModel.getGenreStats();
-        getAllGenreStats();
-
-
-//        List<DataEntry> dataEntry = new ArrayList<>();
-
-
-
-
-
-
-        // Create pie chart data
-//        List<DataEntry> dataEntry = new ArrayList<>();
-//        dataEntry.add(new ValueDataEntry("Horror",20));
-//        dataEntry.add(new ValueDataEntry("Comedy",10));
-//        dataEntry.add(new ValueDataEntry("Action",45));
-//        dataEntry.add(new ValueDataEntry("Drama",9));
-//        dataEntry.add(new ValueDataEntry("Thriller",5));
-
-        // Set pie chart data
-        pie.data(dataEntriesGenres);
 
         // Set pie chart titles and legend (?) and positions
         pie.title("Genres watched this week");
@@ -198,40 +177,60 @@ public class StatsFragment extends Fragment {
         pie.labels().fontColor("#696969");
         pie.title().fontColor("#696969");
         pie.legend().fontColor("#696969");
-        pie.height();
         pie.background().enabled(true);
         pie.background().fill("#F0F8FF");
+
         binding.StatsChartViewTwo.setChart(pie);
 
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_stats,container,false);
-        // Inflate the layout for this fragment
-        return binding.getRoot();
+    private void getGenreStats(){
+        viewModel.getGenreStats().observe(getViewLifecycleOwner(), stringIntegerMap -> {
+            if(stringIntegerMap != null && !stringIntegerMap.isEmpty()){
+                dataEntriesGenres.clear();
+
+                for(Map.Entry<String,Integer> entry : stringIntegerMap.entrySet()){
+                    dataEntriesGenres.add(new ValueDataEntry(entry.getKey(), entry.getValue()));
+                }
+                APIlib.getInstance().setActiveAnyChartView(binding.StatsChartViewTwo);
+                pie.data(dataEntriesGenres);
+                Log.i("StatsFragment", "Pie chart updated with new data");
+            }
+            else {
+                Log.e("StatsFragment", "No genre stats available");
+            }
+        });
     }
 
-    public void getAllGenreStats(){
-        viewModel.getGenreStats().observe(this, new Observer<Map<String, Integer>>() {
+
+    private void loadProfilePicture(){
+        ImageButton profilePicture = binding.profilepicturemain ;
+        Glide.with(profilePicture)
+                .load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString())
+                .circleCrop()
+//                .apply(RequestOptions.circleCropTransform())
+                .error(R.drawable.circularcustombutton)
+                .into(profilePicture);
+
+
+        profilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onChanged(Map<String, Integer> stringIntegerMap) {
-                if(stringIntegerMap!=null){
-                    for (Map.Entry<String,Integer> entry : stringIntegerMap.entrySet()){
-                        Log.i("StatsFragment", entry.getKey() + " " + entry.getValue());
-                        map = new HashMap<>();
-                        map.put(entry.getKey(), entry.getValue());
-                    }
-                    if(map!=null){
-                        for (Map.Entry<String,Integer> entry : map.entrySet()){
-                            dataEntriesGenres.add(new ValueDataEntry(entry.getKey(),entry.getValue()));
-                        }
-                    }
-                }
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .setCustomAnimations(
+                                android.R.anim.fade_in,
+                                android.R.anim.fade_out,
+                                android.R.anim.slide_in_left,
+                                android.R.anim.slide_out_right)
+                        .replace(R.id.frameLayoutFragment, profileFragment)
+                        .addToBackStack("profileFragmentTransaction") // allow user to press back to go back to home fragment
+                        .commit();
             }
         });
 
     }
+
+
 
 }
