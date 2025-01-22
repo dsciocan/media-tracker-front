@@ -46,9 +46,9 @@ public class MovieDetailsRepository {
         return mutableLiveData;
     }
 
-    public void saveUserFilm(long id){
+    public void saveUserFilm(long id, Bookmarked bookmarked){
         UserActionsService service = RetrofitInstance.getUserService();
-        Call<Void> call = service.saveUserFilm(id);
+        Call<Void> call = service.saveUserFilm(id, bookmarked);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

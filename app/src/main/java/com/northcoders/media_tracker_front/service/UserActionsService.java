@@ -54,7 +54,7 @@ public interface UserActionsService {
     Call<Integer> getTotalWatchedRuntime();
 
     @POST("users/films/{movieid}")
-    Call<Void> saveUserFilm(@Path ("movieid") Long id);
+    Call<Void> saveUserFilm(@Path ("movieid") Long id, @Body Bookmarked bookmarked);
 
 
 

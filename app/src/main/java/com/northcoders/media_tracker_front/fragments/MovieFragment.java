@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.northcoders.media_tracker_front.R;
 import com.northcoders.media_tracker_front.databinding.FragmentMovieBinding;
+import com.northcoders.media_tracker_front.model.Bookmarked;
 import com.northcoders.media_tracker_front.model.FilmDetails;
 import com.northcoders.media_tracker_front.viewmodel.MovieDetailsViewModel;
 
@@ -87,7 +88,8 @@ public class MovieFragment extends Fragment {
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        viewModel.saveUserFilm(getArguments().getLong(MOVIE_ID_KEY));
+                        Bookmarked film = new Bookmarked();
+                        viewModel.saveUserFilm(getArguments().getLong(MOVIE_ID_KEY), film);
                         Toast.makeText(getContext(), "Successfully Added To Bookmarked", Toast.LENGTH_SHORT).show();
 
                     }
