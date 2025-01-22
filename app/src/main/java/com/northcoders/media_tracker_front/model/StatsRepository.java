@@ -24,27 +24,27 @@ public class StatsRepository {
 
     public MutableLiveData<Map<String,Integer>> getMutableLiveData(){
         UserActionsService userActionsService = RetrofitInstance.getUserService();
-//        Call<Map<String,Integer>> call = userActionsService.getGenreStats();
-//        call.enqueue(new Callback<Map<String, Integer>>() {
-//            @Override
-//            public void onResponse(Call<Map<String, Integer>> call, Response<Map<String, Integer>> response) {
-//                if(response.code() == 200){
-//                    Log.i("Stats Repository", response.body().toString());
-//                    Map<String, Integer> genreStatsMap = response.body();
-//                    mutableLiveData.setValue(genreStatsMap);
-//                }
-//                else{
-//                    Log.e("Stats Repository", String.valueOf(response.code()));
-//                    Log.e("Stats Repository", response.message());
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Map<String, Integer>> call, Throwable t) {
-//                Log.e("Stats Repository", t.getMessage());
-//            }
-//        });
+        Call<Map<String,Integer>> call = userActionsService.getUserGenreStats();
+        call.enqueue(new Callback<Map<String, Integer>>() {
+            @Override
+            public void onResponse(Call<Map<String, Integer>> call, Response<Map<String, Integer>> response) {
+                if(response.code() == 200){
+                    Log.i("Stats Repository", response.body().toString());
+                    Map<String, Integer> genreStatsMap = response.body();
+                    mutableLiveData.setValue(genreStatsMap);
+                }
+                else{
+                    Log.e("Stats Repository", String.valueOf(response.code()));
+                    Log.e("Stats Repository", response.message());
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Map<String, Integer>> call, Throwable t) {
+                Log.e("Stats Repository", t.getMessage());
+            }
+        });
 
         return mutableLiveData;
     }
