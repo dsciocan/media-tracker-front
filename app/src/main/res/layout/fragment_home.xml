@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="16dp"
     >
 <FrameLayout
     android:layout_width="match_parent"
@@ -20,15 +21,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Welcome to...."
-            android:textSize="30sp"
+            style="@style/TextAppearance.myH1_serif"
             app:layout_constraintEnd_toStartOf="@+id/profilepicturemain"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/profilepicturemain"
-            android:layout_width="102dp"
-            android:layout_height="111dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:adjustViewBounds="true"
             app:layout_constraintStart_toStartOf="@+id/HomeTitle"
             app:layout_constraintEnd_toEndOf="parent"
