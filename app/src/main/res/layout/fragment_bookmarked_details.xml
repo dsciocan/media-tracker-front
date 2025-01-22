@@ -30,226 +30,215 @@
         android:background="@drawable/circularcustombutton"
         />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/profilepicturebookmarked"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/profilepicturebookmarked"
 
+            tools:layout_editor_absoluteX="1dp">
 
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/profilepicturebookmarked"
-            android:layout_marginTop="35dp"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:adjustViewBounds="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintHorizontal_bias="1"
-            android:background="@drawable/circularcustombutton"
-            />
-
-        <!--When using a RatingBar that supports user interaction, placing widgets to
+            <!--When using a RatingBar that supports user interaction, placing widgets to
             the left or right of the RatingBar is discouraged. - android docs-->
 
-        <!--        //background there for testing only-->
-        <ImageView
-            android:id="@+id/bookmarked_fragment_image"
-            android:layout_width="150dp"
-            android:layout_height="220dp"
-            android:contentDescription="movie poster"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <!--        //background there for testing only-->
+            <ImageView
+                android:id="@+id/bookmarked_fragment_image"
+                android:layout_width="150dp"
+                android:layout_height="220dp"
+                android:contentDescription="movie poster"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:id="@+id/extra_details_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:orientation="vertical"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bookmarked_fragment_image"
-
-            >
-
-            <!--            ideally these would have a label-->
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/bookmarked_genres"
-                style="@style/TextAppearance.myBody1_sans"
+            <LinearLayout
+                android:id="@+id/extra_details_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="genres"
-                android:text="@{bookmarked.userFilmId.film.genres[0]}" />
+                android:layout_marginLeft="8dp"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bookmarked_fragment_image"
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/bookmarked_language"
-                style="@style/TextAppearance.myBody1_sans"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="language"
-                android:text="@{bookmarked.userFilmId.film.language}"/>
+                >
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/bookmarked_country"
-                style="@style/TextAppearance.myBody1_sans"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="country"
-                android:text="@{bookmarked.userFilmId.film.country}"/>
-
-
-        </LinearLayout>
-
-
-        <!--        //needs work for longer titles-->
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/bookmarked_fragment_title"
-            style="@style/TextAppearance.myH1_serif"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:paddingBottom="6dp"
-            android:maxLines="2"
-            android:text="@{bookmarked.userFilmId.film.title}"
-            android:hint="Title"
-            app:layout_constraintStart_toEndOf="@id/bookmarked_fragment_image"
-            app:layout_constraintTop_toTopOf="@id/bookmarked_fragment_image" />
-
-        <LinearLayout
-            android:id="@+id/bookmarked_text_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:orientation="vertical"
-            app:layout_constraintStart_toEndOf="@id/bookmarked_fragment_image"
-            app:layout_constraintTop_toBottomOf="@id/bookmarked_fragment_title">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/bookmarked_year"
-                style="@style/TextAppearance.myBody1_sans"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{String.valueOf(bookmarked.userFilmId.film.releaseYear)}"
-                android:hint="Year" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/bookmarked_runtime"
-                style="@style/TextAppearance.myBody1_sans"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{String.valueOf(bookmarked.userFilmId.film.duration)}"
-                android:hint="run time" />
-
-        </LinearLayout>
-        <!--        ideally should have label-->
-        <com.google.android.material.materialswitch.MaterialSwitch
-            android:id="@+id/bookmarked_status_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="8dp"
-            app:layout_constraintBottom_toBottomOf="@id/bookmarked_fragment_image"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/bookmarked_fragment_image"
-            android:checked="true" />
-
-        <!--needs replacing  - look into icon button or make background round - 2 states -->
-
-        <CheckBox
-            android:id="@+id/bookmarked_fragment_bookmark_btn"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:contentDescription="@string/bookmark_icon_outline"
-            android:scaleType="fitCenter"
-            android:translationZ="100dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bookmarked_status_switch"
-            android:button="@drawable/sl_bookmark"
-            app:buttonTint="@color/md_theme_primary" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/bookmarked_fragment_details_card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/extra_details_container">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="12dp">
-
-                <TextView
-                    android:id="@+id/bookmarked_fragment_details_heading"
-                    style="@style/TextAppearance.myH2_sans"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="12dp"
-                    android:text="Summary"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
+                <!--            ideally these would have a label-->
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/bookmarked_genres"
                     style="@style/TextAppearance.myBody1_sans"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:maxLines="10"
-                    android:scrollbars="vertical"
-                    android:text="@{bookmarked.userFilmId.film.synopsis}"
-                    android:hint="@string/mock_text"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/bookmarked_fragment_details_heading" />
+                    android:hint="genres"
+                    android:text="@{bookmarked.userFilmId.film.genres[0]}" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
 
-        <RatingBar
-            android:id="@+id/bookmarked_fragment_rating_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleX="0.7"
-            android:scaleY="0.7"
-            android:stepSize="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bookmarked_fragment_details_card" />
+            </LinearLayout>
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/bookmarked_fragment_notes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bookmarked_fragment_rating_bar">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="12dp">
+            <!--        //needs work for longer titles-->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bookmarked_fragment_title"
+                style="@style/TextAppearance.myH1_serif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:hint="Title"
+                android:maxLines="2"
+                android:paddingBottom="6dp"
+                android:text="@{bookmarked.userFilmId.film.title}"
+                app:layout_constraintStart_toEndOf="@id/bookmarked_fragment_image"
+                app:layout_constraintTop_toTopOf="@id/bookmarked_fragment_image" />
 
-                <TextView
-                    android:id="@+id/bookmarked_fragment_notes_heading"
-                    style="@style/TextAppearance.myH2_sans"
+            <LinearLayout
+                android:id="@+id/bookmarked_text_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:orientation="vertical"
+                app:layout_constraintStart_toEndOf="@id/bookmarked_fragment_image"
+                app:layout_constraintTop_toBottomOf="@id/bookmarked_fragment_title">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/bookmarked_year"
+                    style="@style/TextAppearance.myBody1_sans"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/my_notes"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:hint="Year"
+                    android:text="@{String.valueOf(bookmarked.userFilmId.film.releaseYear)}" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/bookmarked_fragment_notes_input"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/bookmarked_runtime"
                     style="@style/TextAppearance.myBody1_sans"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="run time"
+                    android:text="@{String.valueOf(bookmarked.userFilmId.film.duration)}" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/bookmarked_language"
+                    style="@style/TextAppearance.myBody1_sans"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="language"
+                    android:text="@{bookmarked.userFilmId.film.language}" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/bookmarked_country"
+                    style="@style/TextAppearance.myBody1_sans"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="country"
+                    android:text="@{bookmarked.userFilmId.film.country}" />
+
+            </LinearLayout>
+            <!--        ideally should have label-->
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/bookmarked_status_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:checked="true"
+                app:layout_constraintBottom_toBottomOf="@id/bookmarked_fragment_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/bookmarked_fragment_image" />
+
+            <!--needs replacing  - look into icon button or make background round - 2 states -->
+
+            <CheckBox
+                android:id="@+id/bookmarked_fragment_bookmark_btn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:button="@drawable/sl_bookmark"
+                android:contentDescription="@string/bookmark_icon_outline"
+                android:scaleType="fitCenter"
+                android:translationZ="100dp"
+                app:buttonTint="@color/md_theme_primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bookmarked_status_switch" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/bookmarked_fragment_details_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/extra_details_container">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/enter_your_notes_here"
-                    android:text="@={bookmarked.notes}"
-                    android:maxLines="10"
-                    android:minLines="10"
-                    android:scrollbars="vertical"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/bookmarked_fragment_notes_heading" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_height="match_parent"
+                    android:padding="12dp">
 
-        </com.google.android.material.card.MaterialCardView>
+                    <TextView
+                        android:id="@+id/bookmarked_fragment_details_heading"
+                        style="@style/TextAppearance.myH2_sans"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="12dp"
+                        android:text="Summary"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
+                    <TextView
+                        style="@style/TextAppearance.myBody1_sans"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/mock_text"
+                        android:maxLines="10"
+                        android:scrollbars="vertical"
+                        android:text="@{bookmarked.userFilmId.film.synopsis}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/bookmarked_fragment_details_heading" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <RatingBar
+                android:id="@+id/bookmarked_fragment_rating_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="0.7"
+                android:scaleY="0.7"
+                android:stepSize="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bookmarked_fragment_details_card" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/bookmarked_fragment_notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bookmarked_fragment_rating_bar">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:id="@+id/bookmarked_fragment_notes_heading"
+                        style="@style/TextAppearance.myH2_sans"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/my_notes"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/bookmarked_fragment_notes_input"
+                        style="@style/TextAppearance.myBody1_sans"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/enter_your_notes_here"
+                        android:maxLines="10"
+                        android:minLines="10"
+                        android:scrollbars="vertical"
+                        android:text="@={bookmarked.notes}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/bookmarked_fragment_notes_heading" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/bookmarked_fragment_back_fab"
             android:layout_width="wrap_content"
@@ -260,7 +249,6 @@
             android:src="@drawable/ic_arrow_back_foreground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
     </layout>
