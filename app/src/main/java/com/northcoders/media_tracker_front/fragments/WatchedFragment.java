@@ -43,13 +43,14 @@ public class WatchedFragment extends Fragment implements RecyclerViewInterface {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(WatchHistoryViewModel.class);
 
-        getHistory();
+
 
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        getHistory();
     }
 
     @Override
@@ -75,6 +76,7 @@ public class WatchedFragment extends Fragment implements RecyclerViewInterface {
                                 android.R.anim.slide_in_left,
                                 android.R.anim.slide_out_right)
                         .replace(R.id.frameLayoutFragment, profileFragment)
+                        .addToBackStack(null)
                         .commit();
             }
         });
@@ -82,7 +84,7 @@ public class WatchedFragment extends Fragment implements RecyclerViewInterface {
     }
 
     private  void getHistory() {
-        viewModel.getWatchHistory().observe(this, new Observer<List<WatchHistory>>() {
+        viewModel.getWatchHistory().observe(getViewLifecycleOwner(), new Observer<List<WatchHistory>>() {
             @Override
             public void onChanged(List<WatchHistory> historyList) {
                 watchHistoryArrayList = (ArrayList<WatchHistory>) historyList;

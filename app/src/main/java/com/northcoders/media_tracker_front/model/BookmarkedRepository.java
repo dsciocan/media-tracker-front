@@ -2,6 +2,7 @@ package com.northcoders.media_tracker_front.model;
 
 import android.app.Application;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -65,4 +66,46 @@ public class BookmarkedRepository {
         });
         return singleFilmData;
     }
+
+    public void deleteUserFilm(Long id){
+        UserActionsService service = RetrofitInstance.getUserService();
+        Call<Void> call = service.deleteUserFilm(id);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.i("Bookmarked Repo", String.valueOf(response.code()));
+                if(response.code() == 200){
+                    Toast.makeText(application.getApplicationContext(), "Movie Has Been Removed", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("Bookmarked Repo", t.getMessage());
+            }
+        });
+    }
+
+    public void updateUserFilm(Long id, Bookmarked film){
+        UserActionsService service = RetrofitInstance.getUserService();
+        Call<Void> call = service.updateUserBookFilm(id, film);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.i("Bookmarked Repo", String.valueOf(response.code()));
+                if(response.code() == 200){
+                    Toast.makeText(application.getApplicationContext(), "The movie was updated", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("Bookmarked Repo", t.getMessage());
+            }
+        });
+    }
+
+
+
 }

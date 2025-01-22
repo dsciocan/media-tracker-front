@@ -21,4 +21,11 @@ public class WatchHistoryViewModel extends AndroidViewModel{
         public LiveData<WatchHistory> getWatchedFilmDetails(Long id){
             return watchHistoryRepository.getUserFilmDetails(id);
         }
+        public void deleteUserFilm(long id){
+            watchHistoryRepository.deleteUserFilm(id);
+        }
+        public void updateUserFilm(Long id,WatchHistory film){
+            watchHistoryRepository.updateUserFilm( id , film);
+        }
+
     }

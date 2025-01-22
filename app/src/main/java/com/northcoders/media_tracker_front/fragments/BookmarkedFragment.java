@@ -53,12 +53,13 @@ public class BookmarkedFragment extends Fragment implements RecyclerViewInterfac
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(BookmarkedViewModel.class);
-        getBookmarked();
+
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getBookmarked();
     }
 
 
@@ -86,6 +87,7 @@ public class BookmarkedFragment extends Fragment implements RecyclerViewInterfac
                                 android.R.anim.slide_in_left,
                                 android.R.anim.slide_out_right)
                         .replace(R.id.frameLayoutFragment, profileFragment)
+                        .addToBackStack(null)
                         .commit();
             }
         });
@@ -93,7 +95,7 @@ public class BookmarkedFragment extends Fragment implements RecyclerViewInterfac
     }
 
     private void getBookmarked() {
-        viewModel.getBookmarked().observe(this, new Observer<List<Bookmarked>>() {
+        viewModel.getBookmarked().observe(getViewLifecycleOwner(), new Observer<List<Bookmarked>>() {
             @Override
             public void onChanged(List<Bookmarked> list) {
                 bookmarkedList = list;

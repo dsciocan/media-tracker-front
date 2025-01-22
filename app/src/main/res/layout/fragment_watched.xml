@@ -7,6 +7,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="16dp"
         tools:context=".fragments.WatchedFragment">
 
         <!-- TODO: Update blank fragment layout -->
@@ -25,8 +26,8 @@
                 />
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/profilepicturemain"
-                android:layout_width="102dp"
-                android:layout_height="111dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:adjustViewBounds="true"
                 app:layout_constraintStart_toStartOf="@+id/watchHistoryTitle"
                 app:layout_constraintEnd_toEndOf="parent"

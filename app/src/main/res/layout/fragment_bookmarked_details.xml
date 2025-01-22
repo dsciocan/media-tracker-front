@@ -35,7 +35,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/profilepicturebookmarked"
-        >
+
+
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/profilepicturebookmarked"
+            android:layout_marginTop="35dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            android:background="@drawable/circularcustombutton"
+            />
 
         <!--When using a RatingBar that supports user interaction, placing widgets to
             the left or right of the RatingBar is discouraged. - android docs-->
@@ -137,7 +150,8 @@
             android:layout_marginVertical="8dp"
             app:layout_constraintBottom_toBottomOf="@id/bookmarked_fragment_image"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/bookmarked_fragment_image" />
+            app:layout_constraintTop_toTopOf="@id/bookmarked_fragment_image"
+            android:checked="true" />
 
         <!--needs replacing  - look into icon button or make background round - 2 states -->
 
