@@ -12,7 +12,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
+import com.bumptech.glide.Glide;
+
+import com.google.firebase.auth.FirebaseAuth;
 import com.northcoders.media_tracker_front.R;
 import com.northcoders.media_tracker_front.databinding.FragmentMovieBinding;
 import com.northcoders.media_tracker_front.model.FilmDetails;
@@ -52,12 +56,7 @@ public class MovieFragment extends Fragment {
             Long key = getArguments().getLong(MOVIE_ID_KEY);
             /*currentFilmDetails = viewModel.getFilmDetails(key);*/
             getFilmDetails(key);
-
         }
-
-        binding.movieFragmentTitle.setText(currentFilmDetails.getTitle());
-        binding.movieFragmentOverview.setText(currentFilmDetails.getOverview());
-        binding.movieLanguage.setText(currentFilmDetails.getTitle());
 
     }
 
@@ -77,15 +76,30 @@ public class MovieFragment extends Fragment {
             @Override
             public void onChanged(FilmDetails filmDetails) {
                 currentFilmDetails = (FilmDetails) filmDetails;
-                bindText(currentFilmDetails);
+                bindContent(currentFilmDetails);
             }
         });
     }
 
-    public void bindText(FilmDetails filmDetails){
-        binding.movieFragmentTitle.setText(filmDetails.getTitle());
-
-
+    public void bindContent(FilmDetails filmDetails){
+        binding.runtime.setText(currentFilmDetails.getRuntime() + " mins");
+        binding.language.setText(currentFilmDetails.getOriginal_language());
+        binding.date.setText(currentFilmDetails.getRelease_date());
+        binding.title.setText(currentFilmDetails.getTitle());
+        binding.overview.setText(currentFilmDetails.getOverview());
+        binding.language.setText("Lang: " +  currentFilmDetails.getOriginal_language());
+        Glide.with(binding.poster.getContext())
+                .load(currentFilmDetails.getPoster_path())
+                .into(binding.poster);
+        ImageButton profilePicture = binding.avatar ;
+        Glide.with(profilePicture)
+                .load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString())
+                .circleCrop()
+//                .apply(RequestOptions.circleCropTransform())
+                .error(R.drawable.circularcustombutton)
+                .into(profilePicture);
     }
+
+
 
 }
