@@ -4,6 +4,7 @@ import com.northcoders.media_tracker_front.model.Bookmarked;
 import com.northcoders.media_tracker_front.model.WatchHistory;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -36,8 +37,17 @@ public interface UserActionsService {
     @GET("users/films/{filmDbId}")
     Call<WatchHistory> getUserFilmDetails(@Path("filmDbId") Long movieId );
 
+
     @DELETE("users/films/{filmDbId}")
     Call<Void> deleteUserFilm(@Path("filmDbId") Long movieId);
     @PATCH("users/films/{filmDbId}")
     Call<Void> updateUserBookFilm(@Path("filmDbId") Long id, @Body Bookmarked film);
+
+
+    @GET("users/genreStats")
+    Call<Map<String,Integer>> getUserGenreStats();
+
+    @GET("users/totalWatchedRuntime")
+    Call<Integer> getTotalWatchedRuntime();
+
 }
