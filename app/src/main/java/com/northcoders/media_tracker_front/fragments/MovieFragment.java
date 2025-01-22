@@ -26,7 +26,7 @@ public class MovieFragment extends Fragment {
     private static final String MOVIE_ID_KEY = "MovieKey"  ;
     FilmDetails currentFilmDetails = new FilmDetails();
     MovieDetailsViewModel viewModel;
-
+    private ProfileFragment profileFragment = new ProfileFragment();
     FragmentMovieBinding binding;
 
     public MovieFragment() {
@@ -98,6 +98,21 @@ public class MovieFragment extends Fragment {
 //                .apply(RequestOptions.circleCropTransform())
                 .error(R.drawable.circularcustombutton)
                 .into(profilePicture);
+        profilePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .setCustomAnimations(
+                                android.R.anim.fade_in,
+                                android.R.anim.fade_out,
+                                android.R.anim.slide_in_left,
+                                android.R.anim.slide_out_right)
+                        .replace(R.id.frameLayoutFragment, profileFragment)
+                        .addToBackStack("profileFragmentTransaction") // allow user to press back to go back to home fragment
+                        .commit();
+            }
+        });
     }
 
 
