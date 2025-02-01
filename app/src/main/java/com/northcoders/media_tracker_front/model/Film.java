@@ -6,6 +6,7 @@ public class Film {
 
     //TODO: datatype for genres?
     private Long id;
+    private Long tmdbId;
     private String title;
     private String synopsis;
     private String director;
@@ -29,8 +30,9 @@ public class Film {
     public Film() {
     }
 
-    public Film(Long id, String title, String synopsis, String director, String country, String language, int duration, int releaseYear, List<String> genres, String poster_url) {
+    public Film(Long id, Long tmdbId, String title, String synopsis, String director, String country, String language, int duration, int releaseYear, List<String> genres, String poster_url) {
         this.id = id;
+        this.tmdbId = tmdbId;
         this.title = title;
         this.synopsis = synopsis;
         this.director = director;
@@ -40,6 +42,14 @@ public class Film {
         this.releaseYear = releaseYear;
         this.genres = genres;
         this.poster_url = poster_url;
+    }
+
+    public Long getTmdbId() {
+        return tmdbId;
+    }
+
+    public void setTmdbId(Long tmdbId) {
+        this.tmdbId = tmdbId;
     }
 
     public Long getId() {
