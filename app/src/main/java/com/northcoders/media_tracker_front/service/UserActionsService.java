@@ -1,7 +1,10 @@
 package com.northcoders.media_tracker_front.service;
 
-import com.northcoders.media_tracker_front.model.Bookmarked;
-import com.northcoders.media_tracker_front.model.WatchHistory;
+import android.text.BoringLayout;
+
+import com.northcoders.media_tracker_front.model.FilmDetails;
+import com.northcoders.media_tracker_front.model.UserFilm;
+import com.northcoders.media_tracker_front.model.UserFilm;
 
 import java.util.List;
 import java.util.Map;
@@ -21,29 +24,32 @@ public interface UserActionsService {
     Call<Void> auth();
 
     @GET("users/films/search")
-    Call<List<WatchHistory>> getHistory(@Query("status") String status);
+    Call<List<UserFilm>> getHistory(@Query("status") String status);
 
     @GET("users/films/search?status=BOOKMARKED")
-    Call<List<Bookmarked>> getBookmarked();
+    Call<List<UserFilm>> getBookmarked();
 
     @GET("users/films/{filmId}")
-    Call<Bookmarked> getBookmarkedFilm(@Path("filmId") Long filmId);
+    Call<UserFilm> getBookmarkedFilm(@Path("filmId") Long filmId);
 
     @DELETE("users")
     Call<Void> deleteUser();
 
     @GET("users/films/search?status=WATCHED")
-    Call<List<WatchHistory>> getHistory();
+    Call<List<UserFilm>> getHistory();
     @GET("users/films/{filmDbId}")
-    Call<WatchHistory> getUserFilmDetails(@Path("filmDbId") Long movieId );
+    Call<UserFilm> getUserFilmDetails(@Path("filmDbId") Long movieId );
 
 
     @PATCH("users/films/{filmDbId}")
-    Call<Void> updateUserFilm(@Path("filmDbId") Long id, @Body WatchHistory film);
+    Call<Void> updateUserFilm(@Path("filmDbId") Long id, @Body UserFilm film);
 
     @PATCH("users/films/{filmDbId}")
-    Call<Void> updateUserBookFilm(@Path("filmDbId") Long id, @Body Bookmarked film);
+    Call<Void> updateUserBookFilm(@Path("filmDbId") Long id, @Body UserFilm film);
 
+
+    @DELETE("users/films/{filmDbId}")
+    Call<Void> deleteUserFilm(@Path("filmDbId") Long movieId);
 
     @GET("users/genreStats")
     Call<Map<String,Integer>> getUserGenreStats();
@@ -52,7 +58,10 @@ public interface UserActionsService {
     Call<Integer> getTotalWatchedRuntime();
 
     @POST("users/films/{movieid}")
-    Call<Void> saveUserFilm(@Path ("movieid") Long id, @Body Bookmarked bookmarked);
+    Call<UserFilm> saveUserFilm(@Path ("movieid") Long id, @Body UserFilm userFilm);
+
+    @GET("users/film/{tmdbId}/isSaved")
+    Call<Boolean> isUserFilmSaved(@Path("tmdbId") Long tmdbId);
 
 
 
