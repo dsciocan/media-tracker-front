@@ -5,26 +5,28 @@ import java.util.List;
 public class FilmDetails {
 
     //TODO: datatype for genres?
-
+    private List<Genre> genres;
     private String title;
     private String overview;
     private String original_language;
+    private List<String> origin_country;
     private String poster_path;
     //year only?
     private String release_date;
     private int runtime;
     //private List<String> production_companies;
 
-    //  List<Genre> genres
 
     public FilmDetails() {
 
     }
 
-    public FilmDetails(String title, String overview, String original_language, String poster_path, String release_date, int runtime){// List<String> production_companies) {
+    public FilmDetails(List<Genre> genres,String title, String overview, String original_language, List<String> origin_country, String poster_path, String release_date, int runtime){// List<String> production_companies) {
+        this.genres = genres;
         this.title = title;
         this.overview = overview;
         this.original_language = original_language;
+        this.origin_country = origin_country;
         this.poster_path = poster_path;
         this.release_date = release_date;
         this.runtime = runtime;
@@ -79,11 +81,38 @@ public class FilmDetails {
         this.runtime = Integer.parseInt(runtime);
     }
 
+
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public String getGenresAsString() {
+        StringBuilder genreStringBuilder = new StringBuilder();
+        for (Genre genre : genres) {
+            genreStringBuilder.append(genre.getName());
+            genreStringBuilder.append(" ");
+        }
+        return genreStringBuilder.toString();
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }
+
+    public List<String> getOrigin_country() {
+        return origin_country;
+    }
+
+    public void setOrigin_country(List<String> origin_country) {
+        this.origin_country = origin_country;
+    }
+
+
     /*public List<String> getProduction_companies() {
         return production_companies;
     }*/
 
-    public void setProduction_companies(List<String> production_companies) {
+//    public void setProduction_companies(List<String> production_companies) {
   //      this.production_companies = production_companies;
-    }
+//    }
 }
