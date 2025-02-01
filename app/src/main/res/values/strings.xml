@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">media-tracker-front</string>
     <string name="home">Home</string>
-    <string name="current">Current</string>
-    <string name="bookmarked">Book</string>
+    <string name="watching">Watching</string>
+    <string name="userFilm">Book</string>
     <string name="watched">Watched</string>
     <string name="stats">Stats</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -34,4 +34,7 @@
     <string name="runtime">"runtime: "</string>
     <string name="language">language</string>
     <string name="film_poster">film poster</string>
+    <string name="saved">Saved</string>
+    <string name="saved_title">Saved</string>
+    <string name="login_catchphrase">What will it be today?</string>
 </resources>
