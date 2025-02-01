@@ -9,7 +9,7 @@ import androidx.databinding.Bindable;
     Each field needs a getter (add @Bindable) and setter.
  */
 
-public class Bookmarked extends BaseObservable  {
+public class UserFilm extends BaseObservable  {
 
 
     private UserFilmId userFilmId;
@@ -18,7 +18,7 @@ public class Bookmarked extends BaseObservable  {
     private String status;
     private String watchedDate;
 
-    public Bookmarked(UserFilmId userFilmId, int rating, String notes, String status, String watchedDate) {
+    public UserFilm(UserFilmId userFilmId, int rating, String notes, String status, String watchedDate) {
         this.userFilmId = userFilmId;
         this.rating = rating;
         this.notes = notes;
@@ -26,7 +26,7 @@ public class Bookmarked extends BaseObservable  {
         this.watchedDate = watchedDate;
     }
 
-    public Bookmarked() {
+    public UserFilm() {
     }
 
 //    public Bookmarked(String title, String posterUrl, String synopsis) {
