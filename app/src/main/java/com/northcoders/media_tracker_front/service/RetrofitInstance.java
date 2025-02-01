@@ -9,7 +9,7 @@ public class RetrofitInstance {
     private static Retrofit retrofit = null;
     private static final String baseURL = "http://10.0.2.2:8080/api/v1/mediatracker/";
 
-    public static MovieApiService getService(){
+    public static MovieApiService getMovieService(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
