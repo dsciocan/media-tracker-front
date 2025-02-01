@@ -1,16 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="16dp"
     tools:context=".fragments.WatchedMovieFragment">
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/profilepicturewatched"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/circularcustombutton"
+        />
+    <ImageButton
+        android:id="@+id/movie_fragment_back_fab"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="5dp"
+        android:contentDescription="@string/back_button"
+        android:src="@drawable/baseline_arrow_back_ios_new_24"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:tint="@color/md_theme_primary"
+        android:backgroundTint="@color/md_theme_background"
+        />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/movie_fragment_back_fab">
 
 
         <!--<com.google.android.material.imageview.ShapeableImageView
@@ -26,17 +58,7 @@
             app:shapeAppearance="@style/roundedImageView"
             tools:src="@tools:sample/avatars" />-->
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/movie_fragment_avatar"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginRight="8dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearance="@style/roundedImageView"
-            />
+
 
         <!--When using a RatingBar that supports user interaction, placing widgets to
             the left or right of the RatingBar is discouraged. - android docs-->
@@ -51,18 +73,32 @@
             android:src="@drawable/vhs_stack"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/watched_deleteButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/movie_fragment_image"
+            app:layout_constraintBottom_toTopOf="@id/movie_fragment_details_card"
+            android:layout_marginHorizontal="20dp"
+            app:buttonTint="@color/md_theme_primary"
+            android:src="@drawable/baseline_delete_24"
+            android:backgroundTint="@color/md_theme_background"
+            />
 
         <!--        //needs work for longer titles-->
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/movie_fragment_title"
-            style="@style/TextAppearance.myH1_serif"
+            style="@style/TextAppearance.AppCompat.Large"
+            app:fontFamily="@font/playfair_display_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:maxLines="2"
+            android:maxLines="3"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="5dp"
             android:text="Film Title"
             app:layout_constraintStart_toEndOf="@id/movie_fragment_image"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
@@ -88,13 +124,6 @@
                 android:layout_height="wrap_content"
                 android:hint="run time" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/movie_genres"
-                style="@style/TextAppearance.myBody1_sans"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="genres" />
-
             <!--            ideally these would have a label-->
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/movie_language"
@@ -110,41 +139,49 @@
                 android:layout_height="wrap_content"
                 android:hint="country" />
 
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/movie_genres"
+                style="@style/TextAppearance.myBody1_sans"
+                android:maxLines="3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="genres" />
+
 
         </LinearLayout>
 
         <!--        ideally should have label-->
-        <com.google.android.material.materialswitch.MaterialSwitch
-            android:id="@+id/movie_status_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@id/movie_fragment_image"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/movie_fragment_image"
-            android:checked="true"
-            />
+<!--        <com.google.android.material.materialswitch.MaterialSwitch-->
+<!--            android:id="@+id/movie_status_switch"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/movie_fragment_image"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="@id/movie_fragment_image"-->
+<!--            android:checked="true"-->
+<!--            />-->
 
         <!--needs replacing  - look into icon button or make background round - 2 states -->
 
-        <ImageButton
-            android:id="@+id/movie_fragment_bookmark_btn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@color/md_theme_tertiary"
-            android:contentDescription="@string/bookmark_icon_outline"
-            android:scaleType="fitCenter"
-            android:translationZ="100dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/movie_status_switch"
-            app:srcCompat="@drawable/ic_bookmark_tab_foreground"
-            app:tint="@color/md_theme_inversePrimary" />
+<!--        <ImageButton-->
+<!--            android:id="@+id/movie_fragment_bookmark_btn"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:background="@color/md_theme_tertiary"-->
+<!--            android:contentDescription="@string/bookmark_icon_outline"-->
+<!--            android:scaleType="fitCenter"-->
+<!--            android:translationZ="100dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/movie_status_switch"-->
+<!--            app:srcCompat="@drawable/ic_bookmark_tab_foreground"-->
+<!--            app:tint="@color/md_theme_inversePrimary" />-->
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/movie_fragment_details_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/movie_fragment_image">
+            app:layout_constraintTop_toBottomOf="@id/watched_deleteButton">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -154,6 +191,7 @@
                 <TextView
                     android:id="@+id/movie_fragment_details_heading"
                     style="@style/TextAppearance.myH2_sans"
+                    android:fontFamily="@font/playfair_display"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="12dp"
@@ -175,26 +213,20 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <RatingBar
-            android:id="@+id/movie_fragment_rating_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleX="0.7"
-            android:scaleY="0.7"
-            android:stepSize="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/movie_fragment_details_card" />
+
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/movie_fragment_notes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/movie_fragment_rating_bar">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/movie_fragment_details_card"
+            android:layout_marginTop="20dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="374dp"
+                android:layout_height="270dp"
                 android:padding="12dp">
 
                 <TextView
@@ -202,9 +234,30 @@
                     style="@style/TextAppearance.myH2_sans"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/my_notes"
+                    android:text="My Thoughts"
+                    android:fontFamily="@font/playfair_display"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/watched_save_btn"
+                    android:layout_width="wrap_content"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:text="Save"
+                    android:textSize="18dp"
+                    />
+                <RatingBar
+                    android:id="@+id/movie_fragment_rating_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleX="0.7"
+                    android:scaleY="0.7"
+                    android:stepSize="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/movie_fragment_notes_heading" />
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/movie_fragment_notes_input"
@@ -216,21 +269,14 @@
                     android:minLines="10"
                     android:scrollbars="vertical"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/movie_fragment_notes_heading" />
+                    app:layout_constraintTop_toBottomOf="@id/movie_fragment_rating_bar" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/movie_fragment_back_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="12dp"
-            android:contentDescription="@string/back_button"
-            android:src="@drawable/ic_arrow_back_foreground"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </FrameLayout>
 </layout>

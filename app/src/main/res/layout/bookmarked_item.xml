@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="bookmarked"
-            type="com.northcoders.media_tracker_front.model.Bookmarked" />
+            name="userFilm"
+            type="com.northcoders.media_tracker_front.model.UserFilm" />
     </data>
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
@@ -51,7 +51,7 @@
 
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:text="@{bookmarked.userFilmId.film.title}"
+                        android:text="@{userFilm.userFilmId.film.title}"
                         />
 
 
@@ -63,7 +63,7 @@
                         android:ellipsize="end"
                         android:hint="@string/mock_text"
                         android:maxLines="3"
-                        android:text="@{bookmarked.userFilmId.film.synopsis}"
+                        android:text="@{userFilm.userFilmId.film.synopsis}"
                         android:minLines="5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/bookmarked_fragment_title"
@@ -79,7 +79,7 @@
                     android:layout_centerVertical="true"
                     android:background="@drawable/roundbackground"
                     android:backgroundTint="@color/md_theme_tertiary"
-                    android:contentDescription="@string/bookmarked"
+                    android:contentDescription="@string/userFilm"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_bookmark_tab_foreground"
                     app:tint="@color/md_theme_onTertiary" />

@@ -15,16 +15,28 @@
                 android:layout_height="match_parent"
                 android:id="@+id/main"
                 >
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/HomeTitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:src="@drawable/wannalogo_final"
+                    android:id="@+id/logo"
+                    android:layout_marginBottom="30dp"
+                    />
                 <TextView
                     android:id="@+id/HomeTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="30sp"
+                    android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/logo"
+                    app:layout_constraintBottom_toTopOf="@id/SearchViewSearch"
                     app:layout_constraintHorizontal_bias="0.06"
-                    android:text="Welcome to...."
+                    android:layout_marginHorizontal="30dp"
+                    android:text="What's on your mind?"
                     />
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/ProfilePicImage"
@@ -51,8 +63,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/HomeTitle"
-                    app:layout_constraintVertical_bias="0.239"></SearchView>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.239"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerview"
@@ -64,14 +76,14 @@
                     app:layout_constraintTop_toBottomOf="@+id/SearchViewSearch"
                     />
 
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Show Search"
-                    app:layout_constraintBottom_toTopOf="@+id/SearchViewSearch"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/HomeTitle" />
+<!--                <TextView-->
+<!--                    android:id="@+id/textView5"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Show Search"-->
+<!--                    app:layout_constraintBottom_toTopOf="@+id/SearchViewSearch"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/HomeTitle" />-->
             </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>
     </layout>

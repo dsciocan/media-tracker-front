@@ -4,20 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:layout_marginVertical="150dp"
+    android:layout_marginHorizontal="16dp">
 
-<com.google.android.material.textview.MaterialTextView
+    <com.google.android.material.textview.MaterialTextView
 
-    android:id="@+id/loginTitle"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="{APP NAME}"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintVertical_bias="0.4"
-    />
+        android:id="@+id/loginTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:fontFamily="@font/afacad"
+        android:text="@string/login_catchphrase"
+        android:textAlignment="textEnd"
+        android:textFontWeight="300"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <!--<TextView
 
         android:textSize="45sp"
@@ -38,15 +44,28 @@
 <!--        app:layout_constraintEnd_toEndOf="parent"-->
 <!--        />-->
 
+
+    <ImageView
+        android:paddingTop="20dp"
+        android:id="@+id/logoimg"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:src="@drawable/wannalogo_final"
+        app:layout_constraintBottom_toTopOf="@id/loginTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.481" />
+
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SIGN IN WITH GOOGLE (PLACEHOLDER) - Use this"
+        android:text="SIGN IN WITH GOOGLE"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginTitle"
         app:layout_constraintBottom_toBottomOf="parent"
+
        />
 
 

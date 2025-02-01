@@ -16,15 +16,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/wannalogo_final"
+            android:id="@+id/logo"
+            android:layout_marginBottom="30dp"
+
+            />
         <TextView
             android:id="@+id/HomeTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Welcome to...."
-            style="@style/TextAppearance.myH1_serif"
-            app:layout_constraintEnd_toStartOf="@+id/profilepicturemain"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/logo"
+            app:layout_constraintBottom_toTopOf="@id/SearchViewHome"
+            app:layout_constraintHorizontal_bias="0.06"
+            android:layout_marginHorizontal="30dp"
+            android:text="What's on your mind?"
+            />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/profilepicturemain"
@@ -70,14 +84,16 @@
 
         <SearchView
             android:id="@+id/SearchViewHome"
-            android:layout_width="411dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="328dp"
             android:iconifiedByDefault="false"
             android:queryHint="Search TV Show or Movie..."
+            app:layout_constraintTop_toBottomOf="@id/logo"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintBottom_toTopOf="@id/HorizontalScroll"
+            app:layout_constraintVertical_bias="0.239"/>
 
 
         <!--

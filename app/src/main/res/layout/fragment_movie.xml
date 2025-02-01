@@ -20,6 +20,19 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            <ImageButton
+                android:id="@+id/back_button"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="5dp"
+                android:contentDescription="@string/back_button"
+                android:src="@drawable/baseline_arrow_back_ios_new_24"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:tint="@color/md_theme_primary"
+                android:backgroundTint="@color/md_theme_background"
+                />
 
             <ImageButton
                 android:id="@+id/avatar"
@@ -34,6 +47,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@tools:sample/avatars" />
+
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -64,14 +78,7 @@
                 <!--                    app:layout_constraintStart_toStartOf="@id/poster"-->
                 <!--                    app:layout_constraintTop_toBottomOf="@id/poster" />-->
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/language"
-                    style="@style/TextAppearance.myBody1_sans"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/language"
-                    app:layout_constraintStart_toStartOf="@id/poster"
-                    app:layout_constraintTop_toBottomOf="@id/poster" />
+
 
 
                 <!--        //needs work for longer titles-->
@@ -111,18 +118,42 @@
                         android:layout_height="wrap_content"
                         android:hint="run time"
                         app:layout_constraintTop_toTopOf="parent" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/language"
+                        style="@style/TextAppearance.myBody1_sans"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/language"
+                        app:layout_constraintStart_toStartOf="@id/poster"
+                        app:layout_constraintTop_toBottomOf="@id/runtime" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/country"
+                        style="@style/TextAppearance.myBody1_sans"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="country"
+                        app:layout_constraintStart_toStartOf="@id/poster"
+                        app:layout_constraintTop_toBottomOf="@id/language" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/genres"
+                        style="@style/TextAppearance.myBody1_sans"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="genres"
+                        app:layout_constraintStart_toStartOf="@id/poster"
+                        app:layout_constraintTop_toBottomOf="@id/country" />
 
                 </LinearLayout>
 
                 <!--        ideally should have label-->
-                <com.google.android.material.materialswitch.MaterialSwitch
-                    android:id="@+id/movie_status_switch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="8dp"
-                    app:layout_constraintBottom_toBottomOf="@id/poster"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/poster" />
+<!--                <com.google.android.material.materialswitch.MaterialSwitch-->
+<!--                    android:id="@+id/movie_status_switch"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginVertical="8dp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@id/poster"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="@id/poster" />-->
 
                 <CheckBox
                     android:id="@+id/bookmark"
@@ -132,7 +163,23 @@
                     android:button="@drawable/sl_bookmark"
                     app:buttonTint="@color/md_theme_primary"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/movie_status_switch" />
+                    app:layout_constraintBottom_toTopOf="@id/movie_fragment_details_card"
+                    android:layout_marginEnd="10dp"
+                    />
+
+                <Button
+                    android:id="@+id/watched_button"
+                    app:icon="@drawable/baseline_history_24"
+                    style="@style/Widget.MaterialComponents.Button.Icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="168dp"
+                    android:layout_marginTop="4dp"
+                    android:text="Watched"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/movie_fragment_details_card"
+                    android:layout_marginVertical="8dp"
+                    />
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/movie_fragment_details_card"
@@ -140,7 +187,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/language">
+                    app:layout_constraintTop_toBottomOf="@id/poster">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -150,6 +197,7 @@
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/movie_fragment_details_heading"
                             style="@style/TextAppearance.myH2_sans"
+                            android:fontFamily="@font/playfair_display"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingBottom="12dp"
@@ -169,16 +217,8 @@
                 </com.google.android.material.card.MaterialCardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/movie_fragment_back_fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
-                android:layout_marginBottom="12dp"
-                android:contentDescription="back"
-                android:src="@drawable/ic_arrow_back_foreground"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 </layout>

@@ -6,11 +6,11 @@
         android:icon="@drawable/ic_home_foreground"/>
     <item
         android:id="@+id/current"
-        android:title="@string/current"
+        android:title="@string/watching"
         android:icon="@drawable/ic_currently_watching_foreground"/>
     <item
         android:id="@+id/bookmarks"
-        android:title="bookmarks"
+        android:title="@string/saved"
         android:icon="@drawable/ic_bookmark_tab_foreground"/>
 
     <item

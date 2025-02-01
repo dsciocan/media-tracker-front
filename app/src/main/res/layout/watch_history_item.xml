@@ -6,7 +6,7 @@
 
         <variable
             name="watchHistory"
-            type="com.northcoders.media_tracker_front.model.WatchHistory" />
+            type="com.northcoders.media_tracker_front.model.UserFilm" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
