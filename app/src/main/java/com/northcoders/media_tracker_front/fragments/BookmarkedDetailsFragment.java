@@ -1,7 +1,6 @@
 package com.northcoders.media_tracker_front.fragments;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -24,20 +23,19 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.northcoders.media_tracker_front.R;
-import com.northcoders.media_tracker_front.adapter.BookmarkedAdapter;
 import com.northcoders.media_tracker_front.databinding.FragmentBookmarkedDetailsBinding;
-import com.northcoders.media_tracker_front.model.Bookmarked;
+import com.northcoders.media_tracker_front.model.UserFilm;
 import com.northcoders.media_tracker_front.viewmodel.BookmarkedDetailsViewModel;
-import com.northcoders.media_tracker_front.viewmodel.BookmarkedViewModel;
-import com.northcoders.media_tracker_front.viewmodel.WatchHistoryViewModel;
 
 import org.jetbrains.annotations.Nullable;
+
+import java.time.LocalDate;
 
 
 public class BookmarkedDetailsFragment extends Fragment {
     BookmarkedDetailsViewModel bookmarkedDetailsViewModel;
-   Bookmarked bookmarkedFilm = new Bookmarked();
-   Bookmarked currentFilmDetails;
+   UserFilm userFilmFilm = new UserFilm();
+   UserFilm currentFilmDetails;
    FragmentBookmarkedDetailsBinding binding;
    ProfileFragment profileFragment = new ProfileFragment();
    BookmarkedFragment bookmarkedFragment = new BookmarkedFragment();
@@ -72,30 +70,30 @@ public class BookmarkedDetailsFragment extends Fragment {
             getFilmDetails(filmId);
         }
         loadProfilePicture();
-        loadFabLogic();
-        setSwitchLogic();
+        backButtonLogic();
+        setDeleteButtonLogic();
         editTextViewLogic();
         watchedButton();
-
+        setSaveButtonLogic();
 
     }
 
     public void getFilmDetails(Long id) {
-        bookmarkedDetailsViewModel.getUserFilm(id).observe(getViewLifecycleOwner(), new Observer<Bookmarked>() {
+        bookmarkedDetailsViewModel.getUserFilm(id).observe(getViewLifecycleOwner(), new Observer<UserFilm>() {
             @Override
-            public void onChanged(Bookmarked bookmarked) {
-                bookmarkedFilm = bookmarked;
-                setBindingText(bookmarkedFilm);
+            public void onChanged(UserFilm userFilm) {
+                userFilmFilm = userFilm;
+                setBindingText(userFilmFilm);
             }
         });
     }
 
-    public void setBindingText(Bookmarked bookmarked) {
-        Log.i("BOOKMARKEDDETAILSFRAGMENT", bookmarked.getUserFilmId().getFilm().getTitle());
-        binding.setBookmarked(bookmarked);
-        binding.bookmarkedFragmentRatingBar.setRating(bookmarked.getRating());
+    public void setBindingText(UserFilm userFilm) {
+        Log.i("BOOKMARKEDDETAILSFRAGMENT", userFilm.getUserFilmId().getFilm().getTitle());
+        binding.setUserFilm(userFilm);
+        binding.bookmarkedFragmentRatingBar.setRating(userFilm.getRating());
 //        binding.bookmarkedFragmentTitle.setText(bookmarked.getUserFilmId().getFilm().getTitle());
-        Glide.with(this).load(bookmarked.getUserFilmId().getFilm().getPoster_url()).into(binding.bookmarkedFragmentImage);
+        Glide.with(this).load(userFilm.getUserFilmId().getFilm().getPoster_url()).into(binding.bookmarkedFragmentImage);
     }
 
 
@@ -109,50 +107,56 @@ public class BookmarkedDetailsFragment extends Fragment {
 
     }
 
-    public void setSwitchLogic(){
-        binding.bookmarkedStatusSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(!isChecked){
-                    switchAlert();
-                    binding.bookmarkedStatusSwitch.setChecked(true);
-                }
 
+    public void setDeleteButtonLogic() {
+        binding.bookmarkedFragmentBookmarkBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!binding.bookmarkedFragmentBookmarkBtn.isChecked()) {
+                    deleteAlert();
+                }
             }
         });
-
     }
 
-    private void switchAlert(){
-
+    private void deleteAlert() {
         AlertDialog.Builder quit = new AlertDialog.Builder(getContext())
-                .setTitle("Remove From Bookmarked")
-                .setMessage("Are you sure you want to remove this from your 'bookmarked' list" )
+                .setTitle("Remove From Bookmarks")
+                .setMessage("Are you sure you want to remove this from your 'bookmarked' list?")
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Log.i("Watched Movie Fragment", "USER CONFIRMED DELETE");
                         // Backend only has call to delete user film -> not necessarily by status
                         // Same logic applied for both watched and bookmarked
-                        bookmarkedDetailsViewModel.deleteUserFilm(bookmarkedFilm.getUserFilmId().getFilm().getId());
+                        bookmarkedDetailsViewModel.deleteUserFilm(userFilmFilm.getUserFilmId().getFilm().getId());
                         Toast.makeText(getContext(), "Successfully Removed", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                         getActivity().getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.frameLayoutFragment, new BookmarkedFragment())
+                                .replace(R.id.frameLayoutFragment, bookmarkedFragment)
                                 .commit();
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        binding.bookmarkedFragmentBookmarkBtn.setChecked(true);
                         dialog.cancel();
                     }
                 });
         quit.show();
-
-
     }
 
+
+
+    public void setSaveButtonLogic() {
+        binding.bookmarkedSaveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editTextDialog();
+            }
+        });
+    }
     private void editTextViewLogic(){
         binding.bookmarkedFragmentNotesInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -174,7 +178,7 @@ public class BookmarkedDetailsFragment extends Fragment {
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        currentFilmDetails = bookmarkedFilm;
+                        currentFilmDetails = userFilmFilm;
                         String inputText = binding.bookmarkedFragmentNotesInput.getText().toString();
                         int rating = (int) binding.bookmarkedFragmentRatingBar.getRating();
                         currentFilmDetails.setNotes(inputText);
@@ -221,7 +225,7 @@ public class BookmarkedDetailsFragment extends Fragment {
 
     }
 
-    public void loadFabLogic(){
+    public void backButtonLogic(){
         binding.bookmarkedFragmentBackFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -237,15 +241,39 @@ public class BookmarkedDetailsFragment extends Fragment {
         binding.bookmarkedToWatchedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 Bookmarked bookmarked = binding.getBookmarked();
-                 bookmarked.setStatus("WATCHED");
-                bookmarkedDetailsViewModel.updateUserFilm(bookmarked.getUserFilmId().getFilm().getId(), bookmarked);
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.frameLayoutFragment, bookmarkedFragment)
-                        .commit();
+            moveAlert();
             }
         });
+    }
+
+
+    private void moveAlert() {
+        AlertDialog.Builder quit = new AlertDialog.Builder(getContext())
+                .setTitle("Move to Watched")
+                .setMessage("Are you sure you want to move this to your 'watched' list?")
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.i("Watched Movie Fragment", "USER CONFIRMED DELETE");
+                        // Backend only has call to delete user film -> not necessarily by status
+                        // Same logic applied for both watched and bookmarked
+                        UserFilm userFilm = binding.getUserFilm();
+                        userFilm.setStatus("WATCHED");
+                        userFilm.setWatchedDate(LocalDate.now().toString());
+                        bookmarkedDetailsViewModel.updateUserFilm(userFilm.getUserFilmId().getFilm().getId(), userFilm);
+                        getActivity().getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.frameLayoutFragment, bookmarkedFragment)
+                                .commit();
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        quit.show();
     }
 
 }
