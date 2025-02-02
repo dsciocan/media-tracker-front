@@ -23,11 +23,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.firebase.ui.auth.data.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.northcoders.media_tracker_front.R;
 import com.northcoders.media_tracker_front.databinding.FragmentWatchedBinding;
 import com.northcoders.media_tracker_front.databinding.FragmentWatchedMovieBinding;
 import com.northcoders.media_tracker_front.model.FilmDetails;
+import com.northcoders.media_tracker_front.model.UserFilm;
 import com.northcoders.media_tracker_front.model.WatchHistory;
 import com.northcoders.media_tracker_front.viewmodel.WatchHistoryViewModel;
 
@@ -40,12 +42,13 @@ import java.util.List;
  */
 public class WatchedMovieFragment extends Fragment {
 
-    WatchHistory currentFilmDetails;
+    UserFilm currentFilmDetails;
 
-    WatchHistory currentFilm = new WatchHistory();
+    UserFilm currentFilm = new UserFilm();
 
     WatchHistoryViewModel viewModel;
     FragmentWatchedMovieBinding binding;
+    WatchedFragment watchedFragment = new WatchedFragment();
 
     private final static String MOVIE_ID_KEY = "moviekey";
 
@@ -78,8 +81,10 @@ public class WatchedMovieFragment extends Fragment {
             getUserFilmDetails(getArguments().getLong(MOVIE_ID_KEY));
         }
         loadProfileButton();
-        setSwitchLogic();
+        backButtonLogic();
+        setDeleteButtonLogic();
         editTextViewLogic();
+        setSaveButtonLogic();
 
 
     }
@@ -93,29 +98,26 @@ public class WatchedMovieFragment extends Fragment {
     }
 
     public void getUserFilmDetails(Long id) {
-        viewModel.getWatchedFilmDetails(id).observe(getViewLifecycleOwner(), new Observer<WatchHistory>() {
+        viewModel.getWatchedFilmDetails(id).observe(getViewLifecycleOwner(), new Observer<UserFilm>() {
             @Override
-            public void onChanged(WatchHistory watchHistory) {
+            public void onChanged(UserFilm watchHistory) {
                 currentFilm = watchHistory;
                 displayInPage(currentFilm);
             }
         });
     }
 
-    public void setSwitchLogic() {
-        binding.movieStatusSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+    public void setDeleteButtonLogic() {
+        binding.watchedDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (!isChecked) {
-                    switchAlert();
-                    binding.movieStatusSwitch.setChecked(true);
-                }
+            public void onClick(View v) {
+                deleteAlert();
             }
         });
-
     }
 
-    private void switchAlert() {
+    private void deleteAlert() {
         AlertDialog.Builder quit = new AlertDialog.Builder(getContext())
                 .setTitle("Remove From Watched")
                 .setMessage("Are you sure you want to remove this from your 'watched' list?")
@@ -142,6 +144,18 @@ public class WatchedMovieFragment extends Fragment {
         quit.show();
     }
 
+    public void backButtonLogic(){
+        binding.movieFragmentBackFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frameLayoutFragment, watchedFragment)
+                        .commit();
+            }
+        });
+    }
+
     private void editTextViewLogic() {
         binding.movieFragmentNotesInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -154,8 +168,15 @@ public class WatchedMovieFragment extends Fragment {
                 return false;
             }
         });
+    }
 
-
+    public void setSaveButtonLogic() {
+        binding.watchedSaveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                  editTextDialog();
+            }
+        });
     }
 
     public void editTextDialog() {
@@ -187,7 +208,7 @@ public class WatchedMovieFragment extends Fragment {
 
 
     private void loadProfileButton() {
-        ImageButton profilePicture = binding.movieFragmentAvatar;
+        ImageButton profilePicture = binding.profilepicturewatched;
         Glide.with(profilePicture)
                 .load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString())
                 .circleCrop()
@@ -216,9 +237,9 @@ public class WatchedMovieFragment extends Fragment {
     }
 
 
-    public void displayInPage(WatchHistory watchHistory) {
+    public void displayInPage(UserFilm watchHistory) {
         binding.movieFragmentTitle.setText(watchHistory.getUserFilmId().getFilm().getTitle());
-        binding.movieYear.setText(watchHistory.getWatchedDate());
+        binding.movieYear.setText("" + watchHistory.getUserFilmId().getFilm().getReleaseYear());
         binding.movieRuntime.setText(watchHistory.getUserFilmId().getFilm().getDuration() + " mins");
         binding.movieLanguage.setText(watchHistory.getUserFilmId().getFilm().getLanguage());
         binding.movieCountry.setText(watchHistory.getUserFilmId().getFilm().getCountry());
@@ -227,8 +248,7 @@ public class WatchedMovieFragment extends Fragment {
                 .load(watchHistory.getUserFilmId().getFilm().getPoster_url())
                 .into(binding.movieFragmentImage);
 
-        List<String> genres = watchHistory.getUserFilmId().getFilm().getGenres();
-        binding.movieGenres.setText(String.join(", ", genres));
+        binding.movieGenres.setText(watchHistory.getUserFilmId().getFilm().getGenresAsString());
         TextView detailsTextView = binding.movieFragmentDetailsCard.findViewById(R.id.details_text_view);
         detailsTextView.setText(watchHistory.getUserFilmId().getFilm().getSynopsis());
         binding.movieFragmentNotesInput.setText(watchHistory.getNotes());
