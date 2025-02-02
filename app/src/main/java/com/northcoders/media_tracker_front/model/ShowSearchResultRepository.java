@@ -32,7 +32,7 @@ public class ShowSearchResultRepository {
         }
 
         public MutableLiveData<List<ShowSearchResult>> getMutableLiveData(String searchQuery){
-            MovieApiService movieApiService = RetrofitInstance.getService();
+            MovieApiService movieApiService = RetrofitInstance.getMovieService();
             Call<List<ShowSearchResult>> call = movieApiService.getShowSearchResults(searchQuery);
             call.enqueue(new Callback<List<ShowSearchResult>>(){
                 @Override
