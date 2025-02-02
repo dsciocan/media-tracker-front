@@ -15,50 +15,50 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class WatchHistoryRepository {
-    private MutableLiveData<List<WatchHistory>> mutableLiveData = new MutableLiveData<>();
-    private MutableLiveData<WatchHistory> userFilm = new MutableLiveData<>();
+    private MutableLiveData<List<UserFilm>> mutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<UserFilm> userFilm = new MutableLiveData<>();
     private Application application;
 
     public WatchHistoryRepository(Application application) {
         this.application = application;
     }
 
-    public MutableLiveData<List<WatchHistory>> getMutableLiveData(){
+    public MutableLiveData<List<UserFilm>> getMutableLiveData(){
         UserActionsService userActionsService = RetrofitInstance.getUserService();
         // getHistory() fetches the data, see 'service'
-        Call<List<WatchHistory>> call = userActionsService.getHistory();
-        call.enqueue(new Callback<List<WatchHistory>>(){
+        Call<List<UserFilm>> call = userActionsService.getHistory();
+        call.enqueue(new Callback<List<UserFilm>>(){
             @Override
-            public void onResponse(Call<List<WatchHistory>> call, Response<List<WatchHistory>> response) {
-                List<WatchHistory> historyList = response.body();
+            public void onResponse(Call<List<UserFilm>> call, Response<List<UserFilm>> response) {
+                List<UserFilm> historyList = response.body();
                 mutableLiveData.setValue(historyList);
             }
 
             @Override
-            public void onFailure(Call<List<WatchHistory>> call, Throwable t) {
+            public void onFailure(Call<List<UserFilm>> call, Throwable t) {
                 Log.i("GET request", t.getMessage());
             }
         });
         return mutableLiveData;
     }
 
-    public MutableLiveData<WatchHistory> getUserFilmDetails(Long id){
+    public MutableLiveData<UserFilm> getUserFilmDetails(Long id){
         UserActionsService service = RetrofitInstance.getUserService();
-        Call<WatchHistory> call = service.getUserFilmDetails(id);
-        call.enqueue(new Callback<WatchHistory>() {
+        Call<UserFilm> call = service.getUserFilmDetails(id);
+        call.enqueue(new Callback<UserFilm>() {
             @Override
-            public void onResponse(Call<WatchHistory> call, Response<WatchHistory> response) {
+            public void onResponse(Call<UserFilm> call, Response<UserFilm> response) {
                 Log.i("WatchHistoryRepo Response", String.valueOf(response.code()));
                Log.i("WatchHistoryRepo Response", response.body().toString());
                 if(response.code() == 200){
-                    WatchHistory userCall = response.body();
+                    UserFilm userCall = response.body();
                     userFilm.setValue(userCall);
                 }
 
             }
 
             @Override
-            public void onFailure(Call<WatchHistory> call, Throwable t) {
+            public void onFailure(Call<UserFilm> call, Throwable t) {
                 Log.e("WatchHistoryRepo Response", t.getMessage());
             }
         });
@@ -88,7 +88,7 @@ public class WatchHistoryRepository {
         });
     }
 
-    public void updateUserFilm(Long id,WatchHistory film){
+    public void updateUserFilm(Long id,UserFilm film){
         UserActionsService service = RetrofitInstance.getUserService();
         Call<Void> call = service.updateUserFilm(id,film);
         call.enqueue(new Callback<Void>() {

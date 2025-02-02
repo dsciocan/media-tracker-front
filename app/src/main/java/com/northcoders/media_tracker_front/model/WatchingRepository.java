@@ -24,7 +24,7 @@ public class WatchingRepository {
     }
 
     public MutableLiveData<List<Watching>> getMutableLiveData() {
-        MovieApiService movieApiService = RetrofitInstance.getService();
+        MovieApiService movieApiService = RetrofitInstance.getMovieService();
 
         Call<List<Watching>> call = movieApiService.getWatching();
         call.enqueue(new Callback<List<Watching>>() {
