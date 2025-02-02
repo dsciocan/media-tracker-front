@@ -120,6 +120,17 @@ public class Film {
         return genres;
     }
 
+    public String getGenresAsString() {
+        StringBuilder genreStringBuilder = new StringBuilder();
+        for (String genre : genres) {
+            if(!genre.equals(genres.get(0))) {
+                genreStringBuilder.append(", ");
+            }
+            genreStringBuilder.append(genre);
+        }
+        return genreStringBuilder.toString();
+    }
+
     public void setGenres(List<String> genres) {
         this.genres = genres;
     }

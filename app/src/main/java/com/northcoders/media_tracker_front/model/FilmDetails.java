@@ -89,8 +89,10 @@ public class FilmDetails {
     public String getGenresAsString() {
         StringBuilder genreStringBuilder = new StringBuilder();
         for (Genre genre : genres) {
+            if(!genre.equals(genres.get(0))) {
+                genreStringBuilder.append(", ");
+            }
             genreStringBuilder.append(genre.getName());
-            genreStringBuilder.append(" ");
         }
         return genreStringBuilder.toString();
     }
