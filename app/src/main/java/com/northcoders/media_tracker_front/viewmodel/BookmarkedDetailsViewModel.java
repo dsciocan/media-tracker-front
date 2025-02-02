@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.northcoders.media_tracker_front.model.Bookmarked;
+import com.northcoders.media_tracker_front.model.UserFilm;
 import com.northcoders.media_tracker_front.model.BookmarkedRepository;
 
 public class BookmarkedDetailsViewModel extends AndroidViewModel {
@@ -17,7 +17,7 @@ public class BookmarkedDetailsViewModel extends AndroidViewModel {
         this.bookmarkedRepository = new BookmarkedRepository(application);
     }
 
-    public LiveData<Bookmarked> getUserFilm(Long filmId) {
+    public LiveData<UserFilm> getUserFilm(Long filmId) {
         return bookmarkedRepository.getFilmMutableLiveData(filmId);
     }
 
@@ -25,7 +25,7 @@ public class BookmarkedDetailsViewModel extends AndroidViewModel {
         bookmarkedRepository.deleteUserFilm(id);
     }
 
-    public void updateUserFilm(Long id, Bookmarked film){
+    public void updateUserFilm(Long id, UserFilm film){
         bookmarkedRepository.updateUserFilm(id, film);
     }
 

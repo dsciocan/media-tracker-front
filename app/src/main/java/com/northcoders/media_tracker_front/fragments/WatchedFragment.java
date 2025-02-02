@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.northcoders.media_tracker_front.adapter.RecyclerViewInterface;
 import com.northcoders.media_tracker_front.databinding.FragmentWatchedBinding;
+import com.northcoders.media_tracker_front.model.UserFilm;
 import com.northcoders.media_tracker_front.model.WatchHistory;
 import com.northcoders.media_tracker_front.viewmodel.WatchHistoryViewModel;
 import com.northcoders.media_tracker_front.adapter.WatchHistoryAdapter;
@@ -27,7 +28,7 @@ import java.util.List;
 
 public class WatchedFragment extends Fragment implements RecyclerViewInterface {
     RecyclerView recyclerView;
-    ArrayList<WatchHistory> watchHistoryArrayList;
+    ArrayList<UserFilm> watchHistoryArrayList;
     WatchHistoryAdapter watchHistoryAdapter;
     FragmentWatchedBinding binding;
     WatchHistoryViewModel viewModel;
@@ -84,10 +85,10 @@ public class WatchedFragment extends Fragment implements RecyclerViewInterface {
     }
 
     private  void getHistory() {
-        viewModel.getWatchHistory().observe(getViewLifecycleOwner(), new Observer<List<WatchHistory>>() {
+        viewModel.getWatchHistory().observe(getViewLifecycleOwner(), new Observer<List<UserFilm>>() {
             @Override
-            public void onChanged(List<WatchHistory> historyList) {
-                watchHistoryArrayList = (ArrayList<WatchHistory>) historyList;
+            public void onChanged(List<UserFilm> historyList) {
+                watchHistoryArrayList = (ArrayList<UserFilm>) historyList;
                 displayWatchHistoryInRecyclerView();
             }
         });

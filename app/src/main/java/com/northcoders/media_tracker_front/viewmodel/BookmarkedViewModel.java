@@ -5,9 +5,8 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
-import com.northcoders.media_tracker_front.model.Bookmarked;
+import com.northcoders.media_tracker_front.model.UserFilm;
 import com.northcoders.media_tracker_front.model.BookmarkedRepository;
 
 import java.util.List;
@@ -21,7 +20,7 @@ public class BookmarkedViewModel extends AndroidViewModel {
         this.bookmarkedRepository = new BookmarkedRepository(application);
     }
 
-    public LiveData<List<Bookmarked>> getBookmarked() {
+    public LiveData<List<UserFilm>> getBookmarked() {
         return bookmarkedRepository.getMutableLiveData();
     }
 }
