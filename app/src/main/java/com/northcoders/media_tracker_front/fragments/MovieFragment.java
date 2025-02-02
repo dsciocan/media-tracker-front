@@ -1,6 +1,8 @@
 package com.northcoders.media_tracker_front.fragments;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
+import android.media.Rating;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -15,17 +17,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.northcoders.media_tracker_front.R;
 import com.northcoders.media_tracker_front.databinding.FragmentMovieBinding;
-import com.northcoders.media_tracker_front.model.Bookmarked;
+import com.northcoders.media_tracker_front.model.Film;
+import com.northcoders.media_tracker_front.model.UserFilm;
 import com.northcoders.media_tracker_front.model.FilmDetails;
+import com.northcoders.media_tracker_front.viewmodel.BookmarkedDetailsViewModel;
 import com.northcoders.media_tracker_front.viewmodel.MovieDetailsViewModel;
+
+import java.time.LocalDate;
+import java.util.Objects;
 
 public class MovieFragment extends Fragment {
     private static final String MOVIE_ID_KEY = "MovieKey"  ;
@@ -33,6 +44,9 @@ public class MovieFragment extends Fragment {
     MovieDetailsViewModel viewModel;
     private ProfileFragment profileFragment = new ProfileFragment();
     FragmentMovieBinding binding;
+    UserFilm userFilm = new UserFilm();
+    Film film = new Film();
+    Boolean isSaved = false;
 
     public MovieFragment() {
         // Required empty public constructor
@@ -60,43 +74,104 @@ public class MovieFragment extends Fragment {
         if (getArguments() != null) {
             Long key = getArguments().getLong(MOVIE_ID_KEY);
             /*currentFilmDetails = viewModel.getFilmDetails(key);*/
-            getFilmDetails(key);
-        }
 
+            getFilmDetails(key);
+            isFilmSaved(key);
+            getFilm(key);
+            getUserFilm(film.getId());
+        }
+        backButtonLogic();
+        handleFilmStatusLogic();
         setSwitchLogic();
 
     }
 
     public void setSwitchLogic(){
-        binding.movieStatusSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        binding.bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+            public void onClick(View v) {
+                if(checkFilmStatus().equals("WATCHED")) {
+                    Toast.makeText(getContext(), "Film already watched", Toast.LENGTH_SHORT).show();
+                    binding.bookmark.setChecked(false);
+                } else if (checkFilmStatus().equals("BOOKMARKED") && binding.bookmark.isChecked()) {
+                    Toast.makeText(getContext(), "Film already bookmarked", Toast.LENGTH_SHORT).show();
+                    binding.bookmark.setChecked(true);
+                } else if(binding.bookmark.isChecked()) {
                     switchAlert();
-                    binding.movieStatusSwitch.setChecked(true);
+                } else {
+                    removeAlert();
                 }
             }
         });
-
-
     }
 
-    private void switchAlert(){
+    public void removeAlert() {
         AlertDialog.Builder quit = new AlertDialog.Builder(getContext())
-                .setTitle("Add To Bookmark")
-                .setMessage("Do you want to add this to the you 'Bookmark' list? ")
+                .setTitle("Remove From Bookmarks")
+                .setMessage("Do you want to remove this from your 'Bookmarked' list? ")
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Bookmarked film = new Bookmarked();
-                        viewModel.saveUserFilm(getArguments().getLong(MOVIE_ID_KEY), film);
-                        Toast.makeText(getContext(), "Successfully Added To Bookmarked", Toast.LENGTH_SHORT).show();
+
+                        //TODO WIP DONT FORGET
+                        getFilm(getArguments().getLong(MOVIE_ID_KEY));
+                        Film savedFilm = film;
+                        viewModel.deleteUserFilm(savedFilm.getId());
+                        Toast.makeText(getContext(), "Successfully Removed From Bookmarked", Toast.LENGTH_SHORT).show();
 
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        binding.bookmark.setChecked(true);
+                        dialog.cancel();
+                    }
+                });
+        quit.show();
+
+
+    }
+
+    private void getUserFilm(Long id) {
+        viewModel.getUserFilm(id).observe(getViewLifecycleOwner(), new Observer<UserFilm>() {
+            @Override
+            public void onChanged(UserFilm newFilm) {
+                userFilm = newFilm;
+            }
+        });
+    }
+
+    private void getFilm(Long tmdbId) {
+        viewModel.getFilmDetailsByTmdbId(tmdbId).observe(getViewLifecycleOwner(), new Observer<Film>() {
+                    @Override
+                    public void onChanged(Film newFilm) {
+                       film = newFilm;
+                       getUserFilm(film.getId());
+                    }
+                }
+        );
+    }
+
+    private void switchAlert(){
+        AlertDialog.Builder quit = new AlertDialog.Builder(getContext())
+                .setTitle("Add To Bookmark")
+                .setMessage("Do you want to add this to your 'Bookmarked' list? ")
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        UserFilm savedFilm = new UserFilm();
+                        savedFilm.setStatus("BOOKMARKED");
+                        viewModel.saveUserFilm(getArguments().getLong(MOVIE_ID_KEY), savedFilm);
+                        getFilm(getArguments().getLong(MOVIE_ID_KEY));
+                        Toast.makeText(getContext(), "Successfully Added To Bookmarked", Toast.LENGTH_SHORT).show();
+                        getUserFilm(film.getId());
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        binding.bookmark.setChecked(false);
                         dialog.cancel();
                     }
                 });
@@ -134,6 +209,10 @@ public class MovieFragment extends Fragment {
         binding.title.setText(currentFilmDetails.getTitle());
         binding.overview.setText(currentFilmDetails.getOverview());
         binding.language.setText("Lang: " +  currentFilmDetails.getOriginal_language());
+        binding.country.setText("Countries: " +  currentFilmDetails.getOrigin_country());
+        binding.genres.setText(currentFilmDetails.getGenresAsString());
+
+
 //        List<String> genres = currentFilmDetails.getGenres();
 //        binding.genres.setText(String.join(", ", genres));
         Glide.with(binding.poster.getContext())
@@ -167,6 +246,92 @@ public class MovieFragment extends Fragment {
 
     }
 
+    public void backButtonLogic(){
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager()
+                        .popBackStackImmediate();
+            }
+        });
+    }
 
+    public void isFilmSaved(Long tmdbId) {
+        viewModel.isUserFilmSaved(tmdbId).observe(this.getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                isSaved = aBoolean;
+                if(isSaved) {
+                    binding.ratingBar.setRating(userFilm.getRating());
+                }
+            }
+        });
+
+    }
+
+
+    public String checkFilmStatus() {
+        isFilmSaved(getArguments().getLong(MOVIE_ID_KEY));
+        Log.i("checkFilmStatus", String.valueOf(isSaved));
+        if(isSaved) {
+            getFilm(getArguments().getLong(MOVIE_ID_KEY));
+            viewModel.getUserFilm(film.getId());
+            getUserFilm(film.getId());
+            Log.i("filmDetails", userFilm.toString());
+            return userFilm.getStatus();
+        } else {
+            return "no";
+        }
+    }
+
+
+    public void handleFilmStatusLogic() {
+        Log.i("checkFilmStatus", checkFilmStatus());
+            binding.watchedButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(checkFilmStatus().equals("WATCHED")) {
+                        Toast.makeText(getContext(), "Film already watched", Toast.LENGTH_SHORT).show();
+                    } else {
+                        watchedAlert();
+                    }
+                }
+            });
+    }
+
+    public void watchedAlert() {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.watched_film_dialog);
+        dialog.setCancelable(false);
+        dialog.getWindow().getAttributes().windowAnimations = (R.style.animation);
+        dialog.findViewById(R.id.save_text).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserFilm film = new UserFilm();
+                film.setStatus("WATCHED");
+                film.setWatchedDate(LocalDate.now().toString());
+                RatingBar ratingBar = (RatingBar) dialog.findViewById(R.id.rating_in_alert);
+                film.setRating(ratingBar.getNumStars());
+                TextInputEditText notes = (TextInputEditText) dialog.findViewById(R.id.dialog_notes_input);
+                film.setNotes(notes.getText().toString());
+                if(checkFilmStatus().equals("BOOKMARKED")) {
+                    viewModel.updateUserFilm(viewModel.getFilmDetailsByTmdbId(getArguments().getLong(MOVIE_ID_KEY)).getValue().getId(), film);
+                    binding.bookmark.setChecked(false);
+                } else {
+                    viewModel.saveUserFilm(getArguments().getLong(MOVIE_ID_KEY), film);
+                }
+                dialog.dismiss();
+                Toast.makeText(getContext(), "Successfully Added To Watched", Toast.LENGTH_SHORT).show();
+            }
+        });
+        dialog.findViewById(R.id.cancel_text).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+            }
+        });
+        dialog.show();
+    }
 
 }
