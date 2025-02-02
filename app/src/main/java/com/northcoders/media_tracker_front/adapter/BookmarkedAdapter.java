@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.northcoders.media_tracker_front.R;
 import com.northcoders.media_tracker_front.databinding.BookmarkedItemBinding;
-import com.northcoders.media_tracker_front.model.Bookmarked;
+import com.northcoders.media_tracker_front.model.UserFilm;
 import com.bumptech.glide.Glide;
 
 
@@ -19,14 +19,14 @@ import java.util.List;
 
 public class BookmarkedAdapter extends RecyclerView.Adapter<BookmarkedAdapter.BookmarkedViewHolder> {
 
-    List<Bookmarked> bookmarkedList;
+    List<UserFilm> userFilmList;
 
     Context context;
 
     RecyclerViewInterface recyclerViewInterface;
 
-    public BookmarkedAdapter(List<Bookmarked> bookmarkedList, Context context, RecyclerViewInterface recyclerViewInterface) {
-        this.bookmarkedList = bookmarkedList;
+    public BookmarkedAdapter(List<UserFilm> userFilmList, Context context, RecyclerViewInterface recyclerViewInterface) {
+        this.userFilmList = userFilmList;
         this.context = context;
         this.recyclerViewInterface = recyclerViewInterface;
     }
@@ -46,16 +46,16 @@ public class BookmarkedAdapter extends RecyclerView.Adapter<BookmarkedAdapter.Bo
     @Override
     public void onBindViewHolder(@NonNull BookmarkedViewHolder holder, int position) {
 
-        Bookmarked bookmarked = bookmarkedList.get(position);
-        BookmarkedViewHolder.bookmarkedItemBinding.setBookmarked(bookmarked);
-        Glide.with(context).load(bookmarked.getUserFilmId().getFilm().getPoster_url()).into(BookmarkedViewHolder.bookmarkedItemBinding.bookmarkedFragmentImg);
+        UserFilm userFilm = userFilmList.get(position);
+        BookmarkedViewHolder.bookmarkedItemBinding.setUserFilm(userFilm);
+        Glide.with(context).load(userFilm.getUserFilmId().getFilm().getPoster_url()).into(BookmarkedViewHolder.bookmarkedItemBinding.bookmarkedFragmentImg);
 
     }
 
     @Override
     public int getItemCount() {
-        if(bookmarkedList != null) {
-            return bookmarkedList.size();
+        if(userFilmList != null) {
+            return userFilmList.size();
         } else {
             return 0;
         }
