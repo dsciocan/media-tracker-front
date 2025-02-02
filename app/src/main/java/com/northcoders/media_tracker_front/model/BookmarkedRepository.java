@@ -6,7 +6,6 @@ import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.northcoders.media_tracker_front.service.MovieApiService;
 import com.northcoders.media_tracker_front.service.RetrofitInstance;
 import com.northcoders.media_tracker_front.service.UserActionsService;
 
@@ -18,48 +17,49 @@ import retrofit2.Response;
 
 public class BookmarkedRepository {
 
-    private MutableLiveData<List<Bookmarked>> mutableLiveData = new MutableLiveData<>();
-    private MutableLiveData<Bookmarked> singleFilmData = new MutableLiveData<>();
+    private MutableLiveData<List<UserFilm>> mutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<UserFilm> singleFilmData = new MutableLiveData<>();
     private Application application;
 
     public BookmarkedRepository(Application application) {
         this.application = application;
     }
 
-    public MutableLiveData<List<Bookmarked>> getMutableLiveData() {
+    public MutableLiveData<List<UserFilm>> getMutableLiveData() {
         UserActionsService userActionsService = RetrofitInstance.getUserService();
 
-        Call<List<Bookmarked>> call = userActionsService.getBookmarked();
-        call.enqueue(new Callback<List<Bookmarked>>() {
+        Call<List<UserFilm>> call = userActionsService.getBookmarked();
+        call.enqueue(new Callback<List<UserFilm>>() {
             @Override
-            public void onResponse(Call<List<Bookmarked>> call, Response<List<Bookmarked>> response) {
-                List<Bookmarked> bookmarkedList = response.body();
-                mutableLiveData.setValue(bookmarkedList);
+            public void onResponse(Call<List<UserFilm>> call, Response<List<UserFilm>> response) {
+                List<UserFilm> userFilmList = response.body();
+                mutableLiveData.setValue(userFilmList);
             }
 
             @Override
-            public void onFailure(Call<List<Bookmarked>> call, Throwable t) {
+            public void onFailure(Call<List<UserFilm>> call, Throwable t) {
                 Log.i("GET request", t.getMessage());
             }
         });
         return mutableLiveData;
     }
 
-    public MutableLiveData<Bookmarked> getFilmMutableLiveData(Long filmId) {
+    public MutableLiveData<UserFilm> getFilmMutableLiveData(Long filmId) {
         UserActionsService userActionsService = RetrofitInstance.getUserService();
 
-        Call<Bookmarked> call = userActionsService.getBookmarkedFilm(filmId);
-        call.enqueue(new Callback<Bookmarked>() {
+        Call<UserFilm> call = userActionsService.getBookmarkedFilm(filmId);
+        call.enqueue(new Callback<UserFilm>() {
             @Override
-            public void onResponse(Call<Bookmarked> call, Response<Bookmarked> response) {
+            public void onResponse(Call<UserFilm> call, Response<UserFilm> response) {
                 Log.i("BOOKMARKED REPO", String.valueOf(response.code()));
-                Log.i("BOOKMARKED REPO", response.body().toString());
-                Bookmarked userFilm = response.body();
+//                Log.i("BOOKMARKED REPO", response.body().toString());
+                UserFilm userFilm = response.body();
+                singleFilmData.postValue(userFilm);
                 singleFilmData.setValue(userFilm);
             }
 
             @Override
-            public void onFailure(Call<Bookmarked> call, Throwable t) {
+            public void onFailure(Call<UserFilm> call, Throwable t) {
                 Log.i("GET request", t.getMessage());
             }
 
@@ -87,7 +87,7 @@ public class BookmarkedRepository {
         });
     }
 
-    public void updateUserFilm(Long id, Bookmarked film){
+    public void updateUserFilm(Long id, UserFilm film){
         UserActionsService service = RetrofitInstance.getUserService();
         Call<Void> call = service.updateUserBookFilm(id, film);
         call.enqueue(new Callback<Void>() {
