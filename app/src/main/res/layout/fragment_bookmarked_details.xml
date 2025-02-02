@@ -102,11 +102,14 @@
 
             <LinearLayout
                 android:id="@+id/bookmarked_text_container"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:orientation="vertical"
-                app:layout_constraintStart_toEndOf="@id/bookmarked_fragment_image"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintRight_toRightOf="parent"
+
+                app:layout_constraintLeft_toRightOf="@id/bookmarked_fragment_image"
                 app:layout_constraintTop_toBottomOf="@id/bookmarked_fragment_title">
 
                 <com.google.android.material.textview.MaterialTextView
@@ -146,7 +149,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="genres"
-                    android:text="@{userFilm.userFilmId.film.genres[0]}" />
+                    android:maxLines="2"
+                    android:text="@{userFilm.userFilmId.film.getGenresAsString()}" />
 
             </LinearLayout>
             <!--        ideally should have label-->

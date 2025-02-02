@@ -101,13 +101,41 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!--        ideally should have label-->
+<!--        <com.google.android.material.materialswitch.MaterialSwitch-->
+<!--            android:id="@+id/movie_status_switch"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/movie_fragment_image"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="@id/movie_fragment_image"-->
+<!--            android:checked="true"-->
+<!--            />-->
+
+        <!--needs replacing  - look into icon button or make background round - 2 states -->
+
+<!--        <ImageButton-->
+<!--            android:id="@+id/movie_fragment_bookmark_btn"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:background="@color/md_theme_tertiary"-->
+<!--            android:contentDescription="@string/bookmark_icon_outline"-->
+<!--            android:scaleType="fitCenter"-->
+<!--            android:translationZ="100dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/movie_status_switch"-->
+<!--            app:srcCompat="@drawable/ic_bookmark_tab_foreground"-->
+<!--            app:tint="@color/md_theme_inversePrimary" />-->
+
         <LinearLayout
             android:id="@+id/movie_text_container"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:orientation="vertical"
-            app:layout_constraintStart_toEndOf="@id/movie_fragment_image"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toRightOf="@id/movie_fragment_image"
             app:layout_constraintTop_toBottomOf="@id/movie_fragment_title">
 
             <com.google.android.material.textview.MaterialTextView
@@ -142,39 +170,13 @@
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/movie_genres"
                 style="@style/TextAppearance.myBody1_sans"
-                android:maxLines="3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="genres" />
+                android:hint="genres"
+                android:maxLines="3" />
 
 
         </LinearLayout>
-
-        <!--        ideally should have label-->
-<!--        <com.google.android.material.materialswitch.MaterialSwitch-->
-<!--            android:id="@+id/movie_status_switch"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:layout_constraintBottom_toBottomOf="@id/movie_fragment_image"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="@id/movie_fragment_image"-->
-<!--            android:checked="true"-->
-<!--            />-->
-
-        <!--needs replacing  - look into icon button or make background round - 2 states -->
-
-<!--        <ImageButton-->
-<!--            android:id="@+id/movie_fragment_bookmark_btn"-->
-<!--            android:layout_width="50dp"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:background="@color/md_theme_tertiary"-->
-<!--            android:contentDescription="@string/bookmark_icon_outline"-->
-<!--            android:scaleType="fitCenter"-->
-<!--            android:translationZ="100dp"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/movie_status_switch"-->
-<!--            app:srcCompat="@drawable/ic_bookmark_tab_foreground"-->
-<!--            app:tint="@color/md_theme_inversePrimary" />-->
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/movie_fragment_details_card"
