@@ -5,7 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
-import com.northcoders.media_tracker_front.model.AppUserRepository;
+import com.northcoders.media_tracker_front.model.repository.AppUserRepository;
 
 public class LoginActivityViewModel extends AndroidViewModel {
     private AppUserRepository appUserRepository;

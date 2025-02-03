@@ -6,8 +6,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.northcoders.media_tracker_front.model.UserFilm;
-import com.northcoders.media_tracker_front.model.WatchHistory;
-import com.northcoders.media_tracker_front.model.WatchHistoryRepository;
+import com.northcoders.media_tracker_front.model.repository.WatchHistoryRepository;
 import java.util.List;
 
 public class WatchHistoryViewModel extends AndroidViewModel{

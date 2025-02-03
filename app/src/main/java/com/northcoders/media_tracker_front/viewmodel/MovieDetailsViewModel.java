@@ -6,11 +6,11 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.northcoders.media_tracker_front.model.BookmarkedRepository;
+import com.northcoders.media_tracker_front.model.repository.BookmarkedRepository;
 import com.northcoders.media_tracker_front.model.Film;
 import com.northcoders.media_tracker_front.model.UserFilm;
 import com.northcoders.media_tracker_front.model.FilmDetails;
-import com.northcoders.media_tracker_front.model.MovieDetailsRepository;
+import com.northcoders.media_tracker_front.model.repository.MovieDetailsRepository;
 
 public class MovieDetailsViewModel extends AndroidViewModel {
 

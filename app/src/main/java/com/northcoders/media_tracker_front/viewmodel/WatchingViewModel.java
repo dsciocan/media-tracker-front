@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.northcoders.media_tracker_front.model.Watching;
-import com.northcoders.media_tracker_front.model.WatchingRepository;
+import com.northcoders.media_tracker_front.model.repository.WatchingRepository;
 
 import java.util.List;
 

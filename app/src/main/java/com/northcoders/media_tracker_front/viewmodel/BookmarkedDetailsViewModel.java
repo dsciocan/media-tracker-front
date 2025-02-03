@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.northcoders.media_tracker_front.model.UserFilm;
-import com.northcoders.media_tracker_front.model.BookmarkedRepository;
+import com.northcoders.media_tracker_front.model.repository.BookmarkedRepository;
 
 public class BookmarkedDetailsViewModel extends AndroidViewModel {
     BookmarkedRepository bookmarkedRepository;

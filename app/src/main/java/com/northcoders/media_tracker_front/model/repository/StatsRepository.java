@@ -1,4 +1,4 @@
-package com.northcoders.media_tracker_front.model;
+package com.northcoders.media_tracker_front.model.repository;
 
 import android.app.Application;
 import android.util.Log;

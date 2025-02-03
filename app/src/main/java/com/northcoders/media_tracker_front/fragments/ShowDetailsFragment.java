@@ -12,10 +12,10 @@ import com.northcoders.media_tracker_front.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link MovieDetailsFragment#newInstance} factory method to
+ * Use the {@link ShowDetailsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MovieDetailsFragment extends Fragment {
+public class ShowDetailsFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class MovieDetailsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public MovieDetailsFragment() {
+    public ShowDetailsFragment() {
         // Required empty public constructor
     }
 
@@ -36,11 +36,11 @@ public class MovieDetailsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MovieDetailsFragment.
+     * @return A new instance of fragment ShowDetailsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MovieDetailsFragment newInstance(String param1, String param2) {
-        MovieDetailsFragment fragment = new MovieDetailsFragment();
+    public static ShowDetailsFragment newInstance(String param1, String param2) {
+        ShowDetailsFragment fragment = new ShowDetailsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class MovieDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_movie_details, container, false);
+        return inflater.inflate(R.layout.fragment_show_details, container, false);
     }
 }

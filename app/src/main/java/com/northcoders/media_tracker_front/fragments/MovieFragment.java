@@ -112,8 +112,6 @@ public class MovieFragment extends Fragment {
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
-                        //TODO WIP DONT FORGET
                         getFilm(getArguments().getLong(MOVIE_ID_KEY));
                         Film savedFilm = film;
                         viewModel.deleteUserFilm(savedFilm.getId());

@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import com.northcoders.media_tracker_front.model.ShowSearchResult;
-import com.northcoders.media_tracker_front.model.ShowSearchResultRepository;
+import com.northcoders.media_tracker_front.model.repository.ShowSearchResultRepository;
 import java.util.List;
 
 public class ShowSearchResultViewModel extends AndroidViewModel{

@@ -1,4 +1,4 @@
-package com.northcoders.media_tracker_front.model;
+package com.northcoders.media_tracker_front.model.repository;
 
 import android.app.Application;
 import android.util.Log;
@@ -6,6 +6,9 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.northcoders.media_tracker_front.model.Film;
+import com.northcoders.media_tracker_front.model.FilmDetails;
+import com.northcoders.media_tracker_front.model.UserFilm;
 import com.northcoders.media_tracker_front.service.MovieApiService;
 import com.northcoders.media_tracker_front.service.RetrofitInstance;
 import com.northcoders.media_tracker_front.service.UserActionsService;

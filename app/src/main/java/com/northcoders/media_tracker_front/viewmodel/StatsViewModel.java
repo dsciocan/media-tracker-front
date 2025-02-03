@@ -5,7 +5,7 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.northcoders.media_tracker_front.model.StatsRepository;
+import com.northcoders.media_tracker_front.model.repository.StatsRepository;
 
 import java.util.Map;
 
