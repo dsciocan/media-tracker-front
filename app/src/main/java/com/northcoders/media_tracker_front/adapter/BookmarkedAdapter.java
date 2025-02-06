@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.northcoders.media_tracker_front.R;
 import com.northcoders.media_tracker_front.databinding.BookmarkedItemBinding;
+import com.northcoders.media_tracker_front.model.CommonViewItem;
 import com.northcoders.media_tracker_front.model.UserFilm;
 import com.bumptech.glide.Glide;
 
@@ -19,14 +20,14 @@ import java.util.List;
 
 public class BookmarkedAdapter extends RecyclerView.Adapter<BookmarkedAdapter.BookmarkedViewHolder> {
 
-    List<UserFilm> userFilmList;
+    List<CommonViewItem> itemList;
 
     Context context;
 
     RecyclerViewInterface recyclerViewInterface;
 
-    public BookmarkedAdapter(List<UserFilm> userFilmList, Context context, RecyclerViewInterface recyclerViewInterface) {
-        this.userFilmList = userFilmList;
+    public BookmarkedAdapter(List<CommonViewItem> itemlist, Context context, RecyclerViewInterface recyclerViewInterface) {
+        this.itemList = itemlist;
         this.context = context;
         this.recyclerViewInterface = recyclerViewInterface;
     }
@@ -46,16 +47,16 @@ public class BookmarkedAdapter extends RecyclerView.Adapter<BookmarkedAdapter.Bo
     @Override
     public void onBindViewHolder(@NonNull BookmarkedViewHolder holder, int position) {
 
-        UserFilm userFilm = userFilmList.get(position);
-        BookmarkedViewHolder.bookmarkedItemBinding.setUserFilm(userFilm);
-        Glide.with(context).load(userFilm.getUserFilmId().getFilm().getPoster_url()).into(BookmarkedViewHolder.bookmarkedItemBinding.bookmarkedFragmentImg);
+        CommonViewItem item = itemList.get(position);
+        BookmarkedViewHolder.bookmarkedItemBinding.setItem(item);
+        Glide.with(context).load(item.getPosterUrl()).into(BookmarkedViewHolder.bookmarkedItemBinding.bookmarkedFragmentImg);
 
     }
 
     @Override
     public int getItemCount() {
-        if(userFilmList != null) {
-            return userFilmList.size();
+        if(itemList != null) {
+            return itemList.size();
         } else {
             return 0;
         }

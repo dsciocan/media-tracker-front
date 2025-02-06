@@ -10,17 +10,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.northcoders.media_tracker_front.R;
+import com.northcoders.media_tracker_front.model.CommonViewItem;
 import com.northcoders.media_tracker_front.model.UserFilm;
 import com.northcoders.media_tracker_front.model.WatchHistory;
 import java.util.ArrayList;
+import java.util.List;
+
 import com.northcoders.media_tracker_front.databinding.WatchHistoryItemBinding;
 
 public class WatchHistoryAdapter extends RecyclerView.Adapter<WatchHistoryAdapter.HistoryViewHolder> {
-    ArrayList<UserFilm> watchHistoryArrayList;
+    List<CommonViewItem> watchHistoryArrayList;
     Context context;
     RecyclerViewInterface recyclerViewInterface;
 
-    public WatchHistoryAdapter(ArrayList<UserFilm> watchList, Context context, RecyclerViewInterface recyclerViewInterface){
+    public WatchHistoryAdapter(List<CommonViewItem> watchList, Context context, RecyclerViewInterface recyclerViewInterface){
         this.watchHistoryArrayList = watchList;
         this.context = context;
         this.recyclerViewInterface = recyclerViewInterface;
@@ -39,9 +42,9 @@ public class WatchHistoryAdapter extends RecyclerView.Adapter<WatchHistoryAdapte
 
     @Override
     public void onBindViewHolder(@NonNull HistoryViewHolder holder, int position){
-        UserFilm watchHistory = watchHistoryArrayList.get(position);
-        holder.watchHistoryItemBinding.setWatchHistory(watchHistory);
-        Glide.with(context).load(watchHistory.getUserFilmId().getFilm().getPoster_url()).into(HistoryViewHolder.watchHistoryItemBinding.watchHistoryImg);
+        CommonViewItem watchHistory = watchHistoryArrayList.get(position);
+        holder.watchHistoryItemBinding.setItem(watchHistory);
+        Glide.with(context).load(watchHistory.getPosterUrl()).into(HistoryViewHolder.watchHistoryItemBinding.watchHistoryImg);
     }
 
     @Override
