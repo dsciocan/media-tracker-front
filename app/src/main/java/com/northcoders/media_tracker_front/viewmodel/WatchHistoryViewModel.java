@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.northcoders.media_tracker_front.model.UserFilm;
+import com.northcoders.media_tracker_front.model.UserShow;
 import com.northcoders.media_tracker_front.model.repository.WatchHistoryRepository;
 import java.util.List;
 
@@ -28,6 +29,10 @@ public class WatchHistoryViewModel extends AndroidViewModel{
 
         public void updateUserFilm(Long id,UserFilm film){
             watchHistoryRepository.updateUserFilm( id , film);
+        }
+
+        public LiveData<List<UserShow>> getWatchedShows() {
+            return watchHistoryRepository.getShowListLiveData();
         }
 
     }
