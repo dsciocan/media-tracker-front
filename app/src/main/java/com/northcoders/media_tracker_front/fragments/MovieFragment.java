@@ -146,6 +146,7 @@ public class MovieFragment extends Fragment {
                     public void onChanged(Film newFilm) {
                        film = newFilm;
                        getUserFilm(film.getId());
+                       isFilmSaved(tmdbId);
                     }
                 }
         );

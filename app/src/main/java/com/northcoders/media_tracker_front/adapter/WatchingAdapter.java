@@ -11,17 +11,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.northcoders.media_tracker_front.R;
 import com.northcoders.media_tracker_front.databinding.WatchingItemBinding;
+import com.northcoders.media_tracker_front.model.UserShow;
 import com.northcoders.media_tracker_front.model.Watching;
 
 import java.util.List;
 
 public class WatchingAdapter extends RecyclerView.Adapter<WatchingAdapter.WatchingViewHolder> {
 
-    List<Watching> watchingList;
+    List<UserShow> watchingList;
     Context context;
     RecyclerViewInterface recyclerView;
 
-    public WatchingAdapter(List<Watching> watchingList, Context context, RecyclerViewInterface recyclerView) {
+    public WatchingAdapter(List<UserShow> watchingList, Context context, RecyclerViewInterface recyclerView) {
         this.context = context;
         this.watchingList = watchingList;
         this.recyclerView = recyclerView;
@@ -41,7 +42,7 @@ public class WatchingAdapter extends RecyclerView.Adapter<WatchingAdapter.Watchi
 
     @Override
     public void onBindViewHolder(@NonNull WatchingViewHolder holder, int position) {
-        Watching watching = watchingList.get(position);
+        UserShow watching = watchingList.get(position);
         WatchingViewHolder.watchingItemBinding.setWatching(watching);
     }
 

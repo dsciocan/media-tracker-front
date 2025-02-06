@@ -19,6 +19,8 @@ import com.northcoders.media_tracker_front.R;
 import com.northcoders.media_tracker_front.adapter.RecyclerViewInterface;
 import com.northcoders.media_tracker_front.adapter.WatchingAdapter;
 import com.northcoders.media_tracker_front.databinding.FragmentWatchingBinding;
+import com.northcoders.media_tracker_front.model.UserFilm;
+import com.northcoders.media_tracker_front.model.UserShow;
 import com.northcoders.media_tracker_front.model.Watching;
 import com.northcoders.media_tracker_front.viewmodel.WatchingViewModel;
 
@@ -26,7 +28,7 @@ import java.util.List;
 
 public class WatchingFragment extends Fragment implements RecyclerViewInterface {
     RecyclerView recyclerView;
-    List<Watching> watchingList;
+    List<UserShow> watchingList;
     WatchingAdapter adapter;
     FragmentWatchingBinding binding;
     WatchingViewModel viewModel;
@@ -56,9 +58,9 @@ public class WatchingFragment extends Fragment implements RecyclerViewInterface 
     }
 
     private void getWatching() {
-        viewModel.getWatching().observe(this, new Observer<List<Watching>>() {
+        viewModel.getWatching().observe(this, new Observer<List<UserShow>>() {
             @Override
-            public void onChanged(List<Watching> watching) {
+            public void onChanged(List<UserShow> watching) {
                 watchingList = watching;
                 displayWatchingInRecyclerView();
             }
