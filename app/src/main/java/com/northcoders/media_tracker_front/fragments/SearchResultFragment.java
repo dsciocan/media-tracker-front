@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,7 @@ import com.northcoders.media_tracker_front.R;
 import com.northcoders.media_tracker_front.adapter.FilmSearchResultAdapter;
 import com.northcoders.media_tracker_front.adapter.RecyclerViewInterface;
 import com.northcoders.media_tracker_front.adapter.ShowSearchResultAdapter;
-import com.northcoders.media_tracker_front.databinding.FragmentFilmSearchResultsBinding;
+import com.northcoders.media_tracker_front.databinding.FragmentSearchResultsBinding;
 import com.northcoders.media_tracker_front.model.FilmSearchResult;
 import com.northcoders.media_tracker_front.model.ShowSearchResult;
 import com.northcoders.media_tracker_front.viewmodel.FilmSearchResultViewModel;
@@ -32,8 +31,8 @@ import com.northcoders.media_tracker_front.viewmodel.FilmSearchResultViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FilmSearchResultFragment extends Fragment implements RecyclerViewInterface {
-    private FragmentFilmSearchResultsBinding binding;
+public class SearchResultFragment extends Fragment implements RecyclerViewInterface {
+    private FragmentSearchResultsBinding binding;
     private RecyclerView recyclerView;
     ArrayList<FilmSearchResult> filmSearchResultList = new ArrayList<>();
     ArrayList<ShowSearchResult> showSearchResultList = new ArrayList<>();
@@ -45,12 +44,12 @@ public class FilmSearchResultFragment extends Fragment implements RecyclerViewIn
     private static final String searchType = "SearchType";
     ProfileFragment profileFragment = new ProfileFragment();
 
-    public FilmSearchResultFragment() {
+    public SearchResultFragment() {
         // Required empty public constructor
     }
 
-    public static FilmSearchResultFragment newInstance(String query, String type) {
-        FilmSearchResultFragment fragment = new FilmSearchResultFragment();
+    public static SearchResultFragment newInstance(String query, String type) {
+        SearchResultFragment fragment = new SearchResultFragment();
         Bundle bundle = new Bundle();
         bundle.putString(previousQuery, query); // Pass the new query each time
         bundle.putString(searchType, type);
@@ -86,7 +85,7 @@ public class FilmSearchResultFragment extends Fragment implements RecyclerViewIn
         binding.SearchViewSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                if(binding.searchSpinner.getSelectedItem().toString().equalsIgnoreCase("film")) {
+                if(binding.autoComplete.getText().toString().equalsIgnoreCase("film")) {
                     getFilmResults(query);
                 } else {
                     getShowResults(query);
@@ -106,19 +105,28 @@ public class FilmSearchResultFragment extends Fragment implements RecyclerViewIn
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_film_search_results,container,false);
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_search_results,container,false);
         // Inflate the layout for this fragment
            return binding.getRoot();
     }
 
     @Override
     public void onItemClick(int position) {
-        long selectedFilmId = filmSearchResultList.get(position).getId();
-        MovieFragment movieFragment = new MovieFragment().newInstance(selectedFilmId);
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frameLayoutFragment,movieFragment)
-                .addToBackStack("MovieDetailsTransaction")
-                .commit();
+        if(binding.autoComplete.getText().toString().equalsIgnoreCase("film")) {
+            long selectedFilmId = filmSearchResultList.get(position).getId();
+            MovieFragment movieFragment = new MovieFragment().newInstance(selectedFilmId);
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frameLayoutFragment, movieFragment)
+                    .addToBackStack("MovieDetailsTransaction")
+                    .commit();
+        } else {
+            long selectedShowId = showSearchResultList.get(position).getId();
+            ShowDetailsFragment showDetailsFragment = new ShowDetailsFragment().newInstance(selectedShowId);
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frameLayoutFragment, showDetailsFragment)
+                    .addToBackStack("ShowDetailsTransaction")
+                    .commit();
+        }
     }
 
     private void getFilmResults(String query){
@@ -171,7 +179,7 @@ public class FilmSearchResultFragment extends Fragment implements RecyclerViewIn
         recyclerView = binding.recyclerview;
         filmSearchResultAdapter = new FilmSearchResultAdapter(filmSearchResultList,this.getContext(),this);
         showSearchResultAdapter = new ShowSearchResultAdapter(showSearchResultList, this.getContext(), this);
-        if(binding.searchSpinner.getSelectedItem().toString().equalsIgnoreCase("tv show")) {
+        if(binding.autoComplete.getText().toString().equalsIgnoreCase("tv show")) {
             recyclerView.setAdapter(showSearchResultAdapter);
         } else {
             recyclerView.setAdapter(filmSearchResultAdapter);
@@ -183,17 +191,17 @@ public class FilmSearchResultFragment extends Fragment implements RecyclerViewIn
 
     public void spinnerFunc() {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                getContext(),
+                requireContext(),
                 R.array.search_options,
-                android.R.layout.simple_spinner_item
+                R.layout.dropdown_item
         );
-        binding.searchSpinner.setAdapter(adapter);
-        if(getArguments().getString(searchType).equalsIgnoreCase("film")) {
-            binding.searchSpinner.setSelection(0);
-        } else {
-            binding.searchSpinner.setSelection(1);
-        }
+        binding.autoComplete.setAdapter(adapter);
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        spinnerFunc();
     }
 
 
