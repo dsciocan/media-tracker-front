@@ -5,7 +5,7 @@
     <data>
         <variable
             name="watching"
-            type="com.northcoders.media_tracker_front.model.Watching" />
+            type="com.northcoders.media_tracker_front.model.UserShow" />
     </data>
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
@@ -38,7 +38,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/title"
                         android:paddingBottom="6dp"
-                        android:text="@{watching.title}"
+                        android:text="@{watching.userShowId.show.title}"
                         style="@style/TextAppearance.myH2_serif"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
