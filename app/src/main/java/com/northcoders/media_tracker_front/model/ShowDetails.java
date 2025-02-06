@@ -18,13 +18,13 @@ public class ShowDetails {
     private List<String> created_by;
     private List<Integer> episode_run_time;
     private List<String> origin_country;
-
-    //  private List<Genre> genres,
+    private List<Genre> genres;
+    private String poster_path;
 
     public ShowDetails() {
     }
 
-    public ShowDetails(Long id, String name, String first_air_date, String last_air_date, String original_language, String overview, boolean in_production, int number_of_episodes, int number_of_seasons, List<String> created_by, List<Integer> episode_run_time, List<String> origin_country) {
+    public ShowDetails(Long id, String name, String first_air_date, String last_air_date, String original_language, String overview, boolean in_production, int number_of_episodes, int number_of_seasons, List<String> created_by, List<Integer> episode_run_time, List<String> origin_country, List<Genre> genres, String poster_path) {
         this.id = id;
         this.name = name;
         this.first_air_date = first_air_date;
@@ -37,6 +37,8 @@ public class ShowDetails {
         this.created_by = created_by;
         this.episode_run_time = episode_run_time;
         this.origin_country = origin_country;
+        this.genres = genres;
+        this.poster_path = poster_path;
     }
 
     public Long getId() {
@@ -134,4 +136,61 @@ public class ShowDetails {
     public void setOrigin_country(List<String> origin_country) {
         this.origin_country = origin_country;
     }
+
+
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }
+
+    public String getGenresAsString() {
+        StringBuilder genreStringBuilder = new StringBuilder();
+        for (Genre genre : genres) {
+            if(!genre.equals(genres.get(0))) {
+                genreStringBuilder.append(", ");
+            }
+            genreStringBuilder.append(genre.getName());
+        }
+        return genreStringBuilder.toString();
+    }
+
+    public String getSeasonsAndEpisodes() {
+        return number_of_seasons + " seasons | " + number_of_episodes + " eps";
+    }
+
+
+    public String getDuration() {
+        if(episode_run_time != null) {
+         return episode_run_time + " min/ep";
+        } else {
+            return "? min/ep";
+        }
+    }
+
+    public String yearAndStatus() {
+        StringBuilder builder = new StringBuilder(first_air_date.substring(0,4));
+        if(last_air_date != null) {
+            builder.append("-");
+            builder.append(last_air_date.substring(0,4));
+        }
+        builder.append(" | ");
+        if(in_production) {
+            builder.append("Ongoing");
+        } else {
+            builder.append("Finished");
+        }
+        return builder.toString();
+    }
+
+    public String getPoster_path() {
+        return poster_path;
+    }
+
+    public void setPoster_path(String poster_path) {
+        this.poster_path = poster_path;
+    }
 }
+
