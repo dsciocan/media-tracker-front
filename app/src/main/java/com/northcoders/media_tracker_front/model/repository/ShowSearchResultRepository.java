@@ -6,7 +6,7 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.northcoders.media_tracker_front.model.ShowSearchResult;
-import com.northcoders.media_tracker_front.service.MovieApiService;
+import com.northcoders.media_tracker_front.service.MediaApiService;
 import com.northcoders.media_tracker_front.service.RetrofitInstance;
 
 import java.util.List;
@@ -24,8 +24,8 @@ public class ShowSearchResultRepository {
         }
 
         public MutableLiveData<List<ShowSearchResult>> getMutableLiveData(String searchQuery){
-            MovieApiService movieApiService = RetrofitInstance.getMovieService();
-            Call<List<ShowSearchResult>> call = movieApiService.getShowSearchResults(searchQuery);
+            MediaApiService mediaApiService = RetrofitInstance.getMovieService();
+            Call<List<ShowSearchResult>> call = mediaApiService.getShowSearchResults(searchQuery);
             call.enqueue(new Callback<List<ShowSearchResult>>(){
                 @Override
                 public void onResponse(Call<List<ShowSearchResult>> call, Response<List<ShowSearchResult>> response) {
