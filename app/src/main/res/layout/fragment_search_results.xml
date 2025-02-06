@@ -36,16 +36,37 @@
                 app:layout_constraintStart_toStartOf="@+id/HomeTitle"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Spinner
-                android:id="@+id/search_spinner"
-                style="@style/FirebaseUI.CountrySpinner"
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="168dp"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintLeft_toRightOf="@id/SearchViewSearch"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/HomeTitle" />
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_marginLeft="44dp"
+                app:layout_constraintBottom_toTopOf="@id/recyclerview"
+                app:layout_constraintLeft_toRightOf="@id/HomeTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintVertical_bias="0.833"
+                android:id="@+id/autoLayout">
+
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:inputType="none"
+                    android:text="Film"
+                    android:id="@+id/autoComplete"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+<!--            <Spinner-->
+<!--                android:id="@+id/search_spinner"-->
+<!--                style="@style/FirebaseUI.CountrySpinner"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="168dp"-->
+<!--                app:layout_constraintHorizontal_bias="1.0"-->
+<!--                app:layout_constraintLeft_toRightOf="@id/SearchViewSearch"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/HomeTitle" />-->
 
             <SearchView
                 android:id="@+id/SearchViewSearch"
@@ -58,7 +79,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/search_spinner"
+                app:layout_constraintRight_toLeftOf="@id/autoLayout"
                 app:layout_constraintTop_toBottomOf="@+id/HomeTitle"
                 app:layout_constraintVertical_bias="0.241" />
 
