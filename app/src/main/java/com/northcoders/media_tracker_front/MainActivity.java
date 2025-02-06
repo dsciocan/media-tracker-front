@@ -1,6 +1,5 @@
 package com.northcoders.media_tracker_front;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -15,7 +14,6 @@ import com.northcoders.media_tracker_front.fragments.EpisodeFragment;
 import com.northcoders.media_tracker_front.fragments.HomeFragment;
 import com.northcoders.media_tracker_front.fragments.MovieFragment;
 import com.northcoders.media_tracker_front.fragments.ProfileFragment;
-import com.northcoders.media_tracker_front.fragments.ShowSearchFragment;
 import com.northcoders.media_tracker_front.fragments.StatsFragment;
 import com.northcoders.media_tracker_front.fragments.WatchedFragment;
 
@@ -26,7 +24,6 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
     StatsFragment statsFragment = new StatsFragment();
     WatchedFragment watchedFragment = new WatchedFragment();
     MovieFragment movieFragment = new MovieFragment();
-    ShowSearchFragment showSearchFragment = new ShowSearchFragment();
     EpisodeFragment episodeFragment = new EpisodeFragment();
 
     ProfileFragment profileFragment = new ProfileFragment();
