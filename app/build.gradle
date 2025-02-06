@@ -30,6 +30,7 @@ android {
 
     buildFeatures{
         dataBinding true
+        viewBinding true
     }
 }
 
@@ -61,6 +62,8 @@ dependencies {
         transitive = false
     }
     implementation 'com.github.bumptech.glide:glide:4.14.2'
+    implementation libs.navigation.fragment
+    implementation libs.navigation.ui
     annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
 
     implementation libs.appcompat
