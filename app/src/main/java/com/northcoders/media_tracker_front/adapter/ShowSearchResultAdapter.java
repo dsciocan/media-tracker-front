@@ -4,9 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.northcoders.media_tracker_front.R;
 import com.northcoders.media_tracker_front.model.ShowSearchResult;
 import com.northcoders.media_tracker_front.model.WatchHistory;
@@ -38,6 +42,11 @@ public class ShowSearchResultAdapter extends RecyclerView.Adapter<ShowSearchResu
     @Override
     public void onBindViewHolder(@NonNull ShowSearchResultAdapter.ShowSearchResultViewHolder holder, int position){
         ShowSearchResult showSearchResult = showSearchResultArrayList.get(position);
+        ImageView showSearchPoster = holder.showSearchResultItemBinding.showSearchPoster;
+        Glide.with(showSearchPoster)
+                .load(showSearchResult.getPoster_path())
+                .error(R.drawable.no_poster)
+                .into(showSearchPoster);
         holder.showSearchResultItemBinding.setShowSearchResult(showSearchResult);
     }
 
