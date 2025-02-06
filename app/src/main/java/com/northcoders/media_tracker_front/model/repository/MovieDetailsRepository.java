@@ -9,7 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.northcoders.media_tracker_front.model.Film;
 import com.northcoders.media_tracker_front.model.FilmDetails;
 import com.northcoders.media_tracker_front.model.UserFilm;
-import com.northcoders.media_tracker_front.service.MovieApiService;
+import com.northcoders.media_tracker_front.service.MediaApiService;
 import com.northcoders.media_tracker_front.service.RetrofitInstance;
 import com.northcoders.media_tracker_front.service.UserActionsService;
 
@@ -31,9 +31,9 @@ public class MovieDetailsRepository {
     }
 
     public MutableLiveData<FilmDetails> getMutableLiveData(Long id) {
-        MovieApiService movieApiService = RetrofitInstance.getMovieService();
+        MediaApiService mediaApiService = RetrofitInstance.getMovieService();
 
-        Call<FilmDetails> call = movieApiService.getFilmDetails(id);
+        Call<FilmDetails> call = mediaApiService.getFilmDetails(id);
         call.enqueue(new Callback<FilmDetails>() {
             @Override
             public void onResponse(Call<FilmDetails> call, Response<FilmDetails> response) {
@@ -55,9 +55,9 @@ public class MovieDetailsRepository {
     }
 
     public MutableLiveData<Film> getMutableLiveDataByTmdbId(Long tmdbId) {
-        MovieApiService movieApiService = RetrofitInstance.getMovieService();
+        MediaApiService mediaApiService = RetrofitInstance.getMovieService();
 
-        Call<Film> call = movieApiService.getFilmByTmdbId(tmdbId);
+        Call<Film> call = mediaApiService.getFilmByTmdbId(tmdbId);
         call.enqueue(new Callback<Film>() {
             @Override
             public void onResponse(Call<Film> call, Response<Film> response) {
