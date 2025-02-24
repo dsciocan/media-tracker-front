@@ -1,5 +1,7 @@
 package com.northcoders.media_tracker_front.service;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -12,7 +14,8 @@ public class RetrofitInstance {
     public static MediaApiService getMovieService(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).writeTimeout(2,TimeUnit.MINUTES).readTimeout(2, TimeUnit.MINUTES).build();
+
         if(retrofit == null){
             retrofit = new Retrofit.Builder()
                     .baseUrl(baseURL)
@@ -28,6 +31,7 @@ public class RetrofitInstance {
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(interceptor)
+                .writeTimeout(2,TimeUnit.MINUTES).readTimeout(2, TimeUnit.MINUTES)
                 .build();
 
         if(retrofit == null){
