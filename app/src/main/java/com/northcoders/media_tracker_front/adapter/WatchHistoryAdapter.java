@@ -11,9 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.northcoders.media_tracker_front.R;
 import com.northcoders.media_tracker_front.model.CommonViewItem;
-import com.northcoders.media_tracker_front.model.UserFilm;
-import com.northcoders.media_tracker_front.model.WatchHistory;
-import java.util.ArrayList;
+
 import java.util.List;
 
 import com.northcoders.media_tracker_front.databinding.WatchHistoryItemBinding;
