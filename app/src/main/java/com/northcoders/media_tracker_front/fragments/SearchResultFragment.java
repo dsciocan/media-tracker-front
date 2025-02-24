@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,6 @@ public class SearchResultFragment extends Fragment implements RecyclerViewInterf
     FilmSearchResultAdapter filmSearchResultAdapter;
     ShowSearchResultAdapter showSearchResultAdapter;
     FilmSearchResultViewModel viewModel;
-    private String filmOrShow;
     private static final String previousQuery = "SearchQuery";
     private static final String searchType = "SearchType";
     ProfileFragment profileFragment = new ProfileFragment();
@@ -66,20 +66,20 @@ public class SearchResultFragment extends Fragment implements RecyclerViewInterf
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
-        loadProfilePicture();
-        spinnerFunc();
         if(getArguments() != null){
-            filmOrShow = searchType;
-            if(getArguments().getString(filmOrShow).equalsIgnoreCase("film")) {
-                getFilmResults(getArguments().getString(previousQuery));
+            String type = getArguments().getString("SearchType");
+            String query = getArguments().getString("SearchQuery");
+            Log.i("searchType", type);
+            if(type.equalsIgnoreCase("film")) {
+                getFilmResults(query);
             } else {
-                getShowResults(getArguments().getString(previousQuery));
+                getShowResults(query);
             }
-            binding.SearchViewSearch.setQuery(getArguments().getString(previousQuery),false);
+            binding.SearchViewSearch.setQuery(query,false);
         }
 
-//        }
-
+        loadProfilePicture();
+        spinnerFunc();
         binding.SearchViewSearch.clearFocus();
 
         binding.SearchViewSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -195,6 +195,7 @@ public class SearchResultFragment extends Fragment implements RecyclerViewInterf
                 R.array.search_options,
                 R.layout.dropdown_item
         );
+        binding.autoComplete.setText(getArguments().getString(searchType));
         binding.autoComplete.setAdapter(adapter);
     }
 
