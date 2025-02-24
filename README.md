@@ -1,19 +1,29 @@
-# Movie Tracker
+# WannaWatch - Film & TV Show Tracker
 
->Is an Android application that allows the user to track and analyze there watched movies.  
-It provides a user intuitive way to search for new movies to watch and to add them to there list.  
-The statistic section of the application provides a gorgeous view of the user's watching habits.
+>Is an Android application that allows the user to track and analyze their watched movies & TV shows.  
+It provides a user intuitive way to search for new movies or TV shows to watch and to add them to their list.  
+The statistic section of the application provides a way to view the user's watching habits.
 
 ## Features
 - **User Authentication**
-- **Movie Search**
-- **Watched-Movie Statistics**
+- **Movie & TV Show Search**
+- **Saving Movies & TV Shows to Bookmarked, Watching and Watched Lists**
+- **Seeing Episodes for Saved Shows and checking watch progress**
+- **Watched Movie, Watched & Watching Show Statistics**
+
 
 ## Planned Features
-- **Searching and adding shows**
+- **Searching and adding shows** Newly added
 - **Chat functionality to chat with friends about there favorite Media.**
+- **Recommendation algorithm and friend recommendations**
+- **Rating and adding notes to individual episodes**
 
 ## Used Technologies
+
+- Data from [TMDB API](https://developer.themoviedb.org/reference/intro/getting-started)
+- Theming done using [Material Design Components](https://m2.material.io/develop/android)
+
+
 ### Back End
 
 - [Spring Boot](https://spring.io/projects/spring-boot):  
