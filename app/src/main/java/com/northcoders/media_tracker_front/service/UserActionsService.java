@@ -3,6 +3,7 @@ package com.northcoders.media_tracker_front.service;
 import android.text.BoringLayout;
 
 import com.northcoders.media_tracker_front.model.FilmDetails;
+import com.northcoders.media_tracker_front.model.UserEpisode;
 import com.northcoders.media_tracker_front.model.UserFilm;
 import com.northcoders.media_tracker_front.model.UserFilm;
 import com.northcoders.media_tracker_front.model.UserShow;
@@ -65,7 +66,7 @@ public interface UserActionsService {
 
     //USERSHOW ENDPOINTS
     @GET("users/shows?status=WATCHING")
-    Call<List<UserShow>> getShowsWatching(@Query("status") String status);
+    Call<List<UserShow>> getShowsWatching();
 
     @GET("users/shows?status=BOOKMARKED")
     Call<List<UserShow>> getBookmarkedShows();
@@ -80,7 +81,7 @@ public interface UserActionsService {
     Call<UserShow> getUserShowDetails(@Path("showDbId") Long showId );
 
     @PUT("users/shows/{showDbId}")
-    Call<Void> updateUserShow(@Path("showDbId") Long id, @Body UserShow film);
+    Call<Void> updateUserShow(@Path("showDbId") Long id, @Body UserShow show);
 
 //    @DELETE("users/films/{filmDbId}")
 //    Call<Void> deleteUserShow(@Path("filmDbId") Long showId);
@@ -88,10 +89,21 @@ public interface UserActionsService {
     @POST("users/shows/save/{showTmdbId}")
     Call<UserShow> saveUserShow(@Path ("showTmdbId") Long id, @Body UserShow UserShow);
 
-    @GET("users/show/{tmdbId}/isSaved")
-    Call<Boolean> isUserShowSaved(@Path("tmdbId") Long tmdbId);
 
 
+
+    //USER EPISODE ENDPOINTS
+    @GET("users/shows/{showId}/episodes")
+    Call<List<UserEpisode>> getUserEpisodeListByShowId(@Path("showId") Long showId);
+
+    @GET("users/episode/{episodeId}")
+    Call<UserEpisode> getUserEpisode(@Path("episodeId") Long episodeId);
+
+    @PATCH("users/episode/{episodeId}")
+    Call<UserEpisode> updateUserEpisode(@Path("episodeId") Long episodeId, @Body UserEpisode userEpisode);
+
+    @GET("users/shows/{showId}/latest")
+    Call<UserEpisode> getLatestUserEpisode(@Path("showId") Long showId);
 
 
     //STATS ENDPOINTS
@@ -100,11 +112,6 @@ public interface UserActionsService {
 
     @GET("users/totalWatchedRuntime")
     Call<Integer> getTotalWatchedRuntime();
-
-
-
-
-
 
 
 }
