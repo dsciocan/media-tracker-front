@@ -178,40 +178,62 @@
                     <!--                android:backgroundTint="@color/md_theme_background"-->
                     <!--                />-->
 
-                    <CheckBox
-                        android:id="@+id/bookmarked_fragment_bookmark_btn"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="4dp"
-                        android:button="@drawable/sl_bookmark"
-                        android:checked="true"
-                        android:contentDescription="@string/bookmark_icon_outline"
-                        android:scaleType="fitCenter"
-                        android:translationZ="100dp"
-                        app:buttonTint="@color/md_theme_primary"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.395"
-                        app:layout_constraintStart_toEndOf="@id/bookmarked_to_watched_button"
-                        app:layout_constraintTop_toBottomOf="@id/bookmarked_fragment_image" />
+<!--                    <CheckBox-->
+<!--                        android:id="@+id/bookmarked_fragment_bookmark_btn"-->
+<!--                        android:layout_width="48dp"-->
+<!--                        android:layout_height="48dp"-->
+<!--                        android:layout_marginTop="4dp"-->
+<!--                        android:button="@drawable/sl_bookmark"-->
+<!--                        android:checked="true"-->
+<!--                        android:contentDescription="@string/bookmark_icon_outline"-->
+<!--                        android:scaleType="fitCenter"-->
+<!--                        android:translationZ="100dp"-->
+<!--                        app:buttonTint="@color/md_theme_primary"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintHorizontal_bias="0.395"-->
+<!--                        app:layout_constraintStart_toEndOf="@id/bookmarked_to_watched_button"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/bookmarked_fragment_image" />-->
 
-                    <Button
-                        android:id="@+id/bookmarked_to_watched_button"
-                        app:icon="@drawable/baseline_history_24"
-                        style="@style/Widget.MaterialComponents.Button.Icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="168dp"
-                        android:layout_marginTop="4dp"
-                        android:text="Watched"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/bookmarked_fragment_image" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                           app:layout_constraintTop_toBottomOf="@id/bookmarked_fragment_image"
+                           app:layout_constraintEnd_toEndOf="parent"
+                           android:id="@+id/bookmarked_to_watched_button"
+                            app:layout_constraintBottom_toTopOf="@id/bookmarked_fragment_details_card"
+                             android:layout_marginRight="30dp"
+                               >
+
+                        <AutoCompleteTextView
+                            android:id="@+id/autoComplete"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:inputType="none"
+                            android:text="Bookmarked" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+<!--                    <Button-->
+<!--                        android:id="@+id/bookmarked_to_watched_button"-->
+<!--                        app:icon="@drawable/baseline_history_24"-->
+<!--                        style="@style/Widget.MaterialComponents.Button.Icon"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="50dp"-->
+<!--                        android:layout_marginStart="168dp"-->
+<!--                        android:layout_marginTop="4dp"-->
+<!--                        android:text="Watched"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/bookmarked_fragment_image" />-->
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/bookmarked_fragment_details_card"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/bookmarked_to_watched_button">
+                        app:layout_constraintTop_toBottomOf="@id/bookmarked_to_watched_button"
+                        android:layout_marginTop="10dp">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"

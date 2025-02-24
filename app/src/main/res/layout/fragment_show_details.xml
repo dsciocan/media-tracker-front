@@ -174,33 +174,52 @@ xmlns:tools="http://schemas.android.com/tools">
 
             </LinearLayout>
 
-            <CheckBox
-                android:id="@+id/bookmark"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginVertical="8dp"
-                android:button="@drawable/sl_bookmark"
-                app:buttonTint="@color/md_theme_primary"
+<!--            <CheckBox-->
+<!--                android:id="@+id/bookmark"-->
+<!--                android:layout_width="48dp"-->
+<!--                android:layout_height="48dp"-->
+<!--                android:layout_marginVertical="8dp"-->
+<!--                android:button="@drawable/sl_bookmark"-->
+<!--                app:buttonTint="@color/md_theme_primary"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/movie_text_container"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintBottom_toTopOf="@id/rating_bar"-->
+<!--                android:layout_marginEnd="10dp"-->
+<!--                />-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/watched_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                 app:layout_constraintTop_toBottomOf="@id/movie_text_container"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/rating_bar"
-                android:layout_marginEnd="10dp"
-                />
+                android:layout_marginRight="30dp"
+                >
 
-            <Button
-                android:id="@+id/watched_button"
-                app:icon="@drawable/baseline_history_24"
-                style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_marginStart="168dp"
-                android:layout_marginTop="4dp"
-                android:text="Watched"
-                app:layout_constraintTop_toBottomOf="@id/movie_text_container"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/rating_bar"
-                android:layout_marginVertical="8dp"
-                />
+                <AutoCompleteTextView
+                    android:id="@+id/autoComplete"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:inputType="none"
+                    android:text="Add to List" />
+            </com.google.android.material.textfield.TextInputLayout>
+<!--            <Button-->
+<!--                android:id="@+id/watched_button"-->
+<!--                app:icon="@drawable/baseline_history_24"-->
+<!--                style="@style/Widget.MaterialComponents.Button.Icon"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:layout_marginStart="168dp"-->
+<!--                android:layout_marginTop="4dp"-->
+<!--                android:text="Watched"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/movie_text_container"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintBottom_toTopOf="@id/rating_bar"-->
+<!--                android:layout_marginVertical="8dp"-->
+<!--                />-->
 
             <RatingBar
                 android:layout_width="wrap_content"
