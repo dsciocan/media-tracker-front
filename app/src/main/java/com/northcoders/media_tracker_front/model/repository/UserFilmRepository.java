@@ -1,33 +1,27 @@
 package com.northcoders.media_tracker_front.model.repository;
-
 import android.app.Application;
 import android.util.Log;
 import android.widget.Toast;
-
 import androidx.lifecycle.MutableLiveData;
-
 import com.northcoders.media_tracker_front.model.UserFilm;
-import com.northcoders.media_tracker_front.model.UserShow;
 import com.northcoders.media_tracker_front.service.RetrofitInstance;
 import com.northcoders.media_tracker_front.service.UserActionsService;
-
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class WatchHistoryRepository {
-    private MutableLiveData<List<UserFilm>> mutableLiveData = new MutableLiveData<>();
+public class UserFilmRepository {
+    private MutableLiveData<List<UserFilm>> watchedFilmMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<UserFilm>> bookmarkedFilmMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<UserFilm> userFilm = new MutableLiveData<>();
-    private MutableLiveData<UserShow> singleShowData = new MutableLiveData<>();
-    private MutableLiveData<List<UserShow>> showLiveData = new MutableLiveData<>();
     private Application application;
 
-    public WatchHistoryRepository(Application application) {
+    public UserFilmRepository(Application application) {
         this.application = application;
     }
 
-    public MutableLiveData<List<UserFilm>> getMutableLiveData(){
+    public MutableLiveData<List<UserFilm>> getWatchedFilmMutableLiveData(){
         UserActionsService userActionsService = RetrofitInstance.getUserService();
         // getHistory() fetches the data, see 'service'
         Call<List<UserFilm>> call = userActionsService.getHistory();
@@ -35,7 +29,7 @@ public class WatchHistoryRepository {
             @Override
             public void onResponse(Call<List<UserFilm>> call, Response<List<UserFilm>> response) {
                 List<UserFilm> historyList = response.body();
-                mutableLiveData.setValue(historyList);
+                watchedFilmMutableLiveData.setValue(historyList);
             }
 
             @Override
@@ -43,7 +37,26 @@ public class WatchHistoryRepository {
                 Log.i("GET request", t.getMessage());
             }
         });
-        return mutableLiveData;
+        return watchedFilmMutableLiveData;
+    }
+
+    public MutableLiveData<List<UserFilm>> getBookmarkedFilmMutableLiveData() {
+        UserActionsService userActionsService = RetrofitInstance.getUserService();
+
+        Call<List<UserFilm>> call = userActionsService.getBookmarked();
+        call.enqueue(new Callback<List<UserFilm>>() {
+            @Override
+            public void onResponse(Call<List<UserFilm>> call, Response<List<UserFilm>> response) {
+                List<UserFilm> userFilmList = response.body();
+                bookmarkedFilmMutableLiveData.setValue(userFilmList);
+            }
+
+            @Override
+            public void onFailure(Call<List<UserFilm>> call, Throwable t) {
+                Log.i("GET request", t.getMessage());
+            }
+        });
+        return bookmarkedFilmMutableLiveData;
     }
 
     public MutableLiveData<UserFilm> getUserFilmDetails(Long id){
@@ -108,48 +121,6 @@ public class WatchHistoryRepository {
             }
         });
 
-    }
-
-
-    //USERSHOW
-
-    public MutableLiveData<List<UserShow>> getShowListLiveData() {
-        UserActionsService userActionsService = RetrofitInstance.getUserService();
-
-        Call<List<UserShow>> call = userActionsService.getShowsByStatus("WATCHED");
-        call.enqueue(new Callback<List<UserShow>>() {
-            @Override
-            public void onResponse(Call<List<UserShow>> call, Response<List<UserShow>> response) {
-                List<UserShow> userShowList = response.body();
-                showLiveData.postValue(userShowList);
-                showLiveData.setValue(userShowList);
-
-            }
-
-            @Override
-            public void onFailure(Call<List<UserShow>> call, Throwable t) {
-                Log.i("GET request", t.getMessage());
-            }
-        });
-        return showLiveData;
-    }
-
-
-    public void updateUserShow(Long id, UserShow show){
-        UserActionsService service = RetrofitInstance.getUserService();
-        Call<Void> call = service.updateUserShow(id, show);
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if(response.code() == 200){
-                    Toast.makeText(application.getApplicationContext(), "The show was updated", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-            }
-        });
     }
 
 
