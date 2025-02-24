@@ -9,23 +9,31 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.northcoders.media_tracker_front.R;
 import com.northcoders.media_tracker_front.databinding.WatchingItemBinding;
+import com.northcoders.media_tracker_front.model.UserEpisode;
 import com.northcoders.media_tracker_front.model.UserShow;
-import com.northcoders.media_tracker_front.model.Watching;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class WatchingAdapter extends RecyclerView.Adapter<WatchingAdapter.WatchingViewHolder> {
 
     List<UserShow> watchingList;
     Context context;
     RecyclerViewInterface recyclerView;
+    private OnClickListener OnClickListener;
 
-    public WatchingAdapter(List<UserShow> watchingList, Context context, RecyclerViewInterface recyclerView) {
+    public WatchingAdapter(List<UserShow> watchingList, Context context, RecyclerViewInterface recyclerView, Map<Long, UserEpisode> epWatchedByShow) {
         this.context = context;
         this.watchingList = watchingList;
         this.recyclerView = recyclerView;
+    }
+
+    public void setOnClickListener(OnClickListener listener) {
+        this.OnClickListener = listener;
     }
 
 
@@ -42,13 +50,22 @@ public class WatchingAdapter extends RecyclerView.Adapter<WatchingAdapter.Watchi
 
     @Override
     public void onBindViewHolder(@NonNull WatchingViewHolder holder, int position) {
-        UserShow watching = watchingList.get(position);
+        UserShow watching = watchingList.get(holder.getAdapterPosition());
         WatchingViewHolder.watchingItemBinding.setWatching(watching);
+        WatchingViewHolder.watchingItemBinding.nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OnClickListener.onNextClick(v, position);
+            }
+        });
+        WatchingViewHolder.watchingItemBinding.watchingItemInfo.setText("On EP " + (watching.getEpisodesWatched()+1));
+        Glide.with(context).load(watching.getUserShowId().getShow().getPosterUrl()).into(WatchingViewHolder.watchingItemBinding.watchingItemImg);
+
     }
 
     @Override
     public int getItemCount() {
-        return watchingList.size();
+            return watchingList.size();
     }
 
     public static class WatchingViewHolder extends RecyclerView.ViewHolder {
@@ -72,4 +89,10 @@ public class WatchingAdapter extends RecyclerView.Adapter<WatchingAdapter.Watchi
             });
         }
     }
+
+    public interface OnClickListener {
+        void onNextClick(View view, int position);
+    }
+
+
 }
