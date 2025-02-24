@@ -41,8 +41,6 @@ public class BookmarkedFragment extends Fragment implements RecyclerViewInterfac
     FragmentBookmarkedBinding binding;
     BookmarkedViewModel viewModel;
 
-//    BookmarkedDetailsViewModel bookmarkedDetailsViewModel;
-
     ProfileFragment profileFragment = new ProfileFragment();
 
 
@@ -74,7 +72,6 @@ public class BookmarkedFragment extends Fragment implements RecyclerViewInterfac
         Glide.with(profilePicture)
                 .load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString())
                 .circleCrop()
-//                .apply(RequestOptions.circleCropTransform())
                 .error(R.drawable.circularcustombutton)
                 .into(profilePicture);
 
@@ -122,7 +119,7 @@ public class BookmarkedFragment extends Fragment implements RecyclerViewInterfac
 
     private List<CommonViewItem> convertData(List<UserFilm> userFilms, List<UserShow>userShows) {
         List<CommonViewItem> recyclerList = new ArrayList<>();
-        if(!Objects.isNull(userShows) && !userShows.isEmpty()) {
+        if(!Objects.isNull(userFilms) && !userFilms.isEmpty()) {
             for (UserFilm userFilm : userFilms) {
                 CommonViewItem commonViewItem = new CommonViewItem();
                 commonViewItem.setTitle(userFilm.getUserFilmId().getFilm().getTitle());
@@ -149,8 +146,6 @@ public class BookmarkedFragment extends Fragment implements RecyclerViewInterfac
     }
 
     private void displayBookmarkedInRecyclerView() {
-//        getBookmarkedShows();
-//        getBookmarkedFilms();
         itemList = convertData(userFilmList,userShowList);
         recyclerView = binding.bookmarkedRecyclerview;
         adapter = new BookmarkedAdapter(itemList, this.getContext(), this);
@@ -162,7 +157,6 @@ public class BookmarkedFragment extends Fragment implements RecyclerViewInterfac
 
     @Override
     public void onItemClick(int position) {
-//        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         if(itemList.get(position).getType().equals("film")) {
             for(UserFilm film : userFilmList) {
                 if(film.getUserFilmId().getFilm().getTitle().equals(itemList.get(position).getTitle())) {
@@ -188,9 +182,6 @@ public class BookmarkedFragment extends Fragment implements RecyclerViewInterfac
                 }
             }
         }
-//        Long id = userFilmList.get(position).getUserFilmId().getFilm().getId();
 
-//        transaction.replace(R.id.frameLayoutFragment, BookmarkedDetailsFragment.class, null);
-//        transaction.commit();
     }
 }

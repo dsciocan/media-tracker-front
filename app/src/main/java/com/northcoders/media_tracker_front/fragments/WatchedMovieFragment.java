@@ -17,29 +17,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.firebase.ui.auth.data.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.northcoders.media_tracker_front.R;
-import com.northcoders.media_tracker_front.databinding.FragmentWatchedBinding;
 import com.northcoders.media_tracker_front.databinding.FragmentWatchedMovieBinding;
-import com.northcoders.media_tracker_front.model.FilmDetails;
 import com.northcoders.media_tracker_front.model.UserFilm;
-import com.northcoders.media_tracker_front.model.WatchHistory;
 import com.northcoders.media_tracker_front.viewmodel.WatchHistoryViewModel;
 
-import java.util.List;
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link WatchedMovieFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class WatchedMovieFragment extends Fragment {
 
     UserFilm currentFilmDetails;
@@ -58,7 +46,6 @@ public class WatchedMovieFragment extends Fragment {
     }
 
 
-    // TODO: Rename and change types and number of parameters
     public static WatchedMovieFragment newInstance(Long movieId) {
         WatchedMovieFragment fragment = new WatchedMovieFragment();
         Bundle args = new Bundle();

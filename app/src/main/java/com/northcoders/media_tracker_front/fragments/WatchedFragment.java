@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,23 +15,20 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.northcoders.media_tracker_front.LoginActivity;
 import com.northcoders.media_tracker_front.R;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.northcoders.media_tracker_front.adapter.BookmarkedAdapter;
+import com.northcoders.media_tracker_front.UserShowActivity;
 import com.northcoders.media_tracker_front.adapter.RecyclerViewInterface;
 import com.northcoders.media_tracker_front.databinding.FragmentWatchedBinding;
 import com.northcoders.media_tracker_front.model.CommonViewItem;
 import com.northcoders.media_tracker_front.model.UserFilm;
 import com.northcoders.media_tracker_front.model.UserShow;
-import com.northcoders.media_tracker_front.model.WatchHistory;
 import com.northcoders.media_tracker_front.viewmodel.WatchHistoryViewModel;
 import com.northcoders.media_tracker_front.adapter.WatchHistoryAdapter;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -55,9 +51,6 @@ public class WatchedFragment extends Fragment implements RecyclerViewInterface {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(WatchHistoryViewModel.class);
-
-
-
     }
 
     @Override
@@ -142,7 +135,7 @@ public class WatchedFragment extends Fragment implements RecyclerViewInterface {
                 commonViewItem.setTitle(userShow.getUserShowId().getShow().getTitle());
                 commonViewItem.setSynopsis(userShow.getUserShowId().getShow().getSynopsis());
                 commonViewItem.setPosterUrl(userShow.getUserShowId().getShow().getPosterUrl());
-                commonViewItem.setWatchedDate(userShow.getWatchedDate());
+                commonViewItem.setWatchedDate(userShow.getDateCompleted());
                 commonViewItem.setType("show");
                 recyclerList.add(commonViewItem);
             }
@@ -184,22 +177,15 @@ public class WatchedFragment extends Fragment implements RecyclerViewInterface {
             for(UserShow show : userShows) {
                 if(show.getUserShowId().getShow().getTitle().equals(watchHistoryArrayList.get(position).getTitle())) {
                     Long id = show.getUserShowId().getShow().getId();
-                    BookmarkedDetailsFragment bookmarkedDetailsFragment = new BookmarkedDetailsFragment().newInstance(id);
 
-                    Intent intent = new Intent(getActivity().getBaseContext(), LoginActivity.class);
-                    intent.putExtra("SHOW_ID", show.getUserShowId().getShow().getId());
+                    Intent intent = new Intent(getActivity().getBaseContext(), UserShowActivity.class);
+                    intent.putExtra("SHOW_ID", id);
 
                     startActivity(intent);
-//                    getActivity().getSupportFragmentManager().beginTransaction()
-//                            .replace(R.id.frameLayoutFragment,bookmarkedDetailsFragment)
-//                            .addToBackStack("BookmarkedTransaction")
-//                            .commit();
+
                 }
             }
         }
-        Long id = userFilms.get(position).getUserFilmId().getFilm().getId();
 
-//        transaction.replace(R.id.frameLayoutFragment, BookmarkedDetailsFragment.class, null);
-//        transaction.commit();
     }
 }

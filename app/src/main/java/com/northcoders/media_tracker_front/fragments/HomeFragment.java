@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
@@ -53,7 +54,6 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface  {
         Glide.with(profilePicture)
                 .load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString())
                 .circleCrop()
-//                .apply(RequestOptions.circleCropTransform())
                 .error(R.drawable.circularcustombutton)
                 .into(profilePicture);
 
@@ -84,23 +84,15 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface  {
             @Override
             public void onClick(View v) {
                 String query = searchView.getQuery().toString();
+                String searchType = binding.autoComplete.getText().toString();
+                Log.i("searchType", searchType);
 //                if(binding.searchSpinner.getSelectedItem().toString().equalsIgnoreCase("film")) {
-                    SearchResultFragment fragment = SearchResultFragment.newInstance(query, binding.autoComplete.getText().toString());
+                    SearchResultFragment fragment = SearchResultFragment.newInstance(query, searchType);
                     getActivity().getSupportFragmentManager().beginTransaction()
                             .replace(R.id.frameLayoutFragment,fragment)
                             .addToBackStack("FilmSearchResultsTransaction")
                             .commit();
-//                } else {
-//                    ShowSearchFragment fragment = ShowSearchFragment.newInstance(query);
-//                    getActivity().getSupportFragmentManager().beginTransaction()
-//                            .replace(R.id.frameLayoutFragment,fragment)
-//                            .addToBackStack("ShowSearchResultTransaction")
-//                            .commit();
-//                }
                 }
-//                Bundle bundle = new Bundle();
-//                bundle.putString("SearchQuery",searchView.getQuery().toString());
-
         });
 
 
