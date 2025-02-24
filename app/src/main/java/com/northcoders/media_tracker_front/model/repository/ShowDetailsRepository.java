@@ -52,6 +52,26 @@ public class ShowDetailsRepository {
             return mutableLiveData;
         }
 
+        public MutableLiveData<Show> getShowById(Long id) {
+             MediaApiService mediaApiService = RetrofitInstance.getMovieService();
+
+             Call<Show> showCall = mediaApiService.getShowById(id);
+            showCall.enqueue(new Callback<Show>() {
+                @Override
+                public void onResponse(Call<Show> call, Response<Show> response) {
+                    Show show = response.body();
+                    savedShowLiveData.postValue(show);
+                    savedShowLiveData.setValue(show);
+                }
+
+                @Override
+                public void onFailure(Call<Show> call, Throwable t) {
+                    Log.i("Show_GET_request", t.getMessage());
+                }
+            });
+            return savedShowLiveData;
+        }
+
         public MutableLiveData<Show> getMutableLiveDataByTmdbId(Long tmdbId) {
             MediaApiService mediaApiService = RetrofitInstance.getMovieService();
 
@@ -94,29 +114,6 @@ public class ShowDetailsRepository {
             });
             return userShowLiveData;
         }
-
-
-
-        public MutableLiveData<Boolean> isUserShowSaved(Long tmdbId) {
-            UserActionsService userActionsService = RetrofitInstance.getUserService();
-            Call<Boolean> call = userActionsService.isUserShowSaved(tmdbId);
-            call.enqueue(new Callback<Boolean>() {
-                @Override
-                public void onResponse(@NonNull Call<Boolean> call, @NonNull Response<Boolean> response) {
-                    userShowSavedStatus.postValue(response.body());
-                    userShowSavedStatus.setValue(response.body());
-                Log.i("GET boolean", response.body().toString());
-                }
-
-                @Override
-                public void onFailure(Call<Boolean> call, Throwable t) {
-                    Log.i("GET boolean", t.getMessage());
-                }
-            });
-            return userShowSavedStatus;
-        }
-
-
 
     }
 
