@@ -11,10 +11,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.Toast;
@@ -36,6 +39,7 @@ import com.northcoders.media_tracker_front.viewmodel.MovieDetailsViewModel;
 import com.northcoders.media_tracker_front.viewmodel.ShowDetailsViewModel;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 
 public class ShowDetailsFragment extends Fragment {
@@ -47,7 +51,7 @@ public class ShowDetailsFragment extends Fragment {
     FragmentShowDetailsBinding binding;
     UserShow userShow = new UserShow();
     Show show = new Show();
-    Boolean isSaved = false;
+    String status = "Add to List";
 
 
 
@@ -77,13 +81,13 @@ public class ShowDetailsFragment extends Fragment {
         if (getArguments() != null) {
             Long id = getArguments().getLong(SHOW_ID_KEY);
             getShowDetails(id);
-            isShowSaved(id);
+//            isShowSaved(id);
             getShow(id);
-            getUserShow(show.getId());
+//            getUserShow(show.getId());
         }
         backButtonLogic();
         handleShowStatusLogic();
-        setBookmarkLogic();
+
     }
 
     @Override
@@ -97,6 +101,7 @@ public class ShowDetailsFragment extends Fragment {
 
     public void bindContent(ShowDetails showDetails){
         binding.setShow(showDetails);
+        spinnerFunc();
         Glide.with(binding.poster.getContext())
                 .load(showDetails.getPoster_path())
                 .into(binding.poster);
@@ -123,45 +128,26 @@ public class ShowDetailsFragment extends Fragment {
         });
     }
 
-    public void setBookmarkLogic(){
-        binding.bookmark.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(checkShowStatus().equals("WATCHED")) {
-                    Toast.makeText(getContext(), "Show already watched", Toast.LENGTH_SHORT).show();
-                    binding.bookmark.setChecked(false);
-                } else if (checkShowStatus().equals("BOOKMARKED") && binding.bookmark.isChecked()) {
-                    Toast.makeText(getContext(), "Show already bookmarked", Toast.LENGTH_SHORT).show();
-                    binding.bookmark.setChecked(true);
-                } else if(binding.bookmark.isChecked()) {
-                    switchAlert();
-                } else {
-                    removeAlert();
-                }
-            }
-        });
 
-    }
-
-    private void switchAlert(){
+    private void switchAlert(String status){
         AlertDialog.Builder quit = new AlertDialog.Builder(getContext())
-                .setTitle("Add To Bookmark")
-                .setMessage("Do you want to add this to your 'Bookmarked' list? ")
+                .setTitle(String.format("Add to %s", status))
+                .setMessage(String.format("Do you want to add this to your '%s' list?", status))
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         UserShow savedShow = new UserShow();
-                        savedShow.setStatus("BOOKMARKED");
+                        savedShow.setStatus(status.toUpperCase());
                         viewModel.saveUserShow(getArguments().getLong(SHOW_ID_KEY), savedShow);
-                        getShow(getArguments().getLong(SHOW_ID_KEY));
-                        Toast.makeText(getContext(), "Successfully Added To Bookmarked", Toast.LENGTH_SHORT).show();
-                        getUserShow(show.getId());
+                        Toast.makeText(getContext(), String.format( "Successfully Added To %s", status), Toast.LENGTH_SHORT).show();
+                        if(status.equalsIgnoreCase("Watched")) {
+                            watchedAlert();
+                        }
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        binding.bookmark.setChecked(false);
                         dialog.cancel();
                     }
                 });
@@ -188,7 +174,6 @@ public class ShowDetailsFragment extends Fragment {
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        binding.bookmark.setChecked(true);
                         dialog.cancel();
                     }
                 });
@@ -202,7 +187,7 @@ public class ShowDetailsFragment extends Fragment {
                         show = newShow;
                         getUserShow(show.getId());
                         Log.i("checkShowStatus", String.valueOf(userShow));
-                        isShowSaved(tmdbId);
+//                        isShowSaved(tmdbId);
                     }
                 }
         );
@@ -213,6 +198,9 @@ public class ShowDetailsFragment extends Fragment {
             @Override
             public void onChanged(UserShow newShow) {
                 userShow = newShow;
+                status = userShow.getStatus().substring(0,1) + userShow.getStatus().substring(1).toLowerCase();
+                binding.autoComplete.setText(userShow.getStatus().substring(0,1) + userShow.getStatus().substring(1).toLowerCase());
+
             }
         });
     }
@@ -241,44 +229,23 @@ public class ShowDetailsFragment extends Fragment {
         });
     }
 
-    public void isShowSaved(Long tmdbId) {
-        viewModel.isUserShowSaved(tmdbId).observe(this.getViewLifecycleOwner(), new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                isSaved = aBoolean;
-                if(isSaved) {
-                    binding.ratingBar.setRating(userShow.getRating());
-                }
-            }
-        });
-    }
-
-
-    public String checkShowStatus() {
-        isShowSaved(getArguments().getLong(SHOW_ID_KEY));
-        Log.i("checkShowStatus", String.valueOf(isSaved));
-        if(isSaved) {
-            getShow(getArguments().getLong(SHOW_ID_KEY));
-            viewModel.getUserShow(show.getId());
-            getUserShow(show.getId());
-//            Log.i("filmDetails", userFilm.toString());
-            return userShow.getStatus();
-        } else {
-            return "no";
-        }
-    }
-
 
     public void handleShowStatusLogic() {
-        Log.i("checkShowStatus", checkShowStatus());
-        isShowSaved(getArguments().getLong(SHOW_ID_KEY));
-        binding.watchedButton.setOnClickListener(new View.OnClickListener() {
+        binding.autoComplete.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                if(checkShowStatus().equalsIgnoreCase("WATCHED")) {
-                    Toast.makeText(getContext(), "Show already watched", Toast.LENGTH_SHORT).show();
-                } else {
-                    watchedAlert();
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String selection = binding.autoComplete.getText().toString();
+                if(!status.equalsIgnoreCase(binding.autoComplete.getText().toString())) {
+                    switchAlert(selection);
                 }
             }
         });
@@ -293,21 +260,16 @@ public class ShowDetailsFragment extends Fragment {
         dialog.findViewById(R.id.save_text).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserShow show = new UserShow();
+                UserShow show = userShow;
                 show.setStatus("WATCHED");
-                show.setWatchedDate(LocalDate.now().toString());
                 RatingBar ratingBar = (RatingBar) dialog.findViewById(R.id.rating_in_alert);
                 show.setRating(ratingBar.getNumStars());
                 TextInputEditText notes = (TextInputEditText) dialog.findViewById(R.id.dialog_notes_input);
                 show.setNotes(notes.getText().toString());
-                if(checkShowStatus().equals("BOOKMARKED")) {
-                    viewModel.updateUserShow(viewModel.getShowDetailsByTmdbId(getArguments().getLong(SHOW_ID_KEY)).getValue().getId(), show);
-                    binding.bookmark.setChecked(false);
-                } else {
-                    viewModel.saveUserShow(getArguments().getLong(SHOW_ID_KEY), show);
-                }
+                viewModel.updateUserShow(getArguments().getLong(SHOW_ID_KEY), show);
+
                 dialog.dismiss();
-                Toast.makeText(getContext(), "Successfully Added To Watched", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), String.format("Successfully Added To Watched"), Toast.LENGTH_SHORT).show();
             }
         });
         dialog.findViewById(R.id.cancel_text).setOnClickListener(new View.OnClickListener() {
@@ -320,4 +282,15 @@ public class ShowDetailsFragment extends Fragment {
         dialog.show();
     }
 
+
+    public void spinnerFunc() {
+        ArrayAdapter<CharSequence> statusAdapter = ArrayAdapter.createFromResource(getContext(), R.array.status_buttons, R.layout.dropdown_item);
+        binding.autoComplete.setAdapter(statusAdapter);
+    }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        getShowDetails(getArguments().getLong(SHOW_ID_KEY));
+//    }
 }
