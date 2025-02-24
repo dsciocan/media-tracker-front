@@ -6,9 +6,8 @@ import com.northcoders.media_tracker_front.model.FilmSearchResult;
 import com.northcoders.media_tracker_front.model.Show;
 import com.northcoders.media_tracker_front.model.ShowDetails;
 import com.northcoders.media_tracker_front.model.ShowSearchResult;
-import com.northcoders.media_tracker_front.model.UserFilm;
 import com.northcoders.media_tracker_front.model.UserShow;
-import com.northcoders.media_tracker_front.model.Watching;
+
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -24,6 +23,10 @@ public interface MediaApiService {
 
     @GET("shows/saved/tmdb={tmdbId}")
     Call<Show> getShowByTmdbId(@Path("tmdbId") Long tmdbId);
+
+    @GET("shows/saved/{id}")
+    Call<Show> getShowById(@Path("id") Long id);
+
 
 
     @GET("watching")
