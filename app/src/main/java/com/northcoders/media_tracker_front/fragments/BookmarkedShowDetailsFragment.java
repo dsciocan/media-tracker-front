@@ -9,43 +9,40 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.firebase.ui.auth.util.ui.BucketedTextChangeListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.northcoders.media_tracker_front.R;
-import com.northcoders.media_tracker_front.databinding.FragmentBookmarkedDetailsBinding;
 import com.northcoders.media_tracker_front.databinding.FragmentBookmarkedShowDetailsBinding;
-import com.northcoders.media_tracker_front.model.UserFilm;
 import com.northcoders.media_tracker_front.model.UserShow;
 import com.northcoders.media_tracker_front.viewmodel.BookmarkedDetailsViewModel;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.time.LocalDate;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link BookmarkedShowDetailsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class BookmarkedShowDetailsFragment extends Fragment {
 
     BookmarkedDetailsViewModel bookmarkedDetailsViewModel;
-    UserShow userShowShow = new UserShow();
+    UserShow userShow = new UserShow();
     UserShow currentShowDetails;
     FragmentBookmarkedShowDetailsBinding binding;
     ProfileFragment profileFragment = new ProfileFragment();
     BookmarkedFragment bookmarkedFragment = new BookmarkedFragment();
-    private static final String MOVIE_ID_KEY = "movieKey"  ;
+    private static final String SHOW_ID_KEY = "movieKey";
 
 
     public BookmarkedShowDetailsFragment() {
@@ -57,7 +54,7 @@ public class BookmarkedShowDetailsFragment extends Fragment {
         BookmarkedShowDetailsFragment movieFragment = new BookmarkedShowDetailsFragment();
         Log.i("INSTANCE", String.valueOf(id));
         Bundle bundle = new Bundle();
-        bundle.putLong(MOVIE_ID_KEY,id);
+        bundle.putLong(SHOW_ID_KEY,id);
         movieFragment.setArguments(bundle);
         return movieFragment;
     }
@@ -77,19 +74,36 @@ public class BookmarkedShowDetailsFragment extends Fragment {
         }
         loadProfilePicture();
         backButtonLogic();
-        setDeleteButtonLogic();
         editTextViewLogic();
-        watchedButton();
         setSaveButtonLogic();
 
+        binding.autoComplete.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.i("textChanged", binding.autoComplete.getText().toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String selection = binding.autoComplete.getText().toString();
+                if(!s.toString().equalsIgnoreCase(userShow.getStatus())) {
+                    moveAlert(selection);
+                }
+            }
+        });
     }
 
     public void getShowDetails(Long id) {
         bookmarkedDetailsViewModel.getUserShow(id).observe(getViewLifecycleOwner(), new Observer<UserShow>() {
             @Override
-            public void onChanged(UserShow userShow) {
-                userShowShow = userShow;
-                setBindingText(userShowShow);
+            public void onChanged(UserShow show) {
+                userShow = show;
+                setBindingText(userShow);
             }
         });
     }
@@ -98,7 +112,7 @@ public class BookmarkedShowDetailsFragment extends Fragment {
         Log.i("BOOKMARKEDDETAILSFRAGMENT", userShow.getUserShowId().getShow().getTitle());
         binding.setUserShow(userShow);
         binding.bookmarkedFragmentRatingBar.setRating(userShow.getRating());
-//        binding.bookmarkedFragmentTitle.setText(bookmarked.getUserShowId().getShow().getTitle());
+        spinnerFunc();
         Glide.with(this).load(userShow.getUserShowId().getShow().getPosterUrl()).into(binding.bookmarkedFragmentImage);
     }
 
@@ -114,16 +128,6 @@ public class BookmarkedShowDetailsFragment extends Fragment {
     }
 
 
-    public void setDeleteButtonLogic() {
-        binding.bookmarkedFragmentBookmarkBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!binding.bookmarkedFragmentBookmarkBtn.isChecked()) {
-                    deleteAlert();
-                }
-            }
-        });
-    }
 
     private void deleteAlert() {
         AlertDialog.Builder quit = new AlertDialog.Builder(getContext())
@@ -146,7 +150,7 @@ public class BookmarkedShowDetailsFragment extends Fragment {
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        binding.bookmarkedFragmentBookmarkBtn.setChecked(true);
+//                        binding.bookmarkedFragmentBookmarkBtn.setChecked(true);
                         dialog.cancel();
                     }
                 });
@@ -184,7 +188,7 @@ public class BookmarkedShowDetailsFragment extends Fragment {
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        currentShowDetails = userShowShow;
+                        currentShowDetails = userShow;
                         String inputText = binding.bookmarkedFragmentNotesInput.getText().toString();
                         int rating = (int) binding.bookmarkedFragmentRatingBar.getRating();
                         currentShowDetails.setNotes(inputText);
@@ -243,30 +247,18 @@ public class BookmarkedShowDetailsFragment extends Fragment {
         });
     }
 
-    public void watchedButton() {
-        binding.bookmarkedToWatchedButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                moveAlert();
-            }
-        });
-    }
+    private void moveAlert(String status) {
 
-
-    private void moveAlert() {
         AlertDialog.Builder quit = new AlertDialog.Builder(getContext())
-                .setTitle("Move to Watched")
-                .setMessage("Are you sure you want to move this to your 'watched' list?")
+                .setTitle(String.format("Move to %s", status))
+                .setMessage(String.format("Are you sure you want to move this to your %s list?", status))
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Log.i("Watched Movie Fragment", "USER CONFIRMED DELETE");
-                        // Backend only has call to delete user show -> not necessarily by status
-                        // Same logic applied for both watched and bookmarked
                         UserShow userShow = binding.getUserShow();
-                        userShow.setStatus("WATCHED");
-                        userShow.setWatchedDate(LocalDate.now().toString());
-                        bookmarkedDetailsViewModel.updateUserShow(userShow.getUserShowId().getShow().getId(), userShow);
+                        userShow.setStatus(status.toUpperCase());
+                        bookmarkedDetailsViewModel.updateUserShow(getArguments().getLong(SHOW_ID_KEY), userShow);
                         getActivity().getSupportFragmentManager()
                                 .beginTransaction()
                                 .replace(R.id.frameLayoutFragment, bookmarkedFragment)
@@ -276,9 +268,26 @@ public class BookmarkedShowDetailsFragment extends Fragment {
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        binding.autoComplete.setText("Bookmarked");
                         dialog.cancel();
                     }
                 });
         quit.show();
     }
+
+    public void spinnerFunc() {
+
+        ArrayAdapter<CharSequence> statusAdapter = ArrayAdapter.createFromResource(getContext(), R.array.status_buttons, R.layout.dropdown_item);
+        binding.autoComplete.setText(userShow.getStatus().substring(0,1) + userShow.getStatus().substring(1).toLowerCase());
+        binding.autoComplete.setAdapter(statusAdapter);
+
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getShowDetails(getArguments().getLong(SHOW_ID_KEY));
+    }
+
 }
