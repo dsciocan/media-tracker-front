@@ -4,6 +4,9 @@
 It provides a user intuitive way to search for new movies or TV shows to watch and to add them to their list.  
 The statistic section of the application provides a way to view the user's watching habits.
 
+>This app works together with the (WannaWatch back-end API)[https://github.com/dsciocan/media-tracker-back]
+
+
 ## Features
 - **User Authentication**
 - **Movie & TV Show Search**
