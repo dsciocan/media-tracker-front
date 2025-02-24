@@ -113,7 +113,7 @@ public class SavedShowDetailsFragment extends Fragment {
                 }
             }
         });
-//        getShowEpisodes();
+        getShowEpisodes();
 
         episodeCountIncrease();
     }
@@ -237,6 +237,7 @@ public class SavedShowDetailsFragment extends Fragment {
             @Override
             public void onChanged(List<UserEpisode> userEpisodes) {
                 showEpisodes = userEpisodes;
+                filteredList = new ArrayList<>(showEpisodes.stream().filter(ep -> !ep.isWatched()).toList());
 
 //                episodeCountIncrease();
             }
@@ -252,25 +253,25 @@ public class SavedShowDetailsFragment extends Fragment {
         }
     }
 
+public void modificationTest() {
 
+}
 
 
 
     public void episodeCountIncrease() {
-                getShowEpisodes();
-                binding.addEpBtn.setOnClickListener(new View.OnClickListener() {
+        binding.addEpBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         if (filteredList.isEmpty() || filteredList.size() == 1) {
                             return;
                         }
                         UserEpisode currentEp = filteredList.get(0);
                         UserEpisode nextEp = filteredList.get(1);
                         binding.currentEp.setText(String.valueOf(nextEp.getUserEpisodeId().getEpisode().getEpisodeNumber()));
-                        currentEp.setWatched(true);
-                        filteredList.remove(currentEp);
+                        currentEp.setWatched(!currentEp.isWatched());
                         episodeViewModel.updateUserEpisode(currentEp.getUserEpisodeId().getEpisode().getId(), currentEp);
+                        filteredList.remove(currentEp);
                         show.setEpisodesWatched(currentEp.getUserEpisodeId().getEpisode().getEpisodeNumber());
                         viewModel.updateUserShow(show.getUserShowId().getShow().getId(),show);
                     }

@@ -4,16 +4,16 @@ public class UserEpisode {
     private UserEpisodeId userEpisodeId;
     private int rating;
     private String notes;
-    private boolean isWatched;
+    private boolean watched;
     private String watchedDate;
 
     public UserEpisode() {
     }
 
-    public UserEpisode(UserEpisodeId userEpisodeId, int rating, boolean isWatched, String notes, String watchedDate) {
+    public UserEpisode(UserEpisodeId userEpisodeId, int rating, boolean watched, String notes, String watchedDate) {
         this.userEpisodeId = userEpisodeId;
         this.rating = rating;
-        this.isWatched = isWatched;
+        this.watched = watched;
         this.notes = notes;
         this.watchedDate = watchedDate;
     }
@@ -36,11 +36,11 @@ public class UserEpisode {
     }
 
     public boolean isWatched() {
-        return isWatched;
+        return watched;
     }
 
     public void setWatched(boolean watched) {
-        isWatched = watched;
+        this.watched = watched;
     }
 
     public String getNotes() {

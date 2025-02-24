@@ -87,8 +87,9 @@ public class EpisodeListAdapter extends BaseExpandableListAdapter {
         } else {
           binding = (EpisodeItemBinding) convertView.getTag();
         }
-        binding.epWatchedButton.setChecked(userEpisode.isWatched());
-
+        if(userEpisode.isWatched()) {
+            binding.epWatchedButton.setChecked(true);
+        }
         binding.setEpisode(userEpisode);
 
         convertView.setTag(binding);
