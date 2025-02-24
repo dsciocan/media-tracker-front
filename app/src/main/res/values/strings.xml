@@ -42,6 +42,12 @@
         <item>Film</item>
         <item>TV Show</item>
     </string-array>
+
+    <string-array name="status_buttons">
+        <item>Bookmarked</item>
+        <item>Watching</item>
+        <item>Watched</item>
+    </string-array>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
