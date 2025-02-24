@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:layout_marginHorizontal="20dp"
+    android:layout_centerHorizontal="true">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:textSize="16sp"
+        android:text="Episodes Watched"
+        android:id="@+id/episode_title"
+        android:layout_centerHorizontal="true"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ep_edit_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/episode_title"
+        android:layout_centerHorizontal="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/dialog_notes_input"
+            style="@style/TextAppearance.myBody1_sans"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="No"
+            android:inputType="number"
+            android:maxLines="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:layout_width="44dp"
+            android:layout_height="30dp"
+            android:hint="/ 20"
+            android:textSize="20sp"
+            android:id="@+id/total_episodes"
+            app:layout_constraintStart_toEndOf="@id/dialog_notes_input"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ep_edit_container"
+        android:layout_margin="15dp"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/cancel_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="50dp"
+            android:text="Cancel"
+            android:textColor="@color/md_theme_tertiary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/save_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_toEndOf="@id/cancel_text"
+            android:text="Save"
+            android:textStyle="bold"
+            android:textColor="@color/md_theme_primary"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
