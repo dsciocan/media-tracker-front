@@ -6,14 +6,18 @@ public class UserShow {
     private int rating;
     private String notes;
     private String status;
-    private String watchedDate;
+    private Integer episodesWatched;
+    private String dateStarted;
+    private String dateCompleted;
 
-    public UserShow(UserShowId userFilmId, int rating, String notes, String status, String watchedDate) {
+    public UserShow(UserShowId userFilmId, int rating, String notes, String status, Integer episodesWatched, String dateStarted, String dateCompleted) {
         this.userShowId = userFilmId;
         this.rating = rating;
         this.notes = notes;
         this.status = status;
-        this.watchedDate = watchedDate;
+        this.episodesWatched = episodesWatched;
+        this.dateStarted = dateStarted;
+        this.dateCompleted = dateCompleted;
     }
 
     public UserShow() {
@@ -51,11 +55,27 @@ public class UserShow {
         this.status = status;
     }
 
-    public String getWatchedDate() {
-        return watchedDate;
+    public Integer getEpisodesWatched() {
+        return episodesWatched;
     }
 
-    public void setWatchedDate(String watchedDate) {
-        this.watchedDate = watchedDate;
+    public void setEpisodesWatched(Integer episodesWatched) {
+        this.episodesWatched = episodesWatched;
+    }
+
+    public String getDateStarted() {
+        return dateStarted;
+    }
+
+    public void setDateStarted(String dateStarted) {
+        this.dateStarted = dateStarted;
+    }
+
+    public String getDateCompleted() {
+        return dateCompleted;
+    }
+
+    public void setDateCompleted(String dateCompleted) {
+        this.dateCompleted = dateCompleted;
     }
 }
