@@ -8,24 +8,29 @@ import androidx.lifecycle.LiveData;
 
 import com.northcoders.media_tracker_front.model.UserFilm;
 import com.northcoders.media_tracker_front.model.UserShow;
-import com.northcoders.media_tracker_front.model.repository.BookmarkedRepository;
+import com.northcoders.media_tracker_front.model.repository.UserShowRepository;
+import com.northcoders.media_tracker_front.model.repository.UserFilmRepository;
 
 import java.util.List;
 
 public class BookmarkedViewModel extends AndroidViewModel {
 
-    BookmarkedRepository bookmarkedRepository;
+    UserShowRepository userShowRepository;
+    UserFilmRepository filmRepository;
 
     public BookmarkedViewModel(@NonNull Application application) {
         super(application);
-        this.bookmarkedRepository = new BookmarkedRepository(application);
+        this.userShowRepository = new UserShowRepository(application);
+        this.filmRepository = new UserFilmRepository(application);
     }
 
+    //UserFilm
     public LiveData<List<UserFilm>> getBookmarkedFilms() {
-        return bookmarkedRepository.getMutableLiveData();
+        return filmRepository.getBookmarkedFilmMutableLiveData();
     }
 
+    //UserShow
     public LiveData<List<UserShow>> getBookmarkedShows() {
-        return bookmarkedRepository.getShowListLiveData();
+        return userShowRepository.getBookmarkedShowListLiveData();
     }
 }

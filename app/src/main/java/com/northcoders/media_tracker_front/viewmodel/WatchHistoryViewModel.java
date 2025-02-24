@@ -7,32 +7,38 @@ import androidx.lifecycle.LiveData;
 
 import com.northcoders.media_tracker_front.model.UserFilm;
 import com.northcoders.media_tracker_front.model.UserShow;
-import com.northcoders.media_tracker_front.model.repository.WatchHistoryRepository;
+import com.northcoders.media_tracker_front.model.repository.UserShowRepository;
+import com.northcoders.media_tracker_front.model.repository.UserFilmRepository;
 import java.util.List;
 
 public class WatchHistoryViewModel extends AndroidViewModel{
-        WatchHistoryRepository watchHistoryRepository;
+        UserFilmRepository userFilmRepository;
+        UserShowRepository userShowRepository;
 
         public WatchHistoryViewModel(@NonNull Application application) {
             super(application);
-            this.watchHistoryRepository = new WatchHistoryRepository(application);
+            this.userFilmRepository = new UserFilmRepository(application);
+            this.userShowRepository = new UserShowRepository(application);
         }
+
+        //UserFilm
         public LiveData<List<UserFilm>> getWatchHistory() {
-            return watchHistoryRepository.getMutableLiveData();
+            return userFilmRepository.getWatchedFilmMutableLiveData();
         }
         public LiveData<UserFilm> getWatchedFilmDetails(Long id){
-            return watchHistoryRepository.getUserFilmDetails(id);
+            return userFilmRepository.getUserFilmDetails(id);
         }
         public void deleteUserFilm(long id){
-            watchHistoryRepository.deleteUserFilm(id);
+            userFilmRepository.deleteUserFilm(id);
         }
 
         public void updateUserFilm(Long id,UserFilm film){
-            watchHistoryRepository.updateUserFilm( id , film);
+            userFilmRepository.updateUserFilm( id , film);
         }
 
+        //UserShow
         public LiveData<List<UserShow>> getWatchedShows() {
-            return watchHistoryRepository.getShowListLiveData();
+            return userShowRepository.getWatchedShowLiveData();
         }
 
     }

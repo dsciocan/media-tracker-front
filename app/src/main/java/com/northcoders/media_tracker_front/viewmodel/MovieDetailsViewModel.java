@@ -6,22 +6,23 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.northcoders.media_tracker_front.model.repository.BookmarkedRepository;
+import com.northcoders.media_tracker_front.model.repository.UserShowRepository;
 import com.northcoders.media_tracker_front.model.Film;
 import com.northcoders.media_tracker_front.model.UserFilm;
 import com.northcoders.media_tracker_front.model.FilmDetails;
 import com.northcoders.media_tracker_front.model.repository.MovieDetailsRepository;
+import com.northcoders.media_tracker_front.model.repository.UserFilmRepository;
 
 public class MovieDetailsViewModel extends AndroidViewModel {
 
     MovieDetailsRepository movieDetailsRepository;
-    BookmarkedRepository bookmarkedRepository;
+    UserFilmRepository userFilmRepository;
 
 
     public MovieDetailsViewModel(@NonNull Application application) {
         super(application);
         this.movieDetailsRepository = new MovieDetailsRepository(application);
-        this.bookmarkedRepository = new BookmarkedRepository(application);
+        this.userFilmRepository = new UserFilmRepository(application);
 
     }
 
@@ -33,7 +34,6 @@ public class MovieDetailsViewModel extends AndroidViewModel {
         return movieDetailsRepository.getMutableLiveDataByTmdbId(tmdbId);
     }
 
-
     public LiveData<UserFilm> saveUserFilm(long id, UserFilm userFilm){
          return movieDetailsRepository.saveUserFilm(id, userFilm);
     }
@@ -43,15 +43,15 @@ public class MovieDetailsViewModel extends AndroidViewModel {
     }
 
     public LiveData<UserFilm> getUserFilm(Long filmId) {
-        return bookmarkedRepository.getFilmMutableLiveData(filmId);
+        return userFilmRepository.getUserFilmDetails(filmId);
     }
 
     public void deleteUserFilm(long id){
-        bookmarkedRepository.deleteUserFilm(id);
+        userFilmRepository.deleteUserFilm(id);
     }
 
     public void updateUserFilm(Long id, UserFilm film){
-        bookmarkedRepository.updateUserFilm(id, film);
+        userFilmRepository.updateUserFilm(id, film);
     }
 
 }
