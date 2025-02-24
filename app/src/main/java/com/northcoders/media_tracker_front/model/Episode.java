@@ -5,19 +5,19 @@ public class Episode {
     private Show show;
     private String title;
     private String description;
-    private int season;
+    private int seasonNumber;
     private int episodeNumber;
     private int runTime;
 
     public Episode() {
     }
 
-    public Episode(Long id, Show show, String title, String description, int season, int episodeNumber, int runTime) {
+    public Episode(Long id, Show show, String title, String description, int seasonNumber, int episodeNumber, int runTime) {
         this.id = id;
         this.show = show;
         this.title = title;
         this.description = description;
-        this.season = season;
+        this.seasonNumber = seasonNumber;
         this.episodeNumber = episodeNumber;
         this.runTime = runTime;
     }
@@ -54,12 +54,12 @@ public class Episode {
         this.description = description;
     }
 
-    public int getSeason() {
-        return season;
+    public int getSeasonNumber() {
+        return seasonNumber;
     }
 
     public void setSeason(int season) {
-        this.season = season;
+        this.seasonNumber = season;
     }
 
     public int getEpisodeNumber() {
